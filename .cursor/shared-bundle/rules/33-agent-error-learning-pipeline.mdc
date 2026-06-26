@@ -1,0 +1,63 @@
+---
+description: USE WHEN ошибка BSL/CFE/runtime, после failed check_1c_code, v8std diagnostics, или по команде capture-error/reflect-lesson — конвейер recall→fix→store→promote.
+alwaysApply: true
+---
+
+# Конвейер «ошибка → memory/правило»
+
+## Триггеры
+
+Запускать конвейер при:
+- `check_1c_code` / `review_1c_code` — ошибки или критичные замечания
+- `v8std_explain_diagnostics` / `v8std_explain_snippet` — нарушение стандарта
+- runtime / `deploy_and_test` — сбой в ИБ
+- явная команда пользователя: `capture-error`, `reflect-lesson`
+
+**Не запускать** для тривиальных опечаток, уже исправленных в том же ходе без урока.
+
+## Слои памяти
+
+| Слой | Хранилище | Назначение |
+|------|-----------|------------|
+| L0 | `memory-bank/` | задача, reflection, archive |
+| L1 | lean-ctx `ctx_knowledge` | gotcha по ошибке (episodic) |
+| L2 | `.serena/memories/` | устойчивые инварианты проекта |
+| L3 | `.cursor/rules/*.mdc` | правило при ≥2 повторах или critical |
+
+См. корневой `memory.md`.
+
+## Шаг 1 — Recall (до правки)
+
+1. `ctx_knowledge(action=recall, query=<текст ошибки, объект, процедура>)`
+2. Serena `read_memory` → `pitfalls/cfe_bsl`; при необходимости `read_memory` → `core`
+3. Типовой аналог кода:
+   - **bsl-atlas-esti** `codesearch` / `search_function` → `read_function`
+   - fallback: **litecode** `search_by_embedding`, **code-index** `grep_body`
+4. Стандарт: **v8std** при коде диагностики
+
+## Шаг 2 — Fix
+
+Цепочка из `MCP_ROUTER_ESTI.md`: locate → `ctx_impact` при риске регрессии → Serena edit → повторная verify.
+
+## Шаг 3 — Store (после успешного fix)
+
+1. **L1** — `ctx_knowledge(action=remember, category=conventions, key=<краткий-id>, value=<суть fix>, trigger=<что ломалось>, resolution=<как избежать>)`
+2. **L2** — если устойчивый инвариант (не one-off): Serena `write_memory` в `pitfalls/` или дополнение `pitfalls/cfe_bsl` по `mem:memory_maintenance`
+3. **L0** — файл `memory-bank/reflection/reflection-YYYY-MM-DD-<slug>.md`:
+   - ошибка, причина, fix, ссылка на модуль/объект
+4. Обновить `memory-bank/progress.md` при значимой задаче
+
+**Запрещено:** писать one-off в Serena; создавать `.mdc` на каждый lint-warning.
+
+## Шаг 4 — Promote to rule (редко)
+
+Создать или дополнить `.cursor/rules/XX-<topic>.mdc` (skill `create-rule`) только если:
+- та же ошибка **≥2 раза** в `ctx_knowledge` / reflection, **или**
+- **critical:** порча данных, правка типовой КФ без разрешения, `&Вместо` в CFE
+
+Не дублировать существующие always-on правила (`global-07-*`, `00-esti-core`).
+
+## Команды Cursor
+
+- `reflect-lesson` — reflection + store L1/L2
+- `capture-error` — recall по тексту ошибки + краткий store

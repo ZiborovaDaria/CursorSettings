@@ -1,0 +1,91 @@
+{
+  "settingsRepoDefault": "C:\\Cursor\\ESTI",
+  "globalInstallScript": ".cursor\\scripts\\Install-ESTI-OnNewDevice.ps1",
+  "projects": [
+    {
+      "id": "ESTI",
+      "path": "C:\\Cursor\\ESTI",
+      "title": "ЭСТИ УНФ 2.2.5.90",
+      "skill": "esti-project",
+      "contextRule": "00-esti-core.mdc",
+      "cavemanRule": "32-agent-caveman-esti.mdc",
+      "mcpDocs": ["MCP_ROUTER_ESTI.md", "MCP_QUICK_START.md"],
+      "deviceProfile": true,
+      "liveIb": true,
+      "prefix": "ESTI"
+    },
+    {
+      "id": "BP",
+      "path": "C:\\Cursor\\BP",
+      "title": "Бухгалтерия предприятия 3.0",
+      "skill": "sb-project",
+      "contextRule": "01-sb-project-context.mdc",
+      "mcpDocs": ["MCP_ROUTER_BP.md", "MCP_SETUP_BP.md"],
+      "liveIb": true,
+      "prefix": "Синх"
+    },
+    {
+      "id": "KA",
+      "path": "C:\\Cursor\\KA",
+      "title": "Комплексная автоматизация 2.5",
+      "skill": "ka-project",
+      "contextRule": "01-ka-project-context.mdc",
+      "mcpDocs": ["mcp.json"],
+      "liveIb": true,
+      "prefix": "KA"
+    },
+    {
+      "id": "Obshep",
+      "path": "C:\\Cursor\\Obshep",
+      "title": "Общепит 3.0",
+      "skill": "obshep-project",
+      "contextRule": "01-obshep-project-context.mdc",
+      "mcpDocs": ["MCP_ROUTER_Obshep.md"],
+      "liveIb": false,
+      "xmlOnly": true,
+      "prefix": "OP"
+    },
+    {
+      "id": "UNF12_261",
+      "path": "C:\\Cursor\\UNF12_261",
+      "title": "УНФ 3.0.12.261",
+      "skill": "unf-project",
+      "contextRule": "01-unf-project-context.mdc",
+      "mcpDocs": ["MCP_ROUTER_UNF.md", "MCP_SETUP_UNF.md"],
+      "liveIb": false,
+      "xmlOnly": true,
+      "prefix": "UNF"
+    },
+    {
+      "id": "UPO",
+      "path": "C:\\Cursor\\UPO",
+      "title": "УПО 3.0.12.261",
+      "skill": "upo-project",
+      "contextRule": "01-upo-project-context.mdc",
+      "mcpDocs": ["MCP_ROUTER_UPO.md", "MCP_SETUP_UPO.md"],
+      "liveIb": false,
+      "xmlOnly": true,
+      "prefix": "UPO"
+    },
+    {
+      "id": "UT22_92",
+      "path": "C:\\Cursor\\UT22_92",
+      "title": "УТ 11.5.22.92",
+      "skill": "ut-project",
+      "contextRule": "01-ut-project-context.mdc",
+      "mcpDocs": ["MCP_ROUTER_UT.md", "MCP_SETUP_UT.md"],
+      "liveIb": true,
+      "prefix": "UT"
+    },
+    {
+      "id": "UT25_85",
+      "path": "C:\\Cursor\\UT25_85",
+      "title": "УТ 11.5.25.85",
+      "skill": "ut-project",
+      "contextRule": "01-ut-project-context.mdc",
+      "mcpDocs": ["MCP_ROUTER_UT.md", "MCP_SETUP_UT.md"],
+      "liveIb": true,
+      "prefix": "UT"
+    }
+  ]
+}

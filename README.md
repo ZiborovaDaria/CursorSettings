@@ -12,7 +12,8 @@ cd C:\Cursor\ESTI
 powershell -File .cursor\scripts\Install-ESTI-OnNewDevice.ps1 -Profile POWER
 ```
 
-Полная инструкция: **[`.cursor/INSTALL_OTHER_DEVICE.md`](.cursor/INSTALL_OTHER_DEVICE.md)**
+Полная инструкция: **[`.cursor/INSTALL_OTHER_DEVICE.md`](.cursor/INSTALL_OTHER_DEVICE.md)**  
+Все проекты `C:\Cursor\`: **[`.cursor/INSTALL_ALL_PROJECTS.md`](.cursor/INSTALL_ALL_PROJECTS.md)**
 
 ## Документация
 

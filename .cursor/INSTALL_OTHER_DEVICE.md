@@ -13,8 +13,11 @@
 | `.cursor/rules/` | Правила проекта (always-on + on-demand) |
 | `.cursor/commands/` | Slash-команды (`/doctor`, `/handoff`, `/caveman`, …) |
 | `.cursor/scripts/` | Установка, MCP, архив |
-| `.cursor/export/global-rules/` | Копия `~/.cursor/rules/*.mdc` для нового ПК |
-| `.cursor/export/global-skills/` | Навыки: caveman*, mermaid, transcribe, md-to-docx, handoff, powershell |
+| `.cursor/export/global-rules/` | Все `~/.cursor/rules/*.mdc` (24) |
+| `.cursor/export/global-skills/` | **Все** глобальные навыки (~99): 1c-*, caveman*, mermaid, transcribe, … |
+| `.cursor/export/global-scripts/` | `sync-global-rules.ps1`, `sync-project-mcp.ps1` |
+| `.cursor/export/global-templates/` | `mcp.project.template.json` |
+| `.cursor/export/supercode/` | Режимы Memory Bank для [supercode.sh](https://supercode.sh) |
 | `.cursor/mcp.profile.power.json` | Шаблон MCP (мощный ПК) |
 | `.cursor/mcp.profile.lite.json` | Шаблон MCP (слабый ПК) |
 | `.cursor/skills/esti-project/` | Контекст конфигурации ЭСТИ |
@@ -118,7 +121,17 @@ Copy-Item .dev.env.example .dev.env
 
 Создать в корне репо (не коммитить) по образцу с основного ПК.
 
-### 4.4 MCP Reload
+### 4.6 Supercode (Memory Bank modes)
+
+```powershell
+# Уже скопировано Install-ESTI-OnNewDevice.ps1 в .supercode/
+```
+
+Cursor → Extensions → установить **supercode.supercode-sh** (см. `.vscode/extensions.json`).
+
+Режимы: VAN, PLAN, CREATIVE, IMPLEMENT, REFLECT, ARCHIVE — в `.supercode/modes/memory-bank/`.
+
+### 4.7 MCP Reload
 
 Cursor → **Settings → MCP → Reload**.
 

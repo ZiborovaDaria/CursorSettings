@@ -4,9 +4,9 @@
 .dev.env
 infobasesettings.md
 
-# Skill deps markers (regenerated)
+# Skill deps (regenerated locally)
 .cursor/export/global-skills/**/.deps-ok
-.cursor/export/global-skills/**/node_modules/
+**/node_modules/
 
 # Logs
 logs/

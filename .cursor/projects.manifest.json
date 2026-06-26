@@ -12,7 +12,9 @@
       "mcpDocs": ["MCP_ROUTER_ESTI.md", "MCP_QUICK_START.md"],
       "deviceProfile": true,
       "liveIb": true,
-      "prefix": "ESTI"
+      "prefix": "ESTI",
+      "litecodePort": 6004,
+      "mcpRouter": "MCP_ROUTER_ESTI.md"
     },
     {
       "id": "BP",
@@ -22,7 +24,9 @@
       "contextRule": "01-sb-project-context.mdc",
       "mcpDocs": ["MCP_ROUTER_BP.md", "MCP_SETUP_BP.md"],
       "liveIb": true,
-      "prefix": "Синх"
+      "prefix": "Синх",
+      "litecodePort": 6005,
+      "mcpRouter": "MCP_ROUTER_SB.md"
     },
     {
       "id": "KA",
@@ -32,7 +36,9 @@
       "contextRule": "01-ka-project-context.mdc",
       "mcpDocs": ["mcp.json"],
       "liveIb": true,
-      "prefix": "KA"
+      "prefix": "KA",
+      "litecodePort": 6006,
+      "mcpRouter": "MCP_ROUTER_KA.md"
     },
     {
       "id": "Obshep",
@@ -43,7 +49,9 @@
       "mcpDocs": ["MCP_ROUTER_Obshep.md"],
       "liveIb": false,
       "xmlOnly": true,
-      "prefix": "OP"
+      "prefix": "OP",
+      "litecodePort": 6007,
+      "mcpRouter": "MCP_ROUTER_Obshep.md"
     },
     {
       "id": "UNF12_261",
@@ -54,7 +62,9 @@
       "mcpDocs": ["MCP_ROUTER_UNF.md", "MCP_SETUP_UNF.md"],
       "liveIb": false,
       "xmlOnly": true,
-      "prefix": "UNF"
+      "prefix": "UNF",
+      "litecodePort": 6008,
+      "mcpRouter": "MCP_ROUTER_UNF.md"
     },
     {
       "id": "UPO",
@@ -65,7 +75,9 @@
       "mcpDocs": ["MCP_ROUTER_UPO.md", "MCP_SETUP_UPO.md"],
       "liveIb": false,
       "xmlOnly": true,
-      "prefix": "UPO"
+      "prefix": "UPO",
+      "litecodePort": 6009,
+      "mcpRouter": "MCP_ROUTER_UPO.md"
     },
     {
       "id": "UT22_92",
@@ -75,7 +87,9 @@
       "contextRule": "01-ut-project-context.mdc",
       "mcpDocs": ["MCP_ROUTER_UT.md", "MCP_SETUP_UT.md"],
       "liveIb": true,
-      "prefix": "UT"
+      "prefix": "UT",
+      "litecodePort": 6010,
+      "mcpRouter": "MCP_ROUTER_UT.md"
     },
     {
       "id": "UT25_85",
@@ -85,7 +99,9 @@
       "contextRule": "01-ut-project-context.mdc",
       "mcpDocs": ["MCP_ROUTER_UT.md", "MCP_SETUP_UT.md"],
       "liveIb": true,
-      "prefix": "UT"
+      "prefix": "UT",
+      "litecodePort": 6011,
+      "mcpRouter": "MCP_ROUTER_UT.md"
     }
   ]
 }

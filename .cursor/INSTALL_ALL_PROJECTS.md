@@ -53,7 +53,39 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 4. Extension: **supercode.supercode-sh**
 5. MCP Reload
 
-### Шаг 3. ЭСТИ — дополнительные настройки (обязательно)
+### Шаг 3. Litecode + Memory Bank (все проекты)
+
+```powershell
+cd C:\Cursor\ESTI
+powershell -File .cursor\scripts\Setup-AllProjects-LitecodeMemory.ps1
+```
+
+Создаёт для каждого проекта:
+- `memory-bank/`, `memory.md`, `handoffs/`
+- `C:\bsl-litecode-data\<ID>\` (junction + metadata)
+- `.cursor/infra/litecode-<id>/docker-compose.fast.yml`
+- уникальный порт litecode в `mcp.json`
+
+| ID | Litecode port | Данные |
+|---|---|---|
+| ESTI | 6004 | `C:\bsl-litecode-data\ESTI` |
+| BP | 6005 | `C:\bsl-litecode-data\BP` |
+| KA | 6006 | `C:\bsl-litecode-data\KA` |
+| Obshep | 6007 | `C:\bsl-litecode-data\Obshep` |
+| UNF12_261 | 6008 | `C:\bsl-litecode-data\UNF12_261` |
+| UPO | 6009 | `C:\bsl-litecode-data\UPO` |
+| UT22_92 | 6010 | `C:\bsl-litecode-data\UT22_92` |
+| UT25_85 | 6011 | `C:\bsl-litecode-data\UT25_85` |
+
+**Вручную для каждого проекта:** отчёт по конфигурации в `C:\bsl-litecode-data\<ID>\metadata\ОтчетПоКонфигурации.txt` (нужен для `get_access`).
+
+**Запуск litecode** (один активный проект за раз):
+
+```powershell
+powershell -File C:\Cursor\ESTI\.cursor\scripts\Start-Litecode-Project.ps1 -ProjectId BP
+```
+
+### Шаг 4. ЭСТИ — доп. настройки (живая ИБ)
 
 Только для `C:\Cursor\ESTI` — см. полный [INSTALL_OTHER_DEVICE.md](INSTALL_OTHER_DEVICE.md):
 
@@ -68,7 +100,7 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 | **ИБ + Apache** | `http://localhost/ESTI` |
 | **Memory Bank** | уже в git для ESTI; для других — из Install-Project |
 
-### Шаг 4. Проверка
+### Шаг 5. Проверка
 
 `/doctor` в каждом workspace.  
 ESTI: `Test-ESTI-MCPStack.ps1`
@@ -110,11 +142,11 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 | Rules 32–41, 00-core | `.cursor/rules/` | `Spread-CursorSettings-ToProjects.ps1` |
 | Commands | `.cursor/commands/` | Spread |
 | supercode | `.supercode/` | Install-Project |
-| Memory Bank L0 | `memory-bank/`, `memory.md` | Install-Project (скелет) / git (ESTI) |
+| Memory Bank L0 | `memory-bank/`, `memory.md` | `Setup-AllProjects-LitecodeMemory.ps1` |
 | Serena L2 | `.serena/memories/` | локально per project |
 | Контекст КФ | `01-*-project-context.mdc` | в каждом проекте |
 | MCP | `mcp.json`, MCP_ROUTER_* | локально per project |
-| Litecode data | `C:\bsl-litecode-data\<ID>` | только ESTI (скрипт Prepare) |
+| Litecode data | `C:\bsl-litecode-data\<ID>` | `Setup-AllProjects-LitecodeMemory.ps1` + отчёт КФ |
 | Atlas index | `C:\bsl-atlas-indexes\<ID>` | per project при POWER |
 
 Манифест проектов: `projects.manifest.json`.

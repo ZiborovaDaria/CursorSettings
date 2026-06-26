@@ -33,7 +33,14 @@ Write-Host "=== Install ESTI Cursor settings ===" -ForegroundColor Cyan
 Write-Host "Repo: $repoRoot | Profile: $Profile"
 
 if (-not (Test-Path $exportRoot)) {
-    throw "Missing .cursor/export — git clone/pull CursorSettings or ESTI"
+    $restore = Join-Path $PSScriptRoot 'Restore-DistributionBundleFromGit.ps1'
+    if (Test-Path $restore) {
+        Write-Host "Restoring .cursor/export from git..." -ForegroundColor Yellow
+        & $restore
+    }
+    if (-not (Test-Path $exportRoot)) {
+        throw "Missing .cursor/export — run Restore-DistributionBundleFromGit.ps1 or git clone CursorSettings"
+    }
 }
 
 # 1. Global rules -> ~/.cursor/rules

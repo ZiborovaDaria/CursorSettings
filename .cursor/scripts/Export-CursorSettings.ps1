@@ -15,6 +15,12 @@ $export = Join-Path $repoRoot '.cursor\export'
 
 Write-Host "=== Export Cursor settings ===" -ForegroundColor Cyan
 
+if (-not (Test-Path $export)) {
+    $restore = Join-Path $PSScriptRoot 'Restore-DistributionBundleFromGit.ps1'
+    if (Test-Path $restore) { & $restore }
+    New-Item -ItemType Directory -Path $export -Force | Out-Null
+}
+
 # Global rules
 $rulesDst = Join-Path $export 'global-rules'
 New-Item -ItemType Directory -Path $rulesDst -Force | Out-Null

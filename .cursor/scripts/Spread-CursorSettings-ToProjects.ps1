@@ -18,6 +18,16 @@ $ErrorActionPreference = 'Stop'
 $settingsRepo = if ($PSScriptRoot) { Resolve-Path (Join-Path $PSScriptRoot '..\..') } else { 'C:\Cursor\ESTI' }
 $manifestFile = if ($ManifestPath) { $ManifestPath } else { Join-Path $settingsRepo '.cursor\projects.manifest.json' }
 $bundle = Join-Path $settingsRepo '.cursor\shared-bundle'
+if (-not (Test-Path $bundle)) {
+    $restore = Join-Path $settingsRepo '.cursor\scripts\Restore-DistributionBundleFromGit.ps1'
+    if (Test-Path $restore) {
+        Write-Host "Restoring shared-bundle from git..." -ForegroundColor Yellow
+        & $restore
+    }
+    if (-not (Test-Path $bundle)) {
+        throw "Missing .cursor/shared-bundle — run Restore-DistributionBundleFromGit.ps1"
+    }
+}
 $manifest = Get-Content $manifestFile -Raw -Encoding UTF8 | ConvertFrom-Json
 
 if ($Projects) {

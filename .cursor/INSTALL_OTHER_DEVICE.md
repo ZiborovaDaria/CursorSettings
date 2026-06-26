@@ -26,7 +26,7 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 | Шаг | Действие |
 |---|---|
 | User Rules | `USER-RULES.md` → Cursor Settings |
-| `.dev.env` | из `.dev.env.example` |
+| `.dev.env` | из `.dev.env.example` в [репозитории](https://github.com/ZiborovaDaria/CursorSettings/blob/main/.dev.env.example) |
 | `infobasesettings.md` | локально |
 | Extension | `supercode.supercode-sh` |
 | MCP | Reload — [MCP_QUICK_START.md](MCP_QUICK_START.md) |
@@ -49,7 +49,7 @@ powershell -File .cursor\scripts\Test-ESTI-MCPStack.ps1
 |---|---|
 | `mcp.profile.power.json` | Шаблон POWER → копируется в `mcp.json` |
 | `mcp.profile.lite.json` | Шаблон LITE |
-| `mcp.local.json.example` | Секреты → `mcp.local.json` |
+| `mcp.local.json.example` | [В GitHub](https://github.com/ZiborovaDaria/CursorSettings/blob/main/.cursor/mcp.local.json.example) → `mcp.local.json` |
 
 `mcp.json` не в git — создаётся install-скриптом.
 
@@ -61,9 +61,13 @@ powershell -File .cursor\scripts\Test-ESTI-MCPStack.ps1
 
 ```powershell
 cd C:\Cursor\ESTI
+powershell -File .cursor\scripts\Restore-DistributionBundleFromGit.ps1   # если export удалён локально
 powershell -File .cursor\scripts\Export-CursorSettings.ps1
 powershell -File .cursor\scripts\Spread-CursorSettings-ToProjects.ps1
 git add -A; git commit -m "chore: sync cursor"; git push
+powershell -File .cursor\scripts\Remove-LocalDistributionBundle.ps1        # опционально после push
 ```
 
 На втором ПК: `git pull` + оба install-скрипта.
+
+**Локально для работы** `export/`, `shared-bundle/`, `*.example` не нужны — только в GitHub. Install/spread сами восстанавливают из git.

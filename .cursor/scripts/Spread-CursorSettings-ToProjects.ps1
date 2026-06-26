@@ -94,8 +94,8 @@ foreach ($proj in $list) {
         [IO.File]::WriteAllText((Join-Path $root '.cursor\INSTALL_OTHER_DEVICE.md'), $doc, [Text.UTF8Encoding]::new($false))
     }
 
-    # RULES_INDEX lite
-    if (-not $WhatIf) {
+    # RULES_INDEX — skip for ESTI (full index in repo)
+    if ($proj.id -ne 'ESTI' -and -not $WhatIf) {
         $idx = @"
 # RULES_INDEX — $($proj.id)
 

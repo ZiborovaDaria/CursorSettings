@@ -106,5 +106,5 @@ docker compose -f docker-compose.fast.yml up -d --force-recreate 1c-metacode-est
 ## Ссылки
 
 - `MCP_QUICK_START.md` — секция Lite profile
-- `CURSOR_SYNC.md` — синхронизация между ПК
+- [RULES_INDEX.md](RULES_INDEX.md) — карта правил и синхронизация между ПК
 - [litecode GitHub](https://github.com/svhov/1c-metacode-lite-mcp)

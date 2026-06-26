@@ -3,7 +3,7 @@ description: USE WHEN ошибка BSL/CFE/runtime, после failed check_1c_c
 alwaysApply: true
 ---
 
-# Конвейер «ошибка → memory/правило» (ESTI)
+# Конвейер «ошибка → memory/правило»
 
 ## Триггеры
 

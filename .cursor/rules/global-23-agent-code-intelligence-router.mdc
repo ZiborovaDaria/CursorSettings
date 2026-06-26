@@ -1,17 +1,22 @@
 ---
-description: USE WHEN выбор MCP, locate, Understand/Edit/Verify.
+description: USE WHEN выбор MCP, locate, Understand/Edit/Verify; не для ESTI-специфики Atlas/Litecode.
 alwaysApply: false
 ---
 
 <!-- Source: ~/.cursor/rules/23-agent-code-intelligence-router.mdc | edit there, then run sync-global-rules.ps1 -->
+# MCP-роутер (глобальный)
 
-# MCP-роутер
+**Locate → Understand → Edit → Verify.** Детали проекта: `.cursor/MCP_ROUTER_*.md` и `03-mcp-locate.mdc` (ESTI).
 
-**Locate → Understand → Edit → Verify.**
+| Workspace | Locate BSL | Locate метаданные |
+|---|---|---|
+| `C:\Cursor\BP` | **bsl-atlas-bp** | Atlas / `mcp-1c` |
+| Остальные | см. `MCP_ROUTER_*.md` проекта | `mcp-1c` / litecode / XML |
 
-Для workspace **ESTI** источник правды:
-- `03-mcp-locate.mdc`
-- `MCP_ROUTER_ESTI.md`
-- `41-agent-tooling-playbooks-esti.mdc`
+| Фаза | Инструмент |
+|---|---|
+| Edit BSL | Serena (после locate) |
+| Files | lean-ctx |
+| Verify | naparnik, v8std |
 
-Глобальные детали по другим workspace — `~/.cursor/rules/23-agent-code-intelligence-router.mdc`.
+**Антипаттерн:** Serena `find_symbol` по всей КФ без locate.

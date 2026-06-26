@@ -18,23 +18,23 @@ alwaysApply: false
 
 ## Контекст конфигурации (workspace)
 Читай **только из текущего проекта**:
-- `00-esti-core.mdc` — продукт, релиз, пути, MCP
+- `00-esti-core.mdc` / `01-*-project-context.mdc` — продукт, релиз, пути
 - `03-agent-configuration-and-mcp-selection.mdc` — MCP и ИБ
 - `infobasesettings.md`, `.dev.env`, `Configuration.xml`
-- навык `esti-project` в `.cursor/skills/` workspace
+- навык `*-project` в `.cursor/skills/` workspace
 
-Общие правила и навыки 1С — в `~/.cursor/` (см. `RULES_INDEX.md`).
+Общие правила и навыки 1С — в `~/.cursor/` (см. `RULES_INDEX.md` проекта).
 
 ## Разрешённые вспомогательные навыки
 - **mermaid-diagrams** — диаграммы потоков/архитектуры
-- **transcribe** — аудио/видео → текст (локально, faster-whisper)
+- **transcribe** — аудио/видео → текст (локально)
 - **md-to-docx** — Markdown → Word
 - **img-grid-analysis** — сетка на скриншоте
 
 ## Что считается лишним
 - Unity, web/frontend, Python-notebooks, общие AI-prompting правила
 - Привязки к другим конфигурациям — только если пользователь явно переключил workspace
-- `prompt-enhancer`, `mcp-1c-tools` (свой роутер ESTI v4)
+- `prompt-enhancer`, `mcp-1c-tools` (свой роутер проекта)
 
 ## Стандартный цикл
 `анализ → план → минимальная правка → синтаксис/валидация → ревью рисков → инструкция проверки`.

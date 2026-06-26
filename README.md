@@ -19,10 +19,10 @@ powershell -File .cursor\scripts\Install-ESTI-OnNewDevice.ps1 -Profile POWER
 
 | Файл | Назначение |
 |---|---|
-| [INSTALL_OTHER_DEVICE.md](.cursor/INSTALL_OTHER_DEVICE.md) | Установка на втором устройстве |
-| [RULES_INDEX.md](.cursor/RULES_INDEX.md) | Карта правил и навыков |
-| [USER-RULES.md](USER-RULES.md) | Стиль ответа (caveman) |
-| [CURSOR_SYNC.md](.cursor/CURSOR_SYNC.md) | Синхронизация между ПК |
+| [RULES_INDEX.md](.cursor/RULES_INDEX.md) | Карта правил, MCP, синхронизация |
+| [INSTALL_OTHER_DEVICE.md](.cursor/INSTALL_OTHER_DEVICE.md) | Установка ЭСТИ |
+| [INSTALL_ALL_PROJECTS.md](.cursor/INSTALL_ALL_PROJECTS.md) | Все проекты C:\Cursor |
+| [USER-RULES.md](USER-RULES.md) | Стиль caveman |
 
 ## Примечание
 

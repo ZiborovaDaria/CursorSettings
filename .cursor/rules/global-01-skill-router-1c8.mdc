@@ -34,7 +34,7 @@ alwaysApply: false
 | Shell Windows / deploy.ps1 | `powershell-windows` |
 | Стиль ответа (кодинг/дебаг) | `caveman` |
 | Коммит / PR-ревью | `caveman-commit` / `caveman-review` |
-| Ошибка → recall | `capture-error` + `33-agent-error-learning-pipeline` |
+| Ошибка → recall | `capture-error` command + `33-agent-error-learning-pipeline` |
 
 Навык не по 1С 8.0+ — не открывай.
 `zup-hr-api-reference` — только для workspace ЗУП, не ESTI.

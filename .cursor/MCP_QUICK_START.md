@@ -2,7 +2,7 @@
 
 Перезапуск Cursor после изменения `mcp.json`: **Settings → MCP → Reload**.
 
-Профили: `mcp.profile.power.json` (мощный ПК) · `mcp.profile.lite.json` (слабый ПК) · см. `MCP_LITE_DEVICE.md`, `CURSOR_SYNC.md`.
+Профили: `mcp.profile.power.json` · `mcp.profile.lite.json` · см. `MCP_LITE_DEVICE.md`, [RULES_INDEX.md](RULES_INDEX.md) § синхронизация.
 
 ## Power profile (мощный ПК)
 

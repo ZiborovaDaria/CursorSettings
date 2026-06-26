@@ -1,0 +1,21 @@
+---
+description: USE WHEN выбор MCP, locate, Understand/Edit/Verify; не для ESTI-специфики Atlas/Litecode.
+alwaysApply: false
+---
+
+# MCP-роутер (глобальный)
+
+**Locate → Understand → Edit → Verify.** Детали проекта: `.cursor/MCP_ROUTER_*.md` и `03-mcp-locate.mdc` (ESTI).
+
+| Workspace | Locate BSL | Locate метаданные |
+|---|---|---|
+| `C:\Cursor\BP` | **bsl-atlas-bp** | Atlas / `mcp-1c` |
+| Остальные | см. `MCP_ROUTER_*.md` проекта | `mcp-1c` / litecode / XML |
+
+| Фаза | Инструмент |
+|---|---|
+| Edit BSL | Serena (после locate) |
+| Files | lean-ctx |
+| Verify | naparnik, v8std |
+
+**Антипаттерн:** Serena `find_symbol` по всей КФ без locate.

@@ -1,0 +1,17 @@
+# Локальные секреты и персональные настройки — не коммитить
+.cursor/mcp.local.json
+.cursor/mcp.json
+.dev.env
+infobasesettings.md
+
+# Skill deps markers (regenerated)
+.cursor/export/global-skills/**/.deps-ok
+.cursor/export/global-skills/**/node_modules/
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db
+.DS_Store

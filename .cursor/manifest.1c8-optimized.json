@@ -1,0 +1,13 @@
+{
+  "purpose": "DEPRECATED — см. .cursor/RULES_INDEX.md",
+  "deprecated": true,
+  "replacement": ".cursor/RULES_INDEX.md",
+  "always_rules": [
+    "00-esti-core.mdc",
+    "00-esti-device-profile.mdc",
+    "32-agent-caveman-esti.mdc"
+  ],
+  "rules_count": 41,
+  "project": "ЭСТИ — Управление фирмой-франчайзи 2.2.5.90",
+  "mcp_reference": "MCP_ROUTER_ESTI.md, RULES_INDEX.md"
+}

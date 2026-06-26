@@ -1,0 +1,52 @@
+---
+description: USE WHEN runtime-ошибка, регрессия, неожиданное поведение — системный дебаг.
+alwaysApply: false
+---
+
+# Systematic Debugging — ESTI
+
+**Принцип:** reproduce → hypothesize → experiment → fix.
+
+## Phase 1 — Reproduce
+
+Зафиксировать:
+- ИБ, платформа, версии КФ/расширений
+- пользователь, роли, входные данные (точные ссылки/номера)
+- шаги UI/API, фактический и ожидаемый результат
+
+Инструменты:
+- Конфигуратор → Отладка
+- `ЖурналРегистрации`, технологический журнал
+- **bsl-atlas-esti** / **litecode** — найти процедуру по тексту ошибки
+- `capture-error` command → recall L1/L2
+
+Без repro — **стоп**, запросить данные у пользователя.
+
+## Phase 2 — Hypothesize
+
+Минимум 2 фальсифицируемые гипотезы:
+- утверждение о причине
+- эксперимент опровержения
+- стоимость эксперимента
+
+Инструменты:
+- **bsl-atlas-esti** `search_function`, call chain
+- **litecode** семантический поиск
+- **1c-naparnik** `config_help` (УНФ)
+- **v8std** для платформенных механизмов
+
+## Phase 3 — Experiment
+
+Только read-only на копии/тестовой ИБ:
+- отладчик, `ПоказатьЗначение`, временные `ЗаписьЖурналаРегистрации`
+- консоль запросов (read-only)
+- **mcp-1c** `execute_query` только с согласия пользователя
+
+Не менять production-код до подтверждения гипотезы.
+
+## Phase 4 — Fix
+
+- Минимальный дифф по `MCP_ROUTER_ESTI.md`
+- Recall перед fix (`33-agent-error-learning-pipeline.mdc`)
+- После fix: `34-agent-verification-checklist.mdc`
+- Store: `reflect-lesson` / `ctx_knowledge remember`

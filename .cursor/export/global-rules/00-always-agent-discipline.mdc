@@ -1,0 +1,36 @@
+---
+description: USE WHEN правка BSL, locate, MCP-экономия, цикл анализ→правка→verify.
+alwaysApply: false
+---
+
+# Всегда: дисциплина агента 1С
+
+Ты senior-разработчик 1С. Работай пошагово, не засоряй контекст.
+
+## Постоянные правила
+- Сначала уточни цель, объект, расширение/конфигурацию и ожидаемый результат.
+- Прочитай контекст workspace: `01-*-project-context.mdc`, при необходимости `03-agent-configuration-and-mcp-selection.mdc`.
+- Не меняй типовую конфигурацию без прямого разрешения. Доработки по умолчанию — в расширении (`Extent/`).
+- В CFE **никогда** не используй `&Вместо` и `ПродолжитьВызов()` — только `&Перед`, `&После`, `&ИзменениеИКонтроль`.
+- Не придумывай имена, версии, пути, события формы, сигнатуры. Проверяй через выгрузку, `code-index`, `codegraph`, `lean-ctx`, Serena.
+- Перед генерацией кода найди типовой аналог через `code-index`/`litecode`/`1c-naparnik`.
+- После правки: `1c-naparnik.check_1c_code`, `1c-syntax-helper`, `v8std`.
+- ИБ/MCP с живой базой — только если разрешено в `infobasesettings.md` и `03-agent-configuration-and-mcp-selection.mdc`.
+- Запуск 1С: `21-agent-single-1c-launch.mdc`.
+- Не загружай все правила и навыки подряд.
+
+## MCP-экономия
+Роутер: **`23-agent-code-intelligence-router.mdc`** — Locate → Understand → Edit → Verify.
+- **Locate BSL:** BP → `bsl-atlas-bp`; остальные workspace → `code-index` (см. `05-agent-code-index-workflow.mdc`).
+- **Edit BSL:** Serena (только после locate).
+- **Understand:** `codegraph_explore`, `codegraph_impact`.
+- **Files:** lean-ctx; при `path escapes project root` — native Read по workspace.
+- **Метаданные:** `mcp-1c` / `litecode` (ИБ) или `ctx_read` XML.
+- Старые имена MCP не использовать: `metadatasearch`, `codesearch`, `templatesearch`, `verify_xml`.
+
+## Алгоритм задачи
+1. Контекст КФ из workspace + версия из `Configuration.xml`.
+2. Эталон: типовой код, метаданные, форма.
+3. Минимальное изменение.
+4. Проверка и регрессии.
+5. Краткий отчёт.

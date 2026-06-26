@@ -1,0 +1,87 @@
+---
+description: ЭСТИ core — продукт, политика CFE, пути, MCP-профиль, triage, индекс правил.
+alwaysApply: true
+---
+
+# ЭСТИ core
+
+## Конфигурация
+- **ЭСТИ 2.2.5.90** / УНФ 3.0.13.342 · платформа **8.5.1.1150**, совместимость **Version8_5_1**
+- Синоним: `ЭСТИ: Управление фирмой-франчайзи (2.2.5.90) для 1С:Управление нашей фирмой (3.0.13.342)`
+- Имя КФ: `ЭСТИ_УправлениеФирмойФранчайзи_УправлениеНебольшойФирмой_CRM`
+- Workspace: `C:\Cursor\ESTI` · расширения: `Extent/`, префикс **ESTI**
+- Сайт: [estyuff.ru](https://estyuff.ru/)
+- Источник: `infobasesettings.md`, `.dev.env`, `Configuration.xml`
+
+## Политика
+- Основную КФ не менять без явной команды.
+- CFE: только `&Перед`, `&После`, `&ИзменениеИКонтроль` — **не** `&Вместо` / `ПродолжитьВызов()`.
+- Не выдумывать имена объектов, процедур, реквизитов — проверять через locate MCP.
+- `zup-hr-api-reference` — не использовать.
+
+## Профиль устройства
+`device_profile: POWER` — см. `00-esti-device-profile.mdc`. На Lite-ПК: `LITE` + `mcp.profile.lite.json`.
+
+## MCP (кратко)
+| Фаза | POWER | LITE |
+|---|---|---|
+| Locate BSL | `bsl-atlas-esti` | `litecode.search_metadata` |
+| Права ролей | `litecode.get_access` | `litecode.get_access` |
+| Fallback | `code-index` (repo: ESTI) | `code-index` |
+| Edit | Serena после locate | Serena после locate |
+| Verify | naparnik + v8std | naparnik + v8std |
+| Файлы | lean-ctx | lean-ctx |
+
+Подробно: `03-mcp-locate.mdc`, `MCP_ROUTER_ESTI.md`, `MCP_TOOLS_MATRIX.md`, `41-agent-tooling-playbooks-esti.mdc`.
+
+## Пути (одинаковые на обоих ПК)
+| Что | Путь |
+|---|---|
+| Workspace | `C:\Cursor\ESTI` |
+| ИБ | см. `infobasesettings.md` |
+| MCP binaries | `C:\CursorMCP\` |
+| Atlas index (POWER) | `C:\bsl-atlas-indexes\ESTI` |
+| Litecode data | `C:\bsl-litecode-data\ESTI` |
+
+## Опорные объекты
+`ЗаказПокупателя`, `РасходнаяНакладная`, `СчетНаОплату`, `Номенклатура`, `Контрагенты`.
+
+## Стиль ответа
+Caveman для dev-задач — см. `32-agent-caveman-esti.mdc`, `USER-RULES.md`.
+
+## Triage
+| Тип | Критерий | Действие |
+|---|---|---|
+| **Quick-fix** | <20 строк BSL, нет metadata/public API | locate → правка → naparnik check |
+| **Full-cycle** | metadata, форма, интеграция, >20 строк | `memory-bank/tasks.md` + `global-09-sdd-workflow` |
+
+## CONFUSION (неоднозначность)
+Если объект/процедура/требование неоднозначны — вывести блок:
+```
+CONFUSION: <что неясно>
+OPTIONS: A) ... B) ...
+RECOMMEND: <вариант> потому что ...
+```
+Не угадывать имена метаданных.
+
+## Индекс on-demand правил
+| Сценарий | Файл |
+|---|---|
+| Locate MCP | `03-mcp-locate.mdc` |
+| Caveman routing | `32-agent-caveman-esti.mdc` |
+| Verify перед сдачей | `34-agent-verification-checklist.mdc` |
+| Системный дебаг | `35-agent-systematic-debugging.mdc` |
+| Модуль формы | `36-agent-form-reserved-names.mdc` |
+| Metadata XML | `37-agent-metadata-xml-workarounds.mdc` |
+| Асинх на клиенте | `38-agent-async-methods.mdc` |
+| Блокировки | `39-agent-locks-and-transactions.mdc` |
+| Ловушки платформы | `40-agent-platform-solutions.mdc` |
+| MCP playbooks | `41-agent-tooling-playbooks-esti.mdc` |
+| CFE change control | `global-07-agent-extension-change-control-deep.mdc` |
+| Ошибка → память | `33-agent-error-learning-pipeline.mdc` |
+| Крупная задача | `global-09-sdd-workflow-for-large-1c-tasks.mdc` |
+
+Полная карта: `.cursor/RULES_INDEX.md`.
+
+## Расширенный контекст
+Навык `.cursor/skills/esti-project/SKILL.md` (ИБ, HTTP, детали MCP).

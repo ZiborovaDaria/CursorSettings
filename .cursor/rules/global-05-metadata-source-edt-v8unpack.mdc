@@ -1,0 +1,22 @@
+---
+description: Метаданные 1С: XML/EDT/v8unpack, роли, SKD, MXL, шаблоны, целостность объектов.
+globs: **/*.mdo,**/*.xml,**/*.json,**/*.mxl,**/*.rights,**/*.sdbl
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/05-metadata-source-edt-v8unpack.mdc | edit there, then run sync-global-rules.ps1 -->
+# Метаданные и исходники 1С
+
+## Инварианты
+- Не правь XML/MDO вслепую: сначала проверь формат проекта — Конфигуратор XML, EDT или v8unpack.
+- Сохраняй UUID/идентификаторы и связи объектов. При создании новых объектов проверяй дубли UUID.
+- После изменения метаданных выполняй compile/validate/build подходящим навыком.
+- Для ролей учитывай права чтения/изменения и RLS; не расширяй права без причины.
+
+## Форматы
+- EDT `*.mdo` и `Form.form` имеют строгие требования к namespace, extInfo и дефолтам.
+- Конфигуратор XML использует `Form.xml`, модули и файлы объекта в структуре выгрузки.
+- v8unpack имеет собственную структуру исходников; перед генерацией открой `v8unpack-cf`.
+
+## Когда сомневаешься
+Используй `1c-meta-info`, `1c-form-info`, `1c-cf-info`, затем только точечный edit/compile/validate.

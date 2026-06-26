@@ -1,0 +1,28 @@
+---
+description: USE WHEN launching 1C Designer/Enterprise, running LoadConfigFromFiles, UpdateDBCfg, tests, dump commands, or any command that starts 1cv8/1cv8c.
+globs:
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/21-agent-single-1c-launch.mdc | edit there, then run sync-global-rules.ps1 -->
+# Один экземпляр 1С (SB)
+
+## ИБ
+- Путь: `C:\Users\Daria\Documents\InfoBase11`
+- Аутентификация: **нет** — не передавать `/N` и `/P`
+- Платформа: `8.5.1.1150` (из `.dev.env` / `.v8-project.json`)
+
+## Правило одного экземпляра
+1. Перед запуском — убедиться, что нет зависшего `1cv8` / `1cv8c`.
+2. **Запрещено** в одной цепочке без паузы: DESIGNER LoadConfig → UpdateDBCfg → ENTERPRISE.
+3. Между DESIGNER и ENTERPRISE — пауза / `Wait-1cLicenseSlot`.
+4. Не запускать параллельно конфигуратор и предприятие на одной ИБ.
+
+## Типовые команды (без /N /P)
+```powershell
+# DESIGNER — загрузка расширения
+& "C:\Program Files\1cv8\8.5.1.1150\bin\1cv8.exe" DESIGNER /F "C:\Users\Daria\Documents\InfoBase11" /LoadConfigFromFiles "C:\Cursor\SB\Extent\SinhUch" -Extension "СинхронизацияОтражениеВУчете" /Out "C:\Cursor\SB\.logs\load.log"
+```
+
+## YAxUnit
+См. `yaxunit-runner` и `@rules/32-agent-yaxunit-extensions.mdc`.

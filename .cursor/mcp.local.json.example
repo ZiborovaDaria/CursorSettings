@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "mcp-1c": {
+      "command": "C:\\CursorMCP\\mcp-1c\\mcp-1c.exe",
+      "args": [
+        "--base",
+        "http://localhost/ESTI/hs/mcp-1c",
+        "--user",
+        "Admin",
+        "--password",
+        "REPLACE_ME"
+      ]
+    }
+  }
+}

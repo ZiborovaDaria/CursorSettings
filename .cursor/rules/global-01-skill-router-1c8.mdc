@@ -1,0 +1,40 @@
+---
+description: USE WHEN выбор SKILL.md для задачи 1С.
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/01-skill-router-1c8.mdc | edit there, then run sync-global-rules.ps1 -->
+# Маршрутизация навыков 1С
+
+Открывай **только один-два нужных `SKILL.md`**.
+
+**Общие навыки** — `~/.cursor/skills/<имя>/SKILL.md`.
+**Контекст конфигурации** — `.cursor/skills/<код>-project/SKILL.md` в workspace.
+
+| Задача | Навык |
+|---|---|
+| Полный цикл CFE | `1c-cfe-full-cycle` |
+| EPF | `1c-epf-full-cycle` |
+| ERF | `1c-erf-init`, `1c-erf-build` |
+| Патч метода CFE | `1c-cfe-borrow`, `1c-cfe-patch-method`, `1c-cfe-validate` |
+| Метаданные, роли, СКД, MXL | `1c-metadata-manage` или `1c-meta-*`, `1c-role-*`, `1c-skd-*`, `1c-mxl-*` |
+| Управляемые формы | `1c-form-*`; UI в CFE → `12-extension-forms-ui-discipline.mdc` |
+| КФ/ИБ/выгрузка | `1c-cf-*`, `1c-db-*`, `v8unpack-cf` |
+| БСП | `1c-bsp-registration`, `1c-bsp-command`, `07-bsp-and-background-jobs` |
+| Запросы | `1c-query-optimization`, `composing-1c-queries` |
+| Тесты | `yaxunit-runner`, `1c-*-validate` |
+| Конвертация | `kd2-rules`, `kd31-rules` |
+| Контекст workspace ESTI | `esti-project` + `MCP_SETUP_ESTI` / `MCP_ROUTER_ESTI` |
+| Зависание CFE | `cfe-load-hang-recovery` |
+| Диаграммы Mermaid / ASCII | `mermaid-diagrams` |
+| Аудио/видео → текст | `transcribe` (однократный `setup-once.ps1`) |
+| Markdown → Word (.docx) | `md-to-docx` (`ensure-deps.ps1`) |
+| Сетка на скриншоте → MXL | `img-grid-analysis` |
+| Handoff между сессиями | `handoff` |
+| Shell Windows / deploy.ps1 | `powershell-windows` |
+| Стиль ответа (кодинг/дебаг) | `caveman` |
+| Коммит / PR-ревью | `caveman-commit` / `caveman-review` |
+| Ошибка → recall | `capture-error` + `33-agent-error-learning-pipeline` |
+
+Навык не по 1С 8.0+ — не открывай.
+`zup-hr-api-reference` — только для workspace ЗУП, не ESTI.

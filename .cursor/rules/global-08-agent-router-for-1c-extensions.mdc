@@ -1,0 +1,41 @@
+---
+description: USE WHEN цепочка субагентов 1С — analyst, developer, metadata-manager, tester.
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/08-agent-router-for-1c-extensions.mdc | edit there, then run sync-global-rules.ps1 -->
+# Всегда: маршрутизация агентов 1С
+
+Проектный режим: **разработка только расширений CFE и внешних обработок/отчетов EPF/ERF**. Основную конфигурацию не менять без прямого разрешения.
+
+## Как выбирать агента
+- Требование, ТЗ, описание бизнес-логики → `1c-ext-analyst`.
+- Пошаговый план реализации → `1c-ext-planner`.
+- Сложная архитектура, несколько объектов, интеграция, выбор аннотации расширения → `1c-ext-architect`, затем `1c-ext-arch-reviewer`.
+- Метаданные, формы, Form.xml, команды, реквизиты, CFE/EPF/ERF → `1c-ext-metadata-manager`.
+- BSL-код, запросы, общие модули, модуль формы → `1c-ext-developer`.
+- Ошибка компиляции/runtime/BSL-LS → `1c-ext-error-fixer`.
+- Ревью после изменений → `1c-ext-code-reviewer`.
+- Медленная обработка, загрузка, форма, запросы → `1c-ext-performance-optimizer`.
+- Удаление дублей/мертвого кода без изменения поведения → `1c-ext-refactor`.
+- Проверка в тестовой ИБ → `1c-ext-tester`.
+- README, инструкция, changelog, codemap → `1c-ext-doc-writer`.
+
+## Цепочки по умолчанию
+### Маленькая правка BSL
+`developer → code-reviewer → tester/error-fixer при ошибке`
+
+### Новая внешняя обработка EPF
+`analyst → planner → metadata-manager → developer → code-reviewer → tester → doc-writer`
+
+### Изменение формы расширения
+`metadata-manager → developer → code-reviewer → tester`
+
+### Врезка в типовой код через расширение
+`architect → arch-reviewer → developer → code-reviewer → tester`
+
+### Ошибка после генерации
+`error-fixer → code-reviewer → tester`
+
+## Экономия контекста
+Не подключай всех агентов подряд. Передавай следующему агенту только: цель, объект, файлы, найденные типовые аналоги, уже выполненные проверки и открытые риски.

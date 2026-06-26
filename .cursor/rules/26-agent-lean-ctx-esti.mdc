@@ -1,0 +1,43 @@
+---
+description: USE WHEN чтение файлов, ctx_read, ctx_search, callgraph, shell в workspace.
+alwaysApply: false
+globs:
+  - "**/*.xml"
+  - "**/*.md"
+  - "**/*.ps1"
+  - "**/*.json"
+---
+
+# lean-ctx — ЭСТИ
+
+MCP: `user-lean-ctx` (global `~/.cursor/mcp.json`).
+
+## Обязательная замена native tools
+| Вместо | Использовать |
+|---|---|
+| Read/cat | `ctx_read(path, mode)` |
+| Grep/rg | `ctx_search(pattern, path)` |
+| Shell | `ctx_shell(command)` |
+| ls/find | `ctx_tree(path, depth)` |
+
+**Исключение:** `path escapes project root` → native Read/Grep по `C:\Cursor\ESTI`.
+
+## Режимы ctx_read
+| Цель | mode |
+|---|---|
+| Правка | `full` |
+| API | `signatures` |
+| После правки | `diff` |
+| Обзор | `map` |
+| Фрагмент | `lines:N-M` |
+
+## Understand
+| Задача | Инструмент |
+|---|---|
+| Callers/callees | `ctx_callgraph` |
+| Blast radius | `ctx_impact` |
+| Семантика в репо | `ctx_semantic_search` |
+| Старт сессии | `ctx_overview` |
+
+## BSL locate — не lean-ctx
+Locate BSL → `bsl-atlas-esti` (POWER) или `litecode` (LITE). lean-ctx — файлы, XML, diff, shell.

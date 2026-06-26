@@ -1,0 +1,41 @@
+---
+description: USE WHEN роли, права, RLS, Rights.xml, ограничение доступа, роль расширения.
+alwaysApply: false
+globs:
+  - "**/Roles/**"
+  - "**/Rights.xml"
+  - "**/*Роль*/**"
+---
+
+# Права ролей — ЭСТИ
+
+**`litecode.get_access`** — единственный MCP с полным графом прав (парсит `Roles/*/Ext/Rights.xml` в Memgraph).
+Atlas дополняет: locate роли, BSL в модулях ролей.
+
+**Обязательно:** `LOAD_ROLE_RIGHTS=true` в docker-compose litecode.
+
+## Цепочки (POWER)
+
+| Задача | 1-й вызов | 2-й | 3-й |
+|---|---|---|---|
+| Права роли X на объект Y | litecode `{"op":"get_access","role":"X","target":"Y"}` | — | `ctx_read` `Roles/X/Ext/Rights.xml` при правке |
+| Какие роли имеют доступ к объекту | litecode `{"op":"get_access","target":"ИмяОбъекта"}` | atlas `metadatasearch` | `mcp-1c.get_object_structure` (ИБ) |
+| Найти роль по имени | atlas `metadatasearch` | litecode `{"op":"browse","category":"Roles"}` | — |
+| RLS / ограничение в модуле роли | atlas `search_function` в `Roles/.../Module.bsl` | `read_function` | Serena edit |
+| Сравнить с типовой УНФ | naparnik `config_help(УНФ)` | litecode `get_access` | — |
+| Новая роль в CFE | skill `1c-role-compile` | metadata-manager | `get_access` после загрузки |
+
+## Покрытие Atlas vs Litecode
+
+| Домен | Atlas | Litecode |
+|---|---|---|
+| Locate роли, BSL модуля | `metadatasearch`, `search_function` | `browse` Roles |
+| **Права на объект** | — | **`get_access`** |
+| Граф ссылок | — | `get_references` |
+
+## Запреты
+- grep по всей КФ / всем `Rights.xml` вместо `get_access`.
+- Правка `Rights.xml` без проверки `get_access` до и после.
+
+## Reindex после изменения ролей
+`FULL_METADATA_RELOAD=true` в compose или restart контейнера `1c-metacode-esti`.

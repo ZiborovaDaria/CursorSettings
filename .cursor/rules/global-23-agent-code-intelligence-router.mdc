@@ -1,0 +1,17 @@
+---
+description: USE WHEN выбор MCP, locate, Understand/Edit/Verify.
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/23-agent-code-intelligence-router.mdc | edit there, then run sync-global-rules.ps1 -->
+
+# MCP-роутер
+
+**Locate → Understand → Edit → Verify.**
+
+Для workspace **ESTI** источник правды:
+- `03-mcp-locate.mdc`
+- `MCP_ROUTER_ESTI.md`
+- `41-agent-tooling-playbooks-esti.mdc`
+
+Глобальные детали по другим workspace — `~/.cursor/rules/23-agent-code-intelligence-router.mdc`.

@@ -1,0 +1,81 @@
+---
+description: USE WHEN locate BSL/метаданных в ЭСТИ, bsl-atlas-esti, search_function, codesearch.
+alwaysApply: false
+globs:
+  - "**/*.bsl"
+---
+
+# BSL Atlas ESTI (`bsl-atlas-esti`)
+
+MCP: `http://localhost:8008/mcp` · индекс `C:\Cursor\ESTI` · контейнер `bsl-atlas-esti`.
+
+**Только workspace `C:\Cursor\ESTI`.** Atlas = **Locate**, Serena = **Edit** (см. `23-agent-code-intelligence-router.mdc`).
+
+Документация: [Arman-Kudaibergenov/bsl-atlas](https://github.com/Arman-Kudaibergenov/bsl-atlas).
+
+## Статус индекса
+
+Перед locate: `powershell -File .cursor/scripts/Get-BslAtlasIndexStatus-ESTI.ps1`
+
+| Фаза | Что доступно |
+|---|---|
+| SQLite готов | `search_function`, `metadatasearch`, `get_object_details`, `read_function`, `code_grep`, `stats` |
+| ChromaDB 100% | + `codesearch`, `helpsearch` (семантика) |
+| ChromaDB < 100% | семантику заменять `metadatasearch` + `code-index.grep_body` |
+
+При недоступности Atlas → fallback `code-index` (`repo`: **ESTI**).
+
+## Locate (первый вызов в ESTI)
+
+| Задача | Инструмент | Не использовать |
+|---|---|---|
+| Процедура/функция **по имени** | `search_function` | Serena `find_symbol` без locate |
+| **Смысл** («где проводится…») | `codesearch` (если Chroma готов) / `metadatasearch` | полный grep по КФ |
+| Объект метаданных | `metadatasearch` | grep по XML |
+| Реквизиты, ТЧ, движения | `get_object_details` | Object.xml целиком |
+| Форма / СКД | `get_form_info`, `get_skd_info` | Form.xml без нужды |
+| Regex в BSL | `code_grep` | ctx_search по всей КФ |
+| Тело + контекст | `read_function` | `ctx_read(full)` модуля |
+| Список функций модуля | `get_module_functions` | — |
+| Регистр при проведении | `triggers_on_write` | ручной обход |
+| Проверка вызова/поля | `verify_call`, `verify_field` | угадывание API |
+| Статистика | `stats` | — |
+| После выгрузки КФ | `reindex_changed` / `reindex` | полный reindex без нужды |
+
+> Имена `metadatasearch`, `codesearch`, `search_function` — **корректны для сервера `bsl-atlas-esti`**. Запрет «старых имён» в других правилах — про устаревшие standalone-серверы, не про Atlas.
+
+## Цепочки (ESTI)
+
+**Правка BSL в расширении:**
+`search_function` → `read_function` → Serena `find_referencing_symbols` → `replace_symbol_body` → `check_1c_code`.
+
+**Неизвестно, где логика:**
+`codesearch` (или `metadatasearch`) → `read_function` → `lean-ctx.ctx_callgraph` → Serena edit.
+
+**Регрессия:**
+`search_function` → `lean-ctx.ctx_impact` / Serena `find_referencing_symbols` → правка.
+
+## Связь с другими MCP
+
+| Фаза | Сервер |
+|---|---|
+| Locate BSL/метаданные ESTI | **bsl-atlas-esti** |
+| Locate fallback / grep / 1С-граф | **code-index** (`repo`: ESTI, `bsl-indexer`) |
+| Edit BSL | **Serena** |
+| Метаданные живой ИБ | **mcp-1c** |
+| Живые данные | **1c-rest-mcp** |
+| XML, diff, shell | **lean-ctx** |
+| Verify | naparnik (`config_name=УНФ`), v8std |
+
+## Антипаттерны
+
+- Atlas + code-index + Serena на одну locate-задачу.
+- Serena `find_symbol` по всей КФ вместо `search_function`.
+- `read_function` без `search_function` / `codesearch`.
+- `codegraph` для BSL (индексирует XML, не BSL).
+
+## Обслуживание
+
+Setup/переиндексация: `C:\Cursor\BP\.cursor\scripts\Setup-BslAtlasIndex.ps1 -ProjectCode ESTI -SourcePath C:\Cursor\ESTI -Start`
+
+Данные индекса: `C:\bsl-atlas-indexes\ESTI`

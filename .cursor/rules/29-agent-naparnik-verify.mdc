@@ -1,0 +1,26 @@
+---
+description: USE WHEN проверка BSL, ITS, config_help, review кода после правки.
+alwaysApply: false
+globs:
+  - "**/*.bsl"
+---
+
+# Naparnik — verify ЭСТИ
+
+MCP: `1c-naparnik` · `http://localhost:8007/mcp` · для УНФ: `config_name=УНФ`.
+
+## Цепочки
+
+| Задача | Инструмент |
+|---|---|
+| Синтаксис / логика / perf | `check_1c_code(check_type=…)` |
+| Стиль ИТС | `review_1c_code` |
+| УНФ / БСП | `config_help(УНФ)` → `fetch_its` |
+| Платформа | `search_1c_documentation`, `diff_1c_documentation_versions` |
+| Генерация/правка | `modify_1c_code`, `rewrite_1c_code` |
+| Синтаксис (кратко) | `explain_1c_syntax` |
+
+## Порядок после правки BSL
+`replace_symbol_body` → `check_1c_code` → при стиле `review_1c_code` → `v8std` при необходимости.
+
+Не заменяет locate — только verify.

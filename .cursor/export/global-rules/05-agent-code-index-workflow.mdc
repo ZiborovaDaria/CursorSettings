@@ -1,0 +1,53 @@
+---
+description: USE WHEN locating BSL in non-BP workspace, grep/callers in any repo, or code-index health check.
+globs:
+alwaysApply: false
+---
+
+# Code-index workflow
+
+**Роль:** слой **Locate** для всех workspace **кроме BP** (в BP locate BSL — `bsl-atlas-bp`, см. `25-agent-bsl-atlas-bp.mdc`).
+
+Роутер: `23-agent-code-intelligence-router.mdc`.
+
+## Когда использовать (первый вызов)
+
+- Имя процедуры/функции известно → `get_function` / `search_function`
+- Вхождение строки, regex в BSL → `grep_code` / `grep_text`
+- Список процедур модуля → `get_file_summary`
+- Callers/callees, если codegraph недоступен → `get_callers` / `get_callees`
+- Проверка индекса → `health` / `get_stats`
+
+## Repo в tool-call
+
+Передавать `repo` по workspace (см. `MCP_ROUTER_*.md`):
+
+| Workspace | repo |
+|---|---|
+| BP | BP или SB |
+| UT22_92 | UT22_92 |
+| UT25_85 | UT25_85 |
+| UNF12_261 | UNF12_261 |
+| ESTI | ESTI |
+| Obshep | Obshep |
+| UPO | UPO |
+| KA | KA |
+
+## Алгоритм
+
+1. **Locate:** `code-index` → путь к `.bsl`
+2. **Edit:** Serena `find_symbol(body=true)` в этом файле → правка
+3. **Understand:** `codegraph_impact` перед нетривиальной правкой
+4. **Verify:** `check_1c_code`
+
+## Пути
+
+- Основная КФ: корень workspace (`Configuration.xml`)
+- Расширения: `Extent/<ИмяКаталога>/`
+
+## Не использовать code-index для
+
+- Правки BSL (Serena)
+- Call graph при доступном codegraph
+- Семантики по смыслу в BP (Atlas `codesearch`)
+- XML метаданных целиком (lean-ctx / mcp-1c)

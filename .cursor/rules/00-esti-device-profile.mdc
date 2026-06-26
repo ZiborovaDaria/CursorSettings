@@ -1,0 +1,23 @@
+---
+description: Профиль устройства ЭСТИ — POWER (мощный ПК) или LITE (слабый ПК).
+alwaysApply: true
+---
+
+# Профиль устройства
+
+**Задать один раз, коммитить нужное значение:**
+
+```
+device_profile: POWER
+```
+
+| Профиль | MCP locate | mcp.json |
+|---|---|---|
+| **POWER** | `bsl-atlas-esti` + `litecode` (оба обязательны) | `.cursor/mcp.json` или `mcp.profile.power.json` |
+| **LITE** | только `litecode` + `code-index` | merge из `mcp.profile.lite.json` (без Atlas) |
+
+На слабом ПК после `git pull`:
+1. Установить `device_profile: LITE` в этом файле.
+2. Merge `mcp.profile.lite.json` → `.cursor/mcp.json`.
+3. `Prepare-LitecodeData-ESTI.ps1` → `docker compose -f docker-compose.fast.yml up -d`.
+4. Инструкция: `MCP_LITE_DEVICE.md`.

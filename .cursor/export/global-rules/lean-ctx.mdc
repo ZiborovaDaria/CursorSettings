@@ -1,0 +1,46 @@
+---
+description: USE WHEN чтение файлов, ctx_read, ctx_search, shell — lean-ctx MCP/CLI.
+alwaysApply: false
+---
+
+# lean-ctx — Context Engineering Layer
+<!-- lean-ctx-rules-v11 -->
+
+## Mode: Hybrid (MCP reads + CLI shell)
+
+CRITICAL: ALWAYS use lean-ctx tools. This is NOT optional.
+
+## Tool Mapping (MANDATORY)
+| Instead of | MUST USE | Example |
+|------------|----------|---------|
+| Read/cat/head/tail | `ctx_read(path, mode)` | `ctx_read("src/main.rs", "full")` |
+| Grep/rg/find | `ctx_search(pattern, path)` | `ctx_search("fn handle", "src/")` |
+| Shell/bash | `lean-ctx -c "<cmd>"` | `lean-ctx -c "cargo test"` |
+| ls/find | `lean-ctx ls [path]` | `lean-ctx ls src/ --depth 3` |
+| Edit (when Read unavail.) | `ctx_edit(path, old, new)` | `ctx_edit("f.rs", "old", "new")` |
+
+**Исключение:** если `ctx_read`/`ctx_search` вернули `path escapes project root` — native Read/Grep по **абсолютному пути workspace**. Роутер: `23-agent-code-intelligence-router.mdc`.
+
+## ctx_read Modes
+| Goal | Mode |
+|------|------|
+| Edit target | `full` |
+| API surface | `signatures` |
+| Post-edit check | `diff` |
+| Overview | `map` |
+| Region | `lines:N-M` |
+
+## Workflow: Orient → Locate → Read → Edit → Verify → Record
+Use `ctx_overview` or `ctx_compose` first. Then `ctx_search`/`ctx_semantic_search`.
+Read with `ctx_read(path, mode)`. Edit with native Edit or `ctx_edit`.
+Verify: `ctx_read(path, "diff")` + `lean-ctx -c "test cmd"`.
+
+## BSL и граф: lean-ctx не дублирует locate/edit-стек
+См. `23-agent-code-intelligence-router.mdc`. Кратко:
+- **Locate BSL (BP)** → bsl-atlas-bp; **(остальные)** → code-index.
+- **Edit BSL** → Serena `find_symbol` только после locate.
+- **Поток вызовов** → codegraph `codegraph_explore` / `codegraph_impact`.
+- **lean-ctx** — XML, конфиги, diff, shell; не primary locate по BSL.
+
+REMINDER: lean-ctx for files/XML/diff/shell. BSL locate: Atlas (BP) or code-index; edit: Serena; flows: codegraph.
+<!-- /lean-ctx -->

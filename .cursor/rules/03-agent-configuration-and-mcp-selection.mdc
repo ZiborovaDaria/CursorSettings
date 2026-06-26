@@ -1,0 +1,47 @@
+---
+description: USE WHEN starting a 1C task, switching infobases/configurations, choosing MCP tools, or when product/release/object names are unclear.
+globs:
+alwaysApply: false
+---
+
+# Конфигурация и выбор MCP (ЭСТИ)
+
+## Продукт и релиз
+- Конфигурация: **ЭСТИ: Управление фирмой-франчайзи (2.2.5.90)** (`ЭСТИ_УправлениеФирмойФранчайзи_УправлениеНебольшойФирмой_CRM`, `2.2.5.90`).
+- Базовая КФ: **УНФ 3.0.13.342**.
+- Платформа: `8.5.1.1150`, режим совместимости КФ: `Version8_5_1`.
+- При сомнении: `mcp-1c.get_configuration_info` или `bsl-atlas-esti.stats`.
+
+## ИБ и публикация
+- Файловая ИБ: `C:\Users\Admin\Documents\ESTI`
+- HTTP: `http://localhost/ESTI`
+- Аутентификация: Admin / 1
+
+## Главный роутер
+Подробно: `@.cursor/MCP_ROUTER_ESTI.md`. Кратко: `@.cursor/MCP_QUICK_START.md`. Atlas: `25-agent-bsl-atlas-esti.mdc`.
+
+| Задача | Используй первым | Затем при необходимости |
+|---|---|---|
+| Locate BSL/метаданные (выгрузка) | `bsl-atlas-esti.search_function` / `metadatasearch` / `codesearch` | `code-index.grep_body` (`repo`: ESTI) |
+| Метаданные/формы (живая ИБ) | `mcp-1c.get_metadata_tree`, `get_object_structure`, `get_form_structure` | `litecode.search_metadata` |
+| Семантика по смыслу | `bsl-atlas-esti.codesearch` (Chroma 100%) | `litecode.search_by_embedding` |
+| Архитектура, callers/callees | `lean-ctx.ctx_callgraph` / `ctx_impact` | Serena `find_referencing_symbols` |
+| Точечное чтение файлов | `lean-ctx.ctx_read`, `ctx_search` | native Read только при недоступности |
+| Правка кода | `serena.replace_symbol_body/replace_content` | native Edit |
+| Запросы 1С | `mcp-1c.validate_query` → `execute_query` | `1c-rest-mcp.odata_query` |
+| Живая ИБ через OData | `1c-rest-mcp` | `mcp-1c.execute_query` |
+| УНФ/БСП/ITS | `naparnik.config_help(УНФ)` → `fetch_its` | `its_help`, `onec_help` |
+| Синтаксис платформы | `1c-syntax-helper.get_syntax_info` | `naparnik.explain_1c_syntax` |
+| Стандарты | `v8std_search` → `v8std_get_related` | `review_1c_code` |
+| Web UI | `puppeteer.get_content` | `screenshot.login-and-wait` |
+
+## Имена инструментов Atlas
+
+Для сервера **`bsl-atlas-esti`** корректны: `metadatasearch`, `codesearch`, `search_function`, `read_function` (см. `25-agent-bsl-atlas-esti.mdc`).
+
+## Устаревшие имена (вне Atlas)
+
+Не использовать как generic MCP: `get_metadata_details`, `templatesearch`, `graph_dependencies`, `get_method_call_hierarchy`, `verify_xml`.
+
+## Расширения проекта
+Все доработки — в `C:\Cursor\ESTI\Extent\`. Префиксы см. `01-esti-project-context.mdc`.

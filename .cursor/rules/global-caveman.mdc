@@ -1,0 +1,10 @@
+---
+description: "Caveman mode — см. 32-agent-caveman-esti.mdc и ~/.cursor/skills/caveman/"
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/caveman.mdc | edit there, then run sync-global-rules.ps1 -->
+
+Краткий стиль ответа для dev-задач. Детали и task-routing: **`32-agent-caveman-esti.mdc`**, **`USER-RULES.md`**, skill `~/.cursor/skills/caveman/SKILL.md`.
+
+Переключение: `/caveman lite|full|ultra|off`.

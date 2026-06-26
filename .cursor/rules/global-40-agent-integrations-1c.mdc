@@ -1,0 +1,26 @@
+---
+description: USE WHEN developing integrations between 1C and external systems, HTTP/API/XML/JSON exchange, synchronization, import/export, CRM/UNF/BP data transfer, or mapping payloads.
+globs:
+alwaysApply: false
+---
+
+<!-- Source: ~/.cursor/rules/40-agent-integrations-1c.mdc | edit there, then run sync-global-rules.ps1 -->
+# Интеграции SB (БП 3.0)
+
+## Активные интеграции в расширениях
+
+| Расширение | Назначение |
+|---|---|
+| `Extent/SinhUch` | Синхронизация с УНФ/CRM, отражение в учёте (`СинхУч_*`) |
+| `Extent/FTP` | Выгрузка УПД/ПДФ на FTP (`УПДПДФнаFTP_*`) |
+| `Extent/UOD` | Универсальный обмен НДС 22% (`СинхронизацияНДС22_*`) |
+
+## Принципы
+- Новая интеграция — в отдельном расширении с собственным префиксом.
+- HTTP/FTP/XML — проверка на клиенте, обработка данных на сервере.
+- Протокол ошибок: структура `Успех/ТекстОшибки/Данные` или согласованный контракт.
+- Повторный запуск без дублей — идемпотентность по ключу обмена.
+
+## MCP
+- Типовые механизмы обмена БП: `1c-naparnik` → `config_help`, `config_name=Бухгалтерия`
+- Выполнение в ИБ: `1c-rest-mcp` (`http://localhost/SB`)

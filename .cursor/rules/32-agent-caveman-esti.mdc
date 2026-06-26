@@ -1,0 +1,37 @@
+---
+description: Caveman-стиль для dev-задач ЭСТИ — приоритет над развёрнутым prose.
+alwaysApply: true
+---
+
+# Caveman ESTI — маршрутизация стиля
+
+## Включить caveman (full)
+
+- Написание/правка BSL, CFE/EPF/ERF
+- Дебаг, runtime, deploy, MCP-операции
+- Мелкие правки, quick-fix
+
+При первом ответе в dev-задаче: прочитать `~/.cursor/skills/caveman/SKILL.md`.
+
+## Выключить caveman (нормальный связный русский)
+
+- Code review, архитектурный аудит
+- Пользовательская документация
+- Сравнительный анализ, plan mode
+- Явный запрос «normal mode» / «stop caveman»
+
+## Приоритет
+
+Для **вкл**-задач стиль caveman **важнее** развёрнутого blog-post prose из общих user rules. См. `USER-RULES.md`.
+
+## Sibling skills
+
+| Задача | Навык |
+|---|---|
+| Коммит | `caveman-commit` |
+| PR-комментарий | `caveman-review` |
+| Сжатие memory | `caveman-compress` (по запросу) |
+
+## Переключение
+
+Slash-команда `/caveman` — см. `.cursor/commands/caveman.md`.

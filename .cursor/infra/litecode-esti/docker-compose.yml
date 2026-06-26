@@ -1,0 +1,45 @@
+# full profile — ENABLE_EMBEDDING=true, семантический поиск
+name: litecode-esti
+
+services:
+  memgraph:
+    image: memgraph/memgraph:latest
+    restart: unless-stopped
+    volumes:
+      - memgraph_data_esti:/var/lib/memgraph
+    environment:
+      - MEMGRAPH_ARGS=--memory-limit=512 --log-level=WARNING
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'RETURN 1;' | mgconsole || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+  1c-metacode-esti:
+    image: svhov/1c-litecode
+    container_name: 1c-metacode-esti
+    restart: unless-stopped
+    ports:
+      - "6004:6001"
+    volumes:
+      - C:/bsl-litecode-data/ESTI:/app/data:ro
+    environment:
+      - PROJECT_NAME=esti
+      - MEMGRAPH_URI=bolt://memgraph:7687
+      - MCP_PORT=6001
+      - FULL_METADATA_RELOAD=false
+      - LOAD_BSL_SIGNATURES=true
+      - LOAD_FORMS_FROM_XML=true
+      - LOAD_PREDEFINED_VALUES=true
+      - LOAD_ROLE_RIGHTS=true
+      - ENABLE_EMBEDDING=true
+      - EMBEDDING_CONCURRENCY=2
+      - EMBEDDING_BATCH_SIZE=4
+    depends_on:
+      memgraph:
+        condition: service_healthy
+
+volumes:
+  memgraph_data_esti:
+    driver: local

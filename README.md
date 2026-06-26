@@ -1,11 +1,13 @@
 # ESTI — Cursor Agent Settings
 
+Репозиторий: **[github.com/ZiborovaDaria/CursorSettings](https://github.com/ZiborovaDaria/CursorSettings)**
+
 Настройки Cursor-агента для проекта **ЭСТИ** (УНФ 2.2.5.90).
 
 ## Быстрый старт на новом ПК
 
 ```powershell
-git clone <URL> C:\Cursor\ESTI
+git clone https://github.com/ZiborovaDaria/CursorSettings.git C:\Cursor\ESTI
 cd C:\Cursor\ESTI
 powershell -File .cursor\scripts\Install-ESTI-OnNewDevice.ps1 -Profile POWER
 ```

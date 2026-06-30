@@ -17,12 +17,17 @@ $userScripts = Join-Path $env:USERPROFILE '.cursor\scripts'
 
 Write-Host "=== Install project: $projectRoot ===" -ForegroundColor Cyan
 
-# Supercode
-$scSrc = Join-Path $SettingsRepo '.cursor\export\supercode'
+# Supercode memory-bank modes
+$scSrc = Join-Path $SettingsRepo '.supercode'
+if (-not (Test-Path $scSrc)) {
+    $scSrc = Join-Path $SettingsRepo '.cursor\export\supercode'
+}
 $scDst = Join-Path $projectRoot '.supercode'
 if (Test-Path $scSrc) {
     if (Test-Path $scDst) { Remove-Item $scDst -Recurse -Force }
     Copy-Item $scSrc $scDst -Recurse -Force
+    $fix = Join-Path $SettingsRepo '.cursor\scripts\Apply-SupercodeMemoryBankFixes.ps1'
+    if (Test-Path $fix) { & $fix -ModesDir (Join-Path $scDst 'modes\memory-bank') }
     Write-Host "supercode -> .supercode/"
 }
 

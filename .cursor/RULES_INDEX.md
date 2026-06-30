@@ -22,7 +22,11 @@ MCP-файлы: `mcp.profile.power.json`, `mcp.profile.lite.json` (активн�
 | `00-esti-device-profile.mdc` | POWER / LITE |
 | `32-agent-caveman-esti.mdc` | Caveman для dev |
 | `33-agent-error-learning-pipeline.mdc` | Ошибка → memory |
-| `isolation_rules/Core/memory-bank-paths.mdc` | Memory Bank |
+| `isolation_rules/Core/memory-bank-paths.mdc` | Memory Bank paths |
+| `isolation_rules/` (visual-maps, Level1–4) | Supercode modes VAN…ARCHIVE |
+| `.supercode/modes/memory-bank/*.yml` | Custom modes (extension supercode.supercode-sh) |
+
+**Не хранить** `.cursor/rules/_archive/` — дубликат `isolation_rules/` (удаляется `Setup-MemoryBank-AllProjects.ps1`).
 
 Коммуникация: `USER-RULES.md` в корне проекта.
 

@@ -123,4 +123,14 @@ foreach ($proj in $list) {
     Write-Host "  OK: rules, commands, USER-RULES, INSTALL_OTHER_DEVICE"
 }
 
+$mbSetup = Join-Path $settingsRepo '.cursor\scripts\Setup-MemoryBank-AllProjects.ps1'
+if ((Test-Path $mbSetup) -and -not $WhatIf) {
+    Write-Host "`nSetup-MemoryBank-AllProjects..." -ForegroundColor Cyan
+    if ($Projects) {
+        & $mbSetup -Projects $Projects -ManifestPath $manifestFile
+    } else {
+        & $mbSetup -ManifestPath $manifestFile
+    }
+}
+
 Write-Host "`nDone." -ForegroundColor Green

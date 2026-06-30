@@ -1,0 +1,73 @@
+---
+description: Algorithm design guidelines for the Creative Phase
+globs: creative-phase-algorithm.mdc
+alwaysApply: false
+---
+
+# CREATIVE PHASE: ALGORITHM DESIGN
+
+> **TL;DR:** Structured approach for algorithm and business-logic design — requirements, options, complexity, edge cases, documentation before BSL implementation.
+
+## ⚙️ ALGORITHM DESIGN WORKFLOW
+
+```mermaid
+graph TD
+    Start["Algorithm Design Start"] --> Req["1. Requirements & Constraints"]
+    Req --> Inputs["2. Inputs/Outputs & Invariants"]
+    Inputs --> Options["3. Generate 2-4 Options"]
+    Options --> Eval["4. Evaluate: correctness, complexity, maintainability"]
+    Eval --> Decision["5. Select & Document"]
+    Decision --> Valid["6. Verify Against Requirements"]
+
+    style Start fill:#4dbb5f,stroke:#36873f,color:white
+    style Req fill:#ffa64d,stroke:#cc7a30,color:white
+    style Options fill:#4da6ff,stroke:#0066cc,color:white
+    style Eval fill:#d971ff,stroke:#a33bc2,color:white
+    style Decision fill:#4dbbbb,stroke:#368787,color:white
+```
+
+## 📋 ALGORITHM DECISION TEMPLATE
+
+```markdown
+# Algorithm Decision Record
+
+## Context
+- Problem:
+- Requirements:
+- Constraints (platform, performance, transactions, locks):
+
+## Options
+### Option A
+- Approach:
+- Pros:
+- Cons:
+- Complexity / risks:
+
+### Option B
+...
+
+## Recommended Approach
+- Selection:
+- Justification:
+
+## Implementation Guidelines
+- Entry points (modules, procedures):
+- Data access (queries vs object model):
+- Edge cases:
+- Error handling:
+- Test scenarios:
+
+## Verification
+- [ ] Meets requirements
+- [ ] Edge cases covered
+- [ ] Fits CFE policy (&Перед/&После/&ИзменениеИКонтроль)
+```
+
+## 1С-SPECIFIC CHECKS
+
+- Prefer existing typology APIs over reimplementing logic.
+- Batch queries; avoid queries in loops.
+- Consider posting (`Проведение`), locks, and `УстановитьПривилегированныйРежим` only when justified.
+- Document which CFE hooks will host the logic.
+
+Use with `optimized-creative-template.mdc` for progressive documentation in `memory-bank/creative/`.

@@ -58,13 +58,33 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 ```powershell
 cd C:\Cursor\ESTI
 powershell -File .cursor\scripts\Setup-AllProjects-LitecodeMemory.ps1
+powershell -File .cursor\scripts\Setup-MemoryBank-AllProjects.ps1
 ```
 
-Создаёт для каждого проекта:
+**Litecode** — `Setup-AllProjects-LitecodeMemory.ps1` создаёт:
 - `memory-bank/`, `memory.md`, `handoffs/`
 - `C:\bsl-litecode-data\<ID>\` (junction + metadata)
 - `.cursor/infra/litecode-<id>/docker-compose.fast.yml`
 - уникальный порт litecode в `mcp.json`
+
+**Memory Bank + Supercode** — `Setup-MemoryBank-AllProjects.ps1` создаёт/обновляет:
+- `memory-bank/` (L0): `projectbrief.md`, `tasks.md`, `progress.md`, `reflection/`, `archive/`, `creative/`
+- `.supercode/modes/memory-bank/` — custom modes: **VAN**, **PLAN**, **CREATIVE**, **IMPLEMENT**, **REFLECT**, **ARCHIVE**
+- `.cursor/rules/isolation_rules/` — правила для Supercode (без дубликата `_archive/`)
+- `.vscode/extensions.json` → `supercode.supercode-sh`
+
+Принудительное обновление modes/rules из ESTI:
+
+```powershell
+powershell -File .cursor\scripts\Setup-MemoryBank-AllProjects.ps1 -ForceSupercode -ForceIsolationRules
+```
+
+После правки шаблонов modes в ESTI:
+
+```powershell
+powershell -File .cursor\scripts\Apply-SupercodeMemoryBankFixes.ps1
+powershell -File .cursor\scripts\Setup-MemoryBank-AllProjects.ps1 -ForceSupercode
+```
 
 | ID | Litecode port | Данные |
 |---|---|---|
@@ -79,11 +99,18 @@ powershell -File .cursor\scripts\Setup-AllProjects-LitecodeMemory.ps1
 
 **Вручную для каждого проекта:** отчёт по конфигурации в `C:\bsl-litecode-data\<ID>\metadata\ОтчетПоКонфигурации.txt` (нужен для `get_access`).
 
-**Запуск litecode** (один активный проект за раз):
+**Запуск litecode** (каждый проект — свой compose и порт):
 
 ```powershell
-powershell -File C:\Cursor\ESTI\.cursor\scripts\Start-Litecode-Project.ps1 -ProjectId BP
+powershell -File C:\Cursor\ESTI\.cursor\scripts\Start-Litecode-Project.ps1 -ProjectId ESTI
+# или все сразу:
+$ids = 'ESTI','BP','KA','Obshep','UNF12_261','UPO','UT22_92','UT25_85'
+foreach ($id in $ids) { & powershell -File C:\Cursor\ESTI\.cursor\scripts\Start-Litecode-Project.ps1 -ProjectId $id }
 ```
+
+Профиль **fast**: `ENABLE_EMBEDDING=false` — один MCP-tool `search_metadata` (14 op в JSON). Семантика: Atlas (POWER) или `search_by_embedding` при full-профиле.
+
+**Не использовать** устаревший `litecode-group` из `C:\CursorMCP\1c-litecode-mcp\lite\` — только per-project `litecode-*-fast`.
 
 ### Шаг 4. ЭСТИ — доп. настройки (живая ИБ)
 
@@ -114,6 +141,8 @@ cd C:\Cursor\ESTI
 powershell -File .cursor\scripts\Restore-DistributionBundleFromGit.ps1
 powershell -File .cursor\scripts\Export-CursorSettings.ps1
 powershell -File .cursor\scripts\Spread-CursorSettings-ToProjects.ps1
+powershell -File .cursor\scripts\Apply-SupercodeMemoryBankFixes.ps1
+powershell -File .cursor\scripts\Setup-MemoryBank-AllProjects.ps1 -ForceSupercode
 git add -A
 git commit -m "chore: sync cursor settings all projects"
 git push
@@ -141,10 +170,11 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 | `global-*.mdc` | `.cursor/rules/` каждого проекта | `sync-global-rules.ps1` |
 | Rules 32–41, 00-core | `.cursor/rules/` | `Spread-CursorSettings-ToProjects.ps1` |
 | Commands | `.cursor/commands/` | Spread |
-| supercode | `.supercode/` | Install-Project |
-| Memory Bank L0 | `memory-bank/`, `memory.md` | `Setup-AllProjects-LitecodeMemory.ps1` |
+| supercode | `.supercode/modes/memory-bank/` | `Setup-MemoryBank-AllProjects.ps1` |
+| isolation_rules | `.cursor/rules/isolation_rules/` | `Setup-MemoryBank-AllProjects.ps1` (шаблон ESTI) |
+| Memory Bank L0 | `memory-bank/`, `memory.md` | `Setup-MemoryBank-AllProjects.ps1` |
 | Serena L2 | `.serena/memories/` | локально per project |
-| Контекст КФ | `01-*-project-context.mdc` | в каждом проекте |
+| Контекст КФ | `00-*-core.mdc` / skill проекта | в каждом проекте |
 | MCP | `mcp.json`, MCP_ROUTER_* | локально per project |
 | Litecode data | `C:\bsl-litecode-data\<ID>` | `Setup-AllProjects-LitecodeMemory.ps1` + отчёт КФ |
 | Atlas index | `C:\bsl-atlas-indexes\<ID>` | per project при POWER |

@@ -44,4 +44,4 @@ alwaysApply: false
 Не использовать как generic MCP: `get_metadata_details`, `templatesearch`, `graph_dependencies`, `get_method_call_hierarchy`, `verify_xml`.
 
 ## Расширения проекта
-Все доработки — в `C:\Cursor\ESTI\Extent\`. Префиксы см. `01-esti-project-context.mdc`.
+Все доработки — в `C:\Cursor\ESTI\Extent\`. Префиксы см. `00-esti-core.mdc`.

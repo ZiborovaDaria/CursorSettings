@@ -1,0 +1,29 @@
+---
+description: 
+globs: **/*.ps1,**/*.psm1,**/*.psd1
+alwaysApply: false
+---
+
+
+# Auto: Windows PowerShell
+
+Apply when writing or running PowerShell.
+
+## Rules
+
+- Use PowerShell syntax, not bash.
+- Quote Windows paths with spaces.
+- Prefer `Join-Path` for paths.
+- Do not use `&&` unless PowerShell version supports it and project permits it.
+- Use `Invoke-WebRequest` / `Invoke-RestMethod` carefully; avoid alias confusion with `curl`.
+- Check `$LASTEXITCODE` after external executables.
+- Use `-ErrorAction Stop` for commands that must fail loudly.
+- Do not print secrets.
+
+## 1C Designer commands
+
+- Resolve platform path from `.dev.env`.
+- Write log to configured `LOG_PATH` or a temp path.
+- Use file infobase `/F` or server infobase `/S` based on `INFOBASE_KIND`.
+- Omit `/N` and `/P` when credentials are empty.
+

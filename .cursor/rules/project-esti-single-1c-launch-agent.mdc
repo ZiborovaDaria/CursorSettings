@@ -1,0 +1,60 @@
+---
+description: Use before launching 1C Designer/Enterprise, LoadConfigFromFiles, UpdateDBCfg, tests, dump commands, or anything that starts 1cv8/1cv8c.
+globs:
+alwaysApply: false
+---
+
+# Project: Single 1C Launch
+
+Use this rule before any command that starts `1cv8.exe`, `1cv8c.exe`, Designer, Enterprise, extension load, database update or automated test session.
+
+## Read parameters
+
+Read `.dev.env`:
+
+- `PLATFORM_BIN`
+- `INFOBASE_MODE`
+- `INFOBASE_PATH` or `INFOBASE_CONNECTION`
+- `INFOBASE_USER`, `INFOBASE_PASSWORD`, `USE_1C_AUTH`
+- `LOGS_DIR`
+- `DEFAULT_EXTENSION_NAME`
+
+Do not hardcode local paths from old rules if `.dev.env` exists.
+
+## One-instance rule
+
+1. Check for existing `1cv8` / `1cv8c` processes.
+2. Do not run Designer and Enterprise simultaneously on the same infobase.
+3. Do not chain `DESIGNER LoadConfigFromFiles → UpdateDBCfg → ENTERPRISE` without pause/check.
+4. After Designer operation, wait for process exit and license release before Enterprise/test.
+5. Write logs to `.logs/` or `LOGS_DIR`.
+
+## PowerShell pattern
+
+```powershell
+$ErrorActionPreference = "Stop"
+$PlatformBin = $env:PLATFORM_BIN
+$InfoBasePath = $env:INFOBASE_PATH
+$LogDir = if ($env:LOGS_DIR) { $env:LOGS_DIR } else { ".logs" }
+New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
+
+Get-Process 1cv8,1cv8c -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,Path
+```
+
+Ask before killing processes unless the user explicitly requested cleanup.
+
+## Authentication
+
+If `USE_1C_AUTH=false`, do not pass `/N` and `/P`.
+
+If credentials are empty, do not invent them.
+
+## Verification report
+
+Always report:
+
+- command type;
+- infobase target without secrets;
+- log path;
+- whether process conflict was detected;
+- result.

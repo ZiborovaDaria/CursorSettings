@@ -1,0 +1,36 @@
+---
+description: Use for 1C debugging, runtime errors, failed validation, regression risk, final review and readiness checklist.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: Debug and Verification
+
+## Debug loop
+
+1. Reproduce or restate the error.
+2. Locate exact object/module/procedure.
+3. Check recent changes and related typical code.
+4. Form hypothesis.
+5. Make minimal fix.
+6. Validate.
+7. Record lesson in `memory-bank/reflection/` if non-obvious.
+
+## Verification after change
+
+- BSL syntax: syntaxcheck / BSL LS.
+- Quality: check_1c_code / review_1c_code / v8std if available.
+- Metadata: XML/schema/form validation.
+- Behavior: manual scenario or test instruction.
+- Impact: usages/call chain/register movements/roles if relevant.
+
+## Delivery gate
+
+Final response must include:
+
+- What changed.
+- Where changed.
+- How to verify.
+- Known risks or unavailable checks.
+

@@ -1,0 +1,47 @@
+---
+description: 
+globs: **/*.bsl,**/*.os,**/*.sdbl
+alwaysApply: false
+---
+
+
+# Auto: BSL Standards
+
+Apply when editing or reviewing BSL/OneScript/SDBL files.
+
+## Structure
+
+- Business logic belongs in common modules, object/manager modules or processing modules; form module is a thin UI layer.
+- Use Russian БСП-style regions. Do not create pseudo-regions via comments.
+- Public exported procedures/functions go to `#Область ПрограммныйИнтерфейс`.
+- Internal helpers go to `#Область СлужебныеПроцедурыИФункции`.
+- Avoid regions inside procedures/functions.
+
+## Client/server
+
+- `&НаКлиенте`: UI, current row, notifications, command handlers; no DB queries.
+- `&НаСервереБезКонтекста`: DB queries, writes, heavy logic; pass parameters explicitly.
+- `&НаСервере`: only when form context is required.
+- Do not call server from client inside loops.
+
+## Code style
+
+- One statement per line.
+- Prefer early return over deep nesting.
+- Do not compare booleans to `Истина`/`Ложь`.
+- Avoid `?(...)` in project code unless explicitly approved.
+- Do not use `Выполнить()` / `Вычислить()` without a documented reason.
+- Do not concatenate user input into queries.
+- Do not store credentials in code.
+
+## Data operations
+
+- Use parameterized queries.
+- Batch operations where possible.
+- Check rights, locks, posting behavior and change prohibition dates when business data can be affected.
+- For complex return values use `Структура` with explicit keys such as `Успех`, `ТекстОшибки`, `Данные`.
+
+## Verification
+
+After BSL changes, run available validation: syntaxcheck / check_1c_code / review_1c_code / BSL LS / project tests. If unavailable, use a manual checklist and report the limitation.
+

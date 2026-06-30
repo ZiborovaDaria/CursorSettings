@@ -1,0 +1,31 @@
+---
+description: Use for external 1C processing/report EPF/ERF tasks, service operations, migrations, one-shot tools and managed form processing.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: EPF/ERF
+
+## When to prefer EPF/ERF
+
+- One-shot service operation.
+- Data migration/correction with protocol.
+- Report or diagnostic tool that should not change configuration metadata.
+- Temporary admin tool.
+
+## Rules
+
+- Do not put long business logic in form command handlers.
+- Separate UI, server logic and validation.
+- For data changes, include dry-run/preview mode when practical.
+- For mass changes, produce protocol: row, object, action, result, error text.
+- Do not run destructive data changes without explicit user confirmation.
+
+## Verification
+
+- Check form opens.
+- Check server calls.
+- Check rights and transaction behavior.
+- Check on test infobase before production.
+

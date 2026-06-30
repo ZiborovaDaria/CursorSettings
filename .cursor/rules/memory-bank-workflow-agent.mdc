@@ -1,0 +1,47 @@
+---
+description: Use for Memory Bank modes VAN, PLAN, CREATIVE, BUILD, REFLECT, ARCHIVE or when the task needs persistent project context.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: Memory Bank Workflow
+
+## VAN
+
+- Understand request.
+- Check `memory-bank/` structure.
+- Read current task/context.
+- Determine complexity L1–L4.
+- Update `tasks.md` and `activeContext.md`.
+
+## PLAN
+
+- Define files/objects to inspect.
+- Define risks, assumptions, verification.
+- Do not implement yet unless L1 quick fix.
+
+## CREATIVE
+
+Use when there are multiple valid approaches:
+
+- CFE vs EPF vs main configuration.
+- New register vs existing register.
+- Form extension vs separate processing.
+- Query redesign vs procedural post-processing.
+- Background job vs synchronous operation.
+
+Record decision in `memory-bank/creative/<task>.md`.
+
+## BUILD
+
+Implement only planned scope. Update `progress.md`.
+
+## REFLECT
+
+Record what worked, what failed, hidden constraints, tests, next risks.
+
+## ARCHIVE
+
+Move completed task summary to `memory-bank/archive/<date>-<slug>.md` and reset `tasks.md` current section.
+

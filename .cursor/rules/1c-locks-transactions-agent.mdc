@@ -1,0 +1,36 @@
+---
+description: Use when task touches posting, write paths, transactions, managed locks, registers, stock, money, settlements or concurrent operations.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: Locks and Transactions
+
+## When to activate
+
+- `ОбработкаПроведения`
+- `ПередЗаписью` / `ПриЗаписи`
+- register movements
+- stock/reserve/money/settlements
+- background jobs
+- integrations that write data
+- mass corrections
+
+## Rules
+
+- Do not open a transaction without checking whether the platform/document write already has one.
+- Keep transaction scope minimal.
+- Use stable lock order across objects/registers.
+- Avoid user interaction inside transaction.
+- Avoid external HTTP/file calls inside transaction.
+- For mass updates, process in batches and log protocol.
+
+## Review questions
+
+- What data can be changed?
+- What happens on failure halfway?
+- Can another session write the same objects/registers?
+- Is the lock order deterministic?
+- Is rollback acceptable?
+

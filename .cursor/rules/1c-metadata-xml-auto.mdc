@@ -1,0 +1,29 @@
+---
+description: 
+globs: **/*.xml,**/Ext/**/*.xml,**/Extensions/**/*.xml,**/Forms/**/*.xml
+alwaysApply: false
+---
+
+
+# Auto: 1C Metadata XML
+
+Apply when editing 1C metadata XML, extension XML, form XML, roles, reports, layouts.
+
+## Rules
+
+- Prefer metadata tools/skills over manual XML edits.
+- Verify object type and schema before generating XML.
+- Preserve UUIDs and order of `ChildObjects` unless creating a new object.
+- Do not invent mandatory XML nodes; copy from a matching project example.
+- For forms, verify `Form.xml` and `Form.Module.bsl` together.
+- For roles/RLS, verify permissions and impact.
+
+## Common checks
+
+- Unique UUIDs.
+- Required nodes present.
+- Correct object path.
+- Correct `ObjectBelonging` for extensions.
+- Correct names, synonyms, type descriptions.
+- No broken references to missing metadata.
+

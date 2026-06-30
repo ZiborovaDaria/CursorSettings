@@ -1,15 +1,14 @@
-# /doctor — проверка стека ESTI
+# /doctor — проверка правил и окружения
 
-## Действия
+Проверь:
 
-1. Запустить `.cursor/scripts/Test-ESTI-MCPStack.ps1` (если есть) или проверить MCP вручную:
-   - `bsl-atlas-esti` (POWER) / `litecode` (LITE)
-   - `serena`, `lean-ctx`, `1c-naparnik`, `v8std`
-2. Проверить `device_profile` в `00-esti-device-profile.mdc` vs `.cursor/mcp.json`
-3. **Опционально** — deps навыков (идемпотентно):
-
-```powershell
-powershell -File .cursor/scripts/Install-ESTI-SkillDeps.ps1
-```
-
-4. Краткий отчёт: что OK, что сломано, что нужно пользователю.
+1. Есть ли `AGENTS.md`, `memory.md`, `.cursorrules`.
+2. Есть ли `.cursor/rules/*.mdc` и корректный frontmatter.
+3. Есть ли `.cursor/commands/van.md`, `plan.md`, `creative.md`, `implement.md`, `build.md`, `reflect.md`, `archive.md`.
+4. Есть ли старые активные дубли в `_legacy/*.mdc`; предложи переименовать в `.mdc.off`.
+5. Есть ли `memory-bank/tasks.md`, `activeContext.md`, `progress.md`.
+6. Есть ли `.dev.env`; если нет — предложи скопировать `.dev.env.example`.
+7. Проверить, что skills из skill-router физически существуют.
+8. Проверить, что `/implement` и `/build` не конфликтуют.
+9. Проверить, что OpenSpec optional-only.
+10. Дать отчет: OK / WARNING / BLOCKER.

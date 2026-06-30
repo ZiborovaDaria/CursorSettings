@@ -1,0 +1,40 @@
+---
+description: Use when creating or editing 1C managed forms, form modules, commands, events, dynamic lists, tabular parts or extension UI.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: Managed Forms
+
+## Form discipline
+
+- Form module contains only logic required for this form.
+- Heavy logic goes to server/common module.
+- Do not create DB queries on client.
+- Do not invent form element names or event handlers; verify in `Form.xml` / metadata / existing code.
+- Add UI elements minimally and place them near related typical elements.
+
+## Reserved names
+
+Do not use local variables that conflict with common form properties:
+
+- `ПараметрыВыбора`
+- `СвязиПараметровВыбора`
+- `СписокВыбора`
+- `ПараметрыОтбора`
+- `ОтборСтрок`
+
+## Extension UI
+
+- Do not delete typical form elements.
+- Prefer adding own group/command near existing typical command.
+- Preserve user command interface and roles.
+
+## Verification
+
+- Form XML is valid.
+- Command is visible where expected.
+- Client/server directives are correct.
+- No server calls in UI loops.
+

@@ -1,0 +1,42 @@
+---
+description: Always apply. Safety scope for 1C modifications, secrets, destructive actions and uncertainty.
+globs:
+alwaysApply: true
+---
+
+# Always: Safe Scope
+
+## Never do silently
+
+- Do not modify vendor/base configuration without explicit user approval.
+- Do not delete files, rewrite generated directories, or reset git history without approval.
+- Do not run commands that can update an infobase, load configuration, or execute data changes without checking scope and `.dev.env`.
+- Do not use real credentials from examples or invent passwords.
+- Do not expose secrets from `.dev.env`, connection strings or logs.
+
+## Uncertainty protocol
+
+If a critical 1C object/signature/event is unknown, do not guess. Use:
+
+```text
+CONFUSION: <what is unclear>
+OPTIONS:
+A) ...
+B) ...
+RECOMMEND: <best option> because ...
+```
+
+For non-critical gaps, make a safe assumption, mark it, and continue.
+
+## CFE policy
+
+Default: `&Перед`, `&После`, `&ИзменениеИКонтроль`.
+
+`&Вместо` is a BLOCKER:
+
+1. Show why safer annotations are impossible.
+2. Show risk for updates/regression.
+3. Ask for explicit approval.
+4. Provide rollback plan.
+
+Do not use `&Вместо` silently.

@@ -1,18 +1,12 @@
-# Выгрузка объектов из ИБ в репозиторий (проект ЭСТИ)
+# getconfigfiles — выгрузка/обновление файлов конфигурации
 
-Пути и платформа — из `infobasesettings.md` и `.dev.env`.
+Используй для задач, где нужно получить актуальные файлы конфигурации/расширения до анализа или правки.
 
-**Шаг 1 — выгрузка по списку:**
-
-```powershell
-$V8 = 'C:\Program Files\1cv8\8.5.1.1150\bin\1cv8.exe'
-$IB = 'C:\Users\Admin\Documents\ESTI'
-$Root = 'C:\Cursor\ESTI'
-$Log = 'C:\Cursor\ESTI\logs\dump.log'
-New-Item -ItemType Directory -Force -Path (Split-Path $Log) | Out-Null
-& $V8 DESIGNER /F $IB /N Admin /P 1 /DisableStartupMessages /DumpConfigToFiles $Root -listFile "$Root\repoobjects.txt" /Out $Log
-```
-
-Выгружать **в текущий каталог** `C:\Cursor\ESTI`, без вложенного подкаталога.
-
-Перед выгрузкой заполнить **`repoobjects.txt`** (MCP: `get_metadata_tree`, `get_object_structure`).
+1. Прочитай `.dev.env`.
+2. Подключи `project-esti-single-1c-launch-agent.mdc`.
+3. Проверь процессы `1cv8/1cv8c`.
+4. Определи цель: основная конфигурация, расширение, отдельный объект, metadata dump.
+5. Не запускай Designer-команды без понимания, куда выгружается результат.
+6. Логи писать в `.logs/`.
+7. После выгрузки обнови `memory-bank/progress.md`.
+8. Если команда не была выполнена, объясни почему и дай безопасную ручную команду.

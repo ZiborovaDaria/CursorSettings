@@ -1,0 +1,44 @@
+---
+description: Use when classifying 1C task complexity and deciding how much planning, creative design, validation and documentation are required.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: Memory Bank Levels
+
+## L1 — Quick fix
+
+Examples: typo, one-line fix, obvious condition, small docs correction.
+
+Process: short plan → edit → minimal validation → report.
+
+## L2 — Local enhancement
+
+Examples: one button, one form behavior, one report setting, one local EPF improvement.
+
+Process: VAN → PLAN → BUILD → REFLECT/ARCHIVE light.
+
+## L3 — Feature
+
+Examples: extension feature, new EPF/ERF, several modules, report with SKD, exchange scenario, register changes.
+
+Process: VAN → PLAN → CREATIVE if needed → BUILD → REFLECT → ARCHIVE.
+
+## L4 — System/architecture
+
+Examples: migration, integration, several subsystems, architecture of local LLM ↔ Cursor ↔ MCP tools, mass data correction with accounting impact.
+
+Process: full Memory Bank, design document, phased implementation, rollback plan, expanded verification.
+
+## Escalate if touches
+
+- posting/register movements;
+- RLS/roles;
+- transactions/locks;
+- public export API;
+- adopted objects in extension;
+- background/scheduled jobs;
+- integrations;
+- mass data correction.
+

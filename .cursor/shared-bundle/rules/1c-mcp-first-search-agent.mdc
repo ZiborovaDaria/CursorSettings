@@ -1,0 +1,34 @@
+---
+description: Use before any 1C project-source search: code, metadata, usages, call chains, forms, layouts, queries, object structure.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: MCP-first Search
+
+## Rule
+
+For 1C project-source search, use project index/MCP tools before Grep/Glob when available.
+
+## Priority
+
+1. Metadata graph / code metadata / business search / object dossier.
+2. Code index / search function / module structure / call hierarchy.
+3. Retry with broader/narrower query or grep-like mode inside the index if tool supports it.
+4. Only then native Grep/Glob, with a note why MCP/index did not return enough.
+
+## Native Grep/Glob allowed immediately for
+
+- Markdown/rules/docs.
+- JSON/YAML/config files.
+- logs/build artifacts.
+- file already read in this session.
+- non-1C source not indexed by MCP.
+
+## Response note
+
+If Grep/Glob was used on 1C project source, include one short line:
+
+`MCP/index tried: <...>; fallback to Grep because <...>.`
+

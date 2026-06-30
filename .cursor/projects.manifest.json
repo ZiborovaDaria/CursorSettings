@@ -7,7 +7,7 @@
       "path": "C:\\Cursor\\ESTI",
       "title": "ЭСТИ УНФ 2.2.5.90",
       "skill": "esti-project",
-      "contextRule": "00-esti-core.mdc",
+      "contextRule": "project-esti-context-agent.mdc",
       "cavemanRule": "32-agent-caveman-esti.mdc",
       "mcpDocs": ["MCP_ROUTER_ESTI.md", "MCP_QUICK_START.md"],
       "deviceProfile": true,

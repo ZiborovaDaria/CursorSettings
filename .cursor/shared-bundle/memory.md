@@ -1,37 +1,34 @@
-# Память проекта ESTI — маршрутизация
+# memory.md — память проекта и маршрутизация v3
 
-Краткая карта слоёв. Детали: `.cursor/rules/33-agent-error-learning-pipeline.mdc`.
+## Слои памяти
 
-## Слои
+| Слой | Где | Что хранить | Когда использовать |
+|---|---|---|---|
+| L0 | `memory-bank/` | текущие задачи, планы, прогресс, reflection, archive | каждый нетривиальный workflow |
+| L1 | lean-ctx `ctx_knowledge` или аналог | gotcha после конкретных ошибок | перед fix и после успешного fix |
+| L2 | `.serena/memories/` или проектная память | устойчивые инварианты проекта | если факт будет важен месяцами |
+| L3 | `.cursor/rules/*.mdc` | жесткие правила | только при повторе ≥2 или critical |
 
-| Слой | Где | Что хранить |
-|------|-----|-------------|
-| **L0** | `memory-bank/` | Задачи, reflection, archive (Memory Bank / Supercode) |
-| **L1** | lean-ctx `ctx_knowledge` | Gotcha после ошибок (recall перед fix, remember после) |
-| **L2** | `.serena/memories/` | Устойчивые инварианты; вход `mem:core` |
-| **L3** | `.cursor/rules/*.mdc` | Жёсткие правила при повторе ≥2 или critical |
+## Error → memory pipeline
 
-## Конвейер error → memory
-
+```text
+Detect
+  → Recall
+  → Fix
+  → Verify
+  → Store
+  → Promote to rule only if repeated/critical
 ```
-Detect (check_1c_code, v8std, runtime)
-  → Recall (ctx_knowledge, read_memory pitfalls, bsl-atlas)
-  → Fix (MCP_ROUTER_ESTI)
-  → Store (remember, write_memory, reflection/*.md)
-  → Promote (.mdc) — редко
-```
 
-## Команды Cursor
+## Команды
 
-- `capture-error` — recall по ошибке
-- `reflect-lesson` — reflection + store
-- `/doctor`, `/handoff`, `/caveman` — см. `.cursor/RULES_INDEX.md`
-
-## Карта правил
-
-`.cursor/RULES_INDEX.md` — always-on, on-demand, MCP, навыки.
+- `capture-error` — разобрать ошибку, найти похожие случаи, предложить fix.
+- `reflect-lesson` — записать урок после исправления.
+- `/reflect` — рефлексия по завершенной задаче.
+- `/archive` — закрытие задачи.
 
 ## Не дублировать
 
-- One-off ошибки — только L1 или reflection, не Serena
-- 1c-templates-mcp не используется (достаточно Atlas + litecode + memories)
+- One-off ошибки не превращать сразу в `.mdc`.
+- Секреты и локальные пароли не хранить в `memory.md`.
+- Большие временные логи не хранить в Memory Bank; сохранять только выводы.

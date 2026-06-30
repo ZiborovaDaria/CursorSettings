@@ -1,0 +1,50 @@
+---
+description: Use for selecting the full ESTI toolchain playbook: Atlas/litecode/Serena/naparnik/v8std/YAxUnit/deploy.
+globs:
+alwaysApply: false
+---
+
+# Project: ESTI Tooling Playbooks
+
+## Quick-fix BSL (<20 lines)
+
+1. Locate exact procedure/module.
+2. Read enough surrounding code.
+3. Edit minimally.
+4. Run `check_1c_code` if available.
+5. Update `progress.md` only if task is tracked.
+
+## Full-cycle BSL/CFE
+
+1. `/van` or implicit VAN in Agent Mode.
+2. Locate original code and typical analogue.
+3. Plan change and risk.
+4. Creative only if architecture/hook choice is non-obvious.
+5. Implement.
+6. Verify: check → review → v8std → test/deploy if possible.
+7. Reflect/archive.
+
+## Metadata/Form.xml
+
+1. Read object structure.
+2. Find analogue in same configuration.
+3. Edit XML through metadata-aware tool when possible.
+4. Validate XML and UUID references.
+5. Load/check in Designer only through single-1C-launch rule.
+
+## Query/performance
+
+1. Locate query.
+2. Check virtual table parameters.
+3. Check joins, indexes, temp tables, query-in-loop.
+4. Run review/check.
+5. Capture benchmark or explain that benchmark was not run.
+
+## Error fixing
+
+1. `capture-error`.
+2. Recall existing pitfalls.
+3. Locate failing procedure.
+4. Fix.
+5. Verify.
+6. `reflect-lesson` if lesson is reusable.

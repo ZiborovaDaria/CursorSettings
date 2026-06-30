@@ -1,0 +1,35 @@
+---
+description: Use when writing, reviewing or optimizing 1C queries, SKD/DCS, virtual tables, temporary tables, registers and batch operations.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: 1C Queries and Performance
+
+## Query rules
+
+- Verify metadata before writing query text.
+- Always use parameters via `Запрос.УстановитьПараметр()`.
+- Never concatenate user input into query text.
+- Use aliases with `КАК`.
+- Do not query inside loops; use batch query or temporary tables.
+- For virtual tables, pass filters as virtual table parameters when applicable, not only in `ГДЕ`.
+- Use `ПЕРВЫЕ N` when only a subset is needed.
+- Store query result in a variable before selection/unload.
+
+## Performance checklist
+
+- Data volume.
+- Indexes and dimensions.
+- Virtual table filters.
+- Temporary tables for multi-step logic.
+- No needless dereferencing of composite reference fields.
+- No server calls from client loops.
+
+## Verification
+
+- Explain expected row count/cardinality.
+- Check query plan/performance tools if available.
+- For SKD, check parameters, resources, user settings and access restrictions.
+

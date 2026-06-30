@@ -1,0 +1,18 @@
+---
+description: Always apply. Tiny trigger for error-learning; details are in project-esti-error-learning-agent.mdc.
+globs:
+alwaysApply: true
+---
+
+# Always: Error Learning Trigger
+
+If any of these happen, load `project-esti-error-learning-agent.mdc` or skill `error-learning-1c`:
+
+- `check_1c_code` / `review_1c_code` failed;
+- `v8std` diagnostic appears;
+- runtime/deploy/test failed;
+- user invokes `capture-error` or `reflect-lesson`;
+- the same mistake appears again;
+- risky CFE/base-config change was attempted.
+
+Do not create a new `.mdc` rule for one-off issues. Store first in reflection/L1 memory; promote only if repeated or critical.

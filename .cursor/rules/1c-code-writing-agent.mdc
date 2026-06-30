@@ -1,0 +1,44 @@
+---
+description: Use whenever the user asks to write, edit, generate, refactor or review 1C/BSL code, even before a target .bsl file exists.
+globs:
+alwaysApply: false
+---
+
+# Agent: 1C Code Writing
+
+Use for any request to create/modify/review BSL, CFE, EPF, ERF, metadata XML, PowerShell automation for 1C or query text.
+
+## Before writing code
+
+1. Identify delivery type: CFE, EPF, ERF, metadata XML, script, common module, form module, object/manager module.
+2. Load matching detailed rule/skill.
+3. Find existing project analogue before inventing names/signatures/APIs.
+4. Confirm exact object/module/form/event if tied to metadata.
+5. If critical details are missing, output `CONFUSION`; otherwise make safe assumptions and continue.
+
+## Code generation policy
+
+- Write real code when user asked for implementation.
+- Do not stop at analysis if enough context exists.
+- Do not produce pseudo-code when real BSL can be written.
+- Use placeholders only for truly unknown metadata and mark them clearly.
+- Keep changes minimal and copy-paste ready.
+- Do not modify base configuration without approval.
+
+## BSL quality
+
+- Parameterized queries only.
+- No concatenation of user input into query text.
+- Client code: UI and server calls only.
+- DB/heavy logic: server/common module.
+- Avoid server calls in client loops.
+- Avoid `Выполнить()` / `Вычислить()` unless explicitly justified.
+- Return structured results for complex operations: `Успех`, `ТекстОшибки`, `Данные`.
+- Comments only for non-obvious business logic/integration assumptions.
+
+## After writing code
+
+1. Run available validation or state why not run.
+2. For failures, use error-learning pipeline.
+3. Report changed files/objects, verification and risks.
+4. Update `memory-bank/progress.md` for non-trivial tasks.

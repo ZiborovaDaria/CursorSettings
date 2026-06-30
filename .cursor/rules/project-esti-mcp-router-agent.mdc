@@ -1,0 +1,64 @@
+---
+description: Use when selecting MCP/tools for ESTI 1C code search, locate, understand, edit, verify, roles, metadata and impact analysis.
+globs:
+alwaysApply: false
+---
+
+# Project: ESTI MCP Router
+
+Use the chain:
+
+```text
+Locate → Understand → Edit → Verify → Store lesson if needed
+```
+
+Do not start with global Grep/Glob if MCP/index tools are available.
+
+## Device profile
+
+Read `DEVICE_PROFILE` / `MCP_PROFILE` from `.dev.env`.
+
+### POWER profile
+
+| Phase | Primary | Fallback |
+|---|---|---|
+| Locate BSL/procedure | `bsl-atlas-esti` `search_function` / `codesearch` | `code-index` |
+| Locate metadata | `bsl-atlas-esti` `metadatasearch` | `litecode browse/object_structure` |
+| Semantic search | `codesearch` | `metadatasearch` + targeted grep |
+| Roles/access | `litecode.get_access` | metadata search |
+| Callers/impact | `lean-ctx.ctx_callgraph` / `ctx_impact` | Serena references |
+| Edit | Serena after locate | native edit |
+| Verify | naparnik + v8std | manual checklist |
+| Live infobase | `mcp-1c` | `1c-rest-mcp` |
+
+### LITE profile
+
+| Phase | Primary | Fallback |
+|---|---|---|
+| Locate | `litecode.search_metadata` / `get_routines` | `code-index.grep_body` |
+| Semantic search | `litecode.search_by_embedding` | `find_routines_by_description` |
+| Metadata graph | `litecode.get_references` / `object_structure` | `get_data_links` |
+| Roles/access | `litecode.get_access` | targeted metadata read |
+| Edit | Serena after locate | native edit |
+| Verify | naparnik + v8std | manual checklist |
+
+Do not call heavy `bsl-atlas-esti` on LITE if `.dev.env` says it is disabled.
+
+## Locate rules
+
+| Intent | First action |
+|---|---|
+| Known procedure name | search exact function/routine |
+| Unknown meaning | semantic search by business phrase |
+| Metadata object | metadata search/browse/object_structure |
+| Role/access | `get_access` before grep |
+| Public API change | callers/impact before edit |
+| CFE patch | locate original method/procedure + extension analogue |
+
+## Anti-patterns
+
+- Serena `find_symbol` across whole configuration before locate.
+- Calling Atlas + litecode + code-index for the same simple query.
+- Using grep for role rights when `get_access` exists.
+- Editing by file name guess without confirming metadata object.
+- Running verification before saving the changed target.

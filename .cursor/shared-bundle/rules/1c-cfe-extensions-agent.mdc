@@ -1,0 +1,56 @@
+---
+description: Use for 1C extensions CFE: new objects, form/module patches, annotations, safe extension delivery, validation.
+globs:
+alwaysApply: false
+---
+
+# Agent: 1C CFE Extensions
+
+## Default delivery
+
+For typical configurations, prefer extension CFE over base configuration change.
+
+## Before change
+
+1. Locate original object/module/procedure.
+2. Find typical/project analogue.
+3. Decide hook type.
+4. Check whether change affects public API, rights, forms, registers, postings or data integrity.
+5. Update `memory-bank/tasks.md` for L2+ tasks.
+
+## Hook policy
+
+Allowed by default:
+
+- `&Перед`
+- `&После`
+- `&ИзменениеИКонтроль`
+
+BLOCKER:
+
+- `&Вместо`
+- full replacement of standard behavior
+- skipping `ПродолжитьВызов()` where continuation is required
+
+To use `&Вместо`, agent must show:
+
+1. why safer hooks do not work;
+2. risk for updates;
+3. rollback plan;
+4. explicit user approval.
+
+## Object policy
+
+- New objects: use prefix from `.dev.env OBJECT_PREFIX`.
+- Do not duplicate existing metadata by near-synonym.
+- Do not add roles/subsystems silently.
+- Do not rely on hidden standard forms without locating them.
+
+## Validation
+
+After change:
+
+- syntax/check_1c_code;
+- CFE validation if tool exists;
+- metadata XML validation if XML touched;
+- deploy_and_test if runtime behavior changed.

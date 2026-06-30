@@ -1,0 +1,40 @@
+---
+description: Use when invoked by Python orchestrator, cursor agent CLI, AI_AGENT mode, or when the prompt asks for tool_plan_json.
+globs:
+alwaysApply: false
+---
+
+# Project: Orchestrator Bridge
+
+This rule is mandatory when the agent is invoked by `orchestrator.py`, `cursor agent`, `AI_AGENT`, or the user asks for `tool_plan_json`.
+
+## Output contract
+
+Return ONLY valid JSON. No Markdown, no prose, no code fences.
+
+Default shape:
+
+```json
+{
+  "tool_plan_json": {
+    "task_type": "code_analysis|metadata_lookup|query_template|execution_request|doc_summary|unknown",
+    "confidence": 0.0,
+    "steps": [],
+    "requires_user_approval": false,
+    "safety_notes": [],
+    "placeholders": {},
+    "result_format": "text|json|markdown|file"
+  }
+}
+```
+
+## Safety
+
+- Do not execute real financial/data-changing queries from orchestrator mode.
+- Use placeholders for sensitive values: `<INFОBASE>`, `<ORG>`, `<DATE_FROM>`, `<DATE_TO>`, `<COUNTERPARTY>`.
+- Allowed: code analysis, metadata structure lookup plan, query template generation, test plan generation.
+- If the request requires live data or mutation, set `requires_user_approval=true`.
+
+## No normal answer
+
+If this mode is active, do not respond with a normal chat explanation. Return JSON only.

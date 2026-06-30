@@ -1,0 +1,73 @@
+---
+description: Use when creating a new 1C module or restructuring BSL module regions: common module, object module, manager module, form module.
+globs: 
+alwaysApply: false
+---
+
+
+# Agent: 1C Module Structure
+
+Use Russian БСП-style regions.
+
+## Common module template
+
+```bsl
+#Область ПрограммныйИнтерфейс
+
+#КонецОбласти
+
+#Область СлужебныйПрограммныйИнтерфейс
+
+#КонецОбласти
+
+#Область СлужебныеПроцедурыИФункции
+
+#КонецОбласти
+```
+
+## Object / manager module template
+
+```bsl
+#Если Сервер Или ТолстыйКлиентОбычноеПриложение Или ВнешнееСоединение Тогда
+
+#Область ПрограммныйИнтерфейс
+
+#КонецОбласти
+
+#Область ОбработчикиСобытий
+
+#КонецОбласти
+
+#Область СлужебныеПроцедурыИФункции
+
+#КонецОбласти
+
+#КонецЕсли
+```
+
+## Form module template
+
+```bsl
+#Область ОбработчикиСобытийФормы
+
+#КонецОбласти
+
+#Область ОбработчикиСобытийЭлементовШапкиФормы
+
+#КонецОбласти
+
+#Область ОбработчикиСобытийЭлементовТаблицыФормы<ИмяТаблицы>
+
+#КонецОбласти
+
+#Область ОбработчикиКомандФормы
+
+#КонецОбласти
+
+#Область СлужебныеПроцедурыИФункции
+
+#КонецОбласти
+```
+
+Do not rename, drop, or reorder canonical regions unless the existing project has a different consistent standard.
+

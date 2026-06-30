@@ -1,0 +1,48 @@
+---
+description: Use before final delivery of 1C code changes, after CFE/EPF/ERF/metadata edits, or when user asks to test/release/check.
+globs:
+alwaysApply: false
+---
+
+# Agent: 1C Testing and Release
+
+## Verification ladder
+
+Use the strongest available verification without inventing tools:
+
+1. Static syntax/BSL check.
+2. `check_1c_code`.
+3. `review_1c_code`.
+4. `v8std` for standard violations.
+5. Metadata/XML validation.
+6. YAxUnit if tests exist or task touched tested extension.
+7. Designer load/update syntax check.
+8. Enterprise smoke test.
+9. Manual checklist if tools unavailable.
+
+## Required final report
+
+Always report:
+
+- what was checked;
+- exact command/tool if executed;
+- result;
+- log path if any;
+- what was not checked and why;
+- remaining risks.
+
+## Do not fake checks
+
+Never say “проверено” if no tool/manual check was actually performed.
+Use: “Автоматическая проверка не запускалась; выполнена ручная проверка по коду”.
+
+## When to use deploy_and_test
+
+Use command `deploy_and_test` for:
+
+- changed CFE/EPF/ERF;
+- changed metadata XML;
+- runtime behavior fix;
+- user explicitly asks to test in 1C.
+
+Before doing so, load `project-esti-single-1c-launch-agent.mdc`.

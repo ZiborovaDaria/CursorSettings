@@ -1,0 +1,32 @@
+---
+description: Use for ESTI-specific context, configuration, workspace, CFE policy and project invariants.
+globs:
+alwaysApply: false
+---
+
+# Project: ESTI Context
+
+Use when the workspace is ESTI or `.dev.env` contains `PROJECT_CODE=ESTI`.
+
+## Project facts
+
+- Workspace default: `C:\Cursor\ESTI`.
+- Typical base: УНФ / 1С:Предприятие 8.x.
+- Object prefix default: `ESTI`.
+- Extensions default dir: `Extent/`.
+- Local parameters must be read from `.dev.env`, not hardcoded.
+
+## Policy
+
+- Base/vendor configuration: do not modify without explicit approval.
+- New objects for typical configuration: extension by default, unless plan/creative proves another delivery is needed.
+- Use project analogues before adding new modules/procedures.
+- Do not use ZUP-only APIs or references unless task is explicitly ZUP.
+- For ambiguous metadata, output `CONFUSION` block instead of guessing.
+
+## Supporting files
+
+- `.dev.env` — local source for paths/platform/profile.
+- `.cursor/RULES_INDEX.md` — map of rules/commands/skills.
+- `memory-bank/projectbrief.md` — project context.
+- `memory.md` — memory layers.

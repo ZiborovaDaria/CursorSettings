@@ -1,0 +1,40 @@
+---
+description: Use when creating, running or interpreting YAxUnit tests for 1C extensions/external processings.
+globs:
+alwaysApply: false
+---
+
+# Agent: YAxUnit for 1C
+
+## When to use
+
+- User asks to add tests.
+- Changed code has deterministic business logic.
+- Bug fix can be reproduced by unit/integration test.
+- Existing project has YAxUnit test structure.
+
+## Policy
+
+- Do not introduce YAxUnit into project silently if no test infrastructure exists.
+- If no test infrastructure exists, propose minimal setup and ask/mark assumption.
+- Tests must not depend on production data unless explicitly marked as integration/smoke.
+- Prefer small fixtures and controlled test data.
+
+## Test design
+
+Each test should have:
+
+- clear arrange/act/assert;
+- predictable inputs;
+- no hidden dependency on current date unless mocked/parameterized;
+- cleanup if it writes data.
+
+## After running
+
+Report:
+
+- test suite name;
+- command used;
+- pass/fail;
+- failures and suspected cause;
+- whether failures are test issue or product issue.

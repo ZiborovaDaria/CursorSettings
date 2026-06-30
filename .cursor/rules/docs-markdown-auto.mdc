@@ -1,0 +1,28 @@
+---
+description: 
+globs: **/*.md,**/*.mdc
+alwaysApply: false
+---
+
+
+# Auto: Markdown / Rules Docs
+
+Apply for Markdown and Cursor rule edits.
+
+## Rule authoring
+
+- Keep always-on rules short.
+- Use detailed rules as agent-requested or glob-attached.
+- Do not duplicate the same instruction in many files.
+- Use valid `.mdc` frontmatter: `description`, `globs`, `alwaysApply`.
+- If `alwaysApply: true`, the rule must be compact.
+- If `alwaysApply: false` and no globs, description must clearly say when to use it.
+- If globs are used, avoid a broad description that clutters the rule-selection list.
+
+## Docs checks
+
+- Referenced paths exist.
+- Commands match actual filenames.
+- No stale old MCP tool names unless documented as legacy.
+- No invented facts about 1C metadata, platform or BSP.
+

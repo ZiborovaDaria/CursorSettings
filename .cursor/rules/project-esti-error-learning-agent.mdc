@@ -1,0 +1,75 @@
+---
+description: Use after BSL/CFE/runtime errors, failed check_1c_code/review_1c_code/v8std/YAxUnit/deploy, or command capture-error/reflect-lesson.
+globs:
+alwaysApply: false
+---
+
+# Project: Error Learning Pipeline
+
+Use for real mistakes, failed checks, runtime failures and repeated gotchas.
+
+## Trigger
+
+- `check_1c_code` failed.
+- `review_1c_code` found critical issue.
+- `v8std` diagnostic requires action.
+- YAxUnit failed.
+- Deploy/test failed in 1C.
+- User invokes `capture-error` / `reflect-lesson`.
+
+Do not run full pipeline for trivial typo fixed immediately with no reusable lesson.
+
+## Pipeline
+
+```text
+Detect → Recall → Fix → Verify → Store → Promote only if repeated/critical
+```
+
+## 1. Detect
+
+Capture:
+
+- error text;
+- object/module/procedure;
+- command/tool that failed;
+- expected behavior;
+- actual behavior.
+
+## 2. Recall
+
+Before editing:
+
+1. Search `memory-bank/reflection/`.
+2. Search L1 memory if lean-ctx is available.
+3. Read project pitfalls if Serena/project memory is available.
+4. Search typical analogue via MCP router.
+
+## 3. Fix
+
+Use normal MCP chain:
+
+```text
+locate → impact if risky → edit → verify
+```
+
+## 4. Verify
+
+Run the check that failed again if available. If unavailable, document manual verification.
+
+## 5. Store
+
+After successful fix:
+
+- update `memory-bank/progress.md`;
+- create `memory-bank/reflection/reflection-YYYY-MM-DD-<short-topic>.md` for reusable lessons;
+- optionally store L1 memory if tool is available.
+
+## 6. Promote
+
+Create/change `.cursor/rules/*.mdc` only if:
+
+- same error repeated at least twice;
+- data corruption risk;
+- base configuration was almost changed by mistake;
+- forbidden `&Вместо`/unsafe hook was attempted;
+- a check failure reveals a project-wide convention.

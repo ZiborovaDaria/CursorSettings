@@ -1,85 +1,75 @@
-﻿# RULES_INDEX — ESTI
+﻿# RULES_INDEX — final v3
 
-Карта правил, навыков и MCP для workspace ЭСТИ.
+Карта правил, команд, навыков и MCP для 1С/ESTI workspace.
 
-| Документ | Назначение |
+## Always-on
+
+| Rule | Purpose |
 |---|---|
-| [INSTALL_OTHER_DEVICE.md](INSTALL_OTHER_DEVICE.md) | **Полный** чеклист ЭСТИ: MCP, litecode, Atlas, memory-bank |
-| [INSTALL_ALL_PROJECTS.md](INSTALL_ALL_PROJECTS.md) | Все проекты `C:\Cursor\` |
-| [MCP_QUICK_START.md](MCP_QUICK_START.md) | Быстрый старт MCP |
-| [MCP_ROUTER_ESTI.md](MCP_ROUTER_ESTI.md) | Роутер MCP v4 |
-| [MCP_TOOLS_MATRIX.md](MCP_TOOLS_MATRIX.md) | Матрица инструментов |
-| [MCP_SETUP_ESTI.md](MCP_SETUP_ESTI.md) | Настройка MCP |
-| [MCP_LITE_DEVICE.md](MCP_LITE_DEVICE.md) | Профиль LITE (слабый ПК) |
+| `global-00-always-1c-memory-bank-router.mdc` | главный роутер 1С + Memory Bank + обычный Agent Mode |
+| `global-01-always-safe-scope.mdc` | безопасность, base config, secrets, ambiguity, CFE blocker |
+| `global-02-always-skill-router.mdc` | маршрутизация к существующим skills/rules |
+| `global-03-always-memory-bank-paths.mdc` | канонические пути Memory Bank |
+| `global-04-always-error-learning-trigger.mdc` | короткий trigger error-learning |
 
-MCP-файлы: `mcp.profile.power.json`, `mcp.profile.lite.json` (активный `mcp.json` — локально).  
-**Distribution bundle** (в git после `Export-CursorSettings.ps1`): `.cursor/export/` — rules, skills, agent-skills, agents, commands, mcp, supercode; `.cursor/shared-bundle/` — spread по проектам.
+## General 1C rules
 
-## Always-on правила
-
-| Файл | Назначение |
+| Scenario | Rule |
 |---|---|
-| `00-esti-core.mdc` | Продукт, политика, MCP, triage |
-| `00-esti-device-profile.mdc` | POWER / LITE |
-| `32-agent-caveman-esti.mdc` | Caveman для dev |
-| `33-agent-error-learning-pipeline.mdc` | Ошибка → memory |
-| `isolation_rules/Core/memory-bank-paths.mdc` | Memory Bank paths |
-| `isolation_rules/` (visual-maps, Level1–4) | Supercode modes VAN…ARCHIVE |
-| `.supercode/modes/memory-bank/*.yml` | Custom modes (extension supercode.supercode-sh) |
+| Write/edit BSL | `1c-code-writing-agent.mdc` |
+| BSL standards | `1c-bsl-standards-auto.mdc` |
+| CFE | `1c-cfe-extensions-agent.mdc` |
+| EPF/ERF | `1c-epf-erf-agent.mdc` |
+| Managed forms | `1c-managed-forms-agent.mdc` |
+| Metadata XML | `1c-metadata-xml-auto.mdc` |
+| Module structure | `1c-module-structure-agent.mdc` |
+| Queries | `1c-queries-performance-agent.mdc` |
+| Locks/transactions | `1c-locks-transactions-agent.mdc` |
+| Debug/verification | `1c-debug-verification-agent.mdc` |
+| Testing/release | `1c-testing-release-agent.mdc` |
+| YAxUnit | `1c-yaxunit-agent.mdc` |
+| Windows PowerShell | `windows-powershell-auto.mdc` |
 
-**Не хранить** `.cursor/rules/_archive/` — дубликат `isolation_rules/` (удаляется `Setup-MemoryBank-AllProjects.ps1`).
+## ESTI project-specific
 
-Коммуникация: `USER-RULES.md` в корне проекта.
-
-## On-demand (сценарий → файл)
-
-| Сценарий | Файл |
+| Scenario | Rule |
 |---|---|
-| Locate MCP | `03-mcp-locate.mdc` |
-| Atlas POWER | `25-agent-bsl-atlas-esti.mdc` |
-| Litecode | `27-agent-litecode-esti.mdc` |
-| lean-ctx | `26-agent-lean-ctx-esti.mdc` |
-| Verify | `34-agent-verification-checklist.mdc` |
-| Debug | `35-agent-systematic-debugging.mdc` |
-| Form module | `36-agent-form-reserved-names.mdc` |
-| Metadata XML | `37-agent-metadata-xml-workarounds.mdc` |
-| Async client | `38-agent-async-methods.mdc` |
-| Locks | `39-agent-locks-and-transactions.mdc` |
-| Platform traps | `40-agent-platform-solutions.mdc` |
-| MCP playbooks | `41-agent-tooling-playbooks-esti.mdc` |
+| Project context | `project-esti-context-agent.mdc` |
+| MCP POWER/LITE routing | `project-esti-mcp-router-agent.mdc` |
+| Tooling playbooks | `project-esti-tooling-playbooks-agent.mdc` |
+| Single 1C launch | `project-esti-single-1c-launch-agent.mdc` |
+| Orchestrator JSON | `project-esti-orchestrator-bridge-agent.mdc` |
+| Error learning | `project-esti-error-learning-agent.mdc` |
 
-Полный список: `.cursor/rules/*.mdc`.
+## Commands
 
-## MCP v4
-
-| POWER | LITE |
+| Command | Purpose |
 |---|---|
-| bsl-atlas-esti + litecode | litecode + code-index |
-| Serena, naparnik, v8std | Serena, naparnik, v8std |
+| `/van` | task entry and level classification |
+| `/plan` | plan |
+| `/creative` | architecture/decision phase |
+| `/implement` | implementation, compatible with Supercode IMPLEMENT |
+| `/build` | alias for `/implement` |
+| `/reflect` | task reflection |
+| `/archive` | close/archive task |
+| `/doctor` | self-check rules/memory/env |
+| `getconfigfiles` | export/update config files |
+| `deploy_and_test` | load/check/test in 1C |
+| `capture-error` | error recall/fix pipeline |
+| `reflect-lesson` | store reusable lesson |
+| `handoff` | session/PC/agent transfer |
+| `check-uuid` | metadata UUID/reference check |
+| `caveman` | short engineering answer mode |
 
-## Память (L0–L3)
+## Skills
 
-| Слой | Путь |
-|---|---|
-| L0 | `memory-bank/` |
-| L1 | lean-ctx `ctx_knowledge` |
-| L2 | `.serena/memories/` |
-| L3 | `.cursor/rules/*.mdc` |
+| Scope | Path | Examples |
+|---|---|---|
+| **Project** (конфиг) | `.cursor/skills/<name>/SKILL.md` | `esti-project`, `mcp-1c-tools`, `orchestrator-bridge` |
+| **Global** (общие 1С) | `~/.cursor/skills/<name>/SKILL.md` | `1c-cfe-full-cycle`, `1c-project`, `memory-bank-1c`, `handoff` |
 
-## Команды Cursor
+Router: project first, then global (`global-02-always-skill-router.mdc`).
 
-`/doctor` · `/handoff` · `/caveman` · `capture-error` · `reflect-lesson`
+## Legacy policy
 
-## Синхронизация между ПК
-
-**В Git:** rules, skills/esti-project, MCP docs, profiles, scripts, export, `projects.manifest.json`.
-
-**Локально:** `mcp.json`, `mcp.local.json`, `.dev.env`, `infobasesettings.md`, индексы Atlas/litecode.
-
-**Workflow:** `git pull` → `Install-ESTI-OnNewDevice.ps1` → `Install-Project-OnNewDevice.ps1` → litecode/Atlas (см. INSTALL_OTHER_DEVICE §5) → Reload MCP.
-
-**Пути (одинаковые на ПК):** `C:\Cursor\ESTI`, `C:\CursorMCP\`, `C:\bsl-atlas-indexes\ESTI`, `C:\bsl-litecode-data\ESTI`.
-
-**device_profile:** POWER в main; LITE — локально + `mcp.profile.lite.json` → `mcp.json` (см. `MCP_LITE_DEVICE.md`).
-
-**Обновление bundle:** `Export-CursorSettings.ps1` → `Spread-CursorSettings-ToProjects.ps1` → `git push`.
+Old duplicate rules may be kept only as `.mdc.off`. Active `.mdc` duplicates can conflict with v3.

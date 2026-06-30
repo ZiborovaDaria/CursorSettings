@@ -1,0 +1,26 @@
+---
+description: Optional only. Use OpenSpec/SDD only when explicitly requested or when the user asks for formal specification/change proposal. Default workflow is Memory Bank.
+globs:
+alwaysApply: false
+---
+
+# Optional: OpenSpec / SDD
+
+Default process for this project is Memory Bank, not OpenSpec.
+
+Use this rule only when:
+
+- user explicitly asks for OpenSpec;
+- task requires formal spec/change proposal;
+- project maintainer approved OpenSpec for this change.
+
+Do not replace `memory-bank/tasks.md` workflow with OpenSpec silently.
+
+If enabled, keep OpenSpec lightweight:
+
+1. Problem.
+2. Scope.
+3. Acceptance criteria.
+4. Risks.
+5. Implementation plan.
+6. Verification.

@@ -1,20 +1,15 @@
-# Capture Error — ESTI
+# capture-error — разобрать ошибку
 
-Быстрая фиксация ошибки и запуск recall перед исправлением.
+Вход: текст ошибки, лог, диагностика check_1c_code/v8std/YAxUnit/runtime.
 
-## Вход
-
-Пользователь указывает текст ошибки, объект, модуль или вставляет вывод `check_1c_code` / runtime.
-
-## Действия
-
-1. **Recall**
-   - `ctx_knowledge(action=recall, query=<текст ошибки>)`
-   - Serena `read_memory` → `pitfalls/cfe_bsl`
-   - bsl-atlas-esti `codesearch` / `search_function` при поиске типового аналога
-2. Кратко сообщить: найденные уроки / аналоги или «в памяти нет».
-3. После исправления (по запросу или автоматически) — **Store** по `33-agent-error-learning-pipeline.mdc`:
-   - `ctx_knowledge remember`
-   - при необходимости reflection-файл в `memory-bank/reflection/`
-
-Не исправлять код без явного запроса, если пользователь только передал текст ошибки для фиксации.
+1. Подключи `project-esti-error-learning-agent.mdc`.
+2. Сохрани краткую карточку ошибки в контекст задачи.
+3. Выполни Recall:
+   - `memory-bank/reflection/`;
+   - L1 memory/lean-ctx, если доступно;
+   - project memories, если доступны;
+   - MCP search по процедуре/объекту.
+4. Найди причину.
+5. Предложи/внеси fix.
+6. Запусти повторную проверку, если возможно.
+7. Если урок reusable — предложи `reflect-lesson`.

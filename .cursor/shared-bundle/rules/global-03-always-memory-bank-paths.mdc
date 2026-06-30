@@ -1,0 +1,29 @@
+---
+description: Always apply. Canonical Memory Bank paths and file ownership.
+globs:
+alwaysApply: true
+---
+
+# Always: Memory Bank Paths
+
+## Canonical paths
+
+- `memory-bank/tasks.md` — source of truth for active task.
+- `memory-bank/activeContext.md` — current focus and assumptions.
+- `memory-bank/progress.md` — progress log.
+- `memory-bank/projectbrief.md` — stable project brief.
+- `memory-bank/productContext.md` — business context.
+- `memory-bank/systemPatterns.md` — architecture patterns.
+- `memory-bank/techContext.md` — tooling/platform context.
+- `memory-bank/creative/` — creative/architecture decisions.
+- `memory-bank/reflection/` — lessons and error reflections.
+- `memory-bank/archive/` — completed tasks.
+
+## Rules
+
+- Do not create `tasks.md` outside `memory-bank/`.
+- Do not put transient logs into Memory Bank; summarize only.
+- Do not store secrets or passwords in Memory Bank.
+- For non-trivial tasks, update `tasks.md` and `progress.md`.
+- For architecture choices, write `memory-bank/creative/creative-YYYY-MM-DD-<topic>.md`.
+- For completed tasks, archive instead of leaving context scattered in chat.

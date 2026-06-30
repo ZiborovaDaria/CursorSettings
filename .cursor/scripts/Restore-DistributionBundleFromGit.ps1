@@ -31,7 +31,7 @@ foreach ($f in $tracked) {
 
 git checkout HEAD -- $gitPaths
 if ($LASTEXITCODE -ne 0) {
-    throw "git checkout failed — run from CursorSettings repo root"
+    throw 'git checkout failed - run from CursorSettings repo root'
 }
 
 Write-Host "Distribution bundle restored from git." -ForegroundColor Green

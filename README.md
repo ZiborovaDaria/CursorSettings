@@ -20,6 +20,7 @@ powershell -File .cursor\scripts\Install-ESTI-OnNewDevice.ps1 -Profile POWER
 | Файл | Назначение |
 |---|---|
 | [RULES_INDEX.md](.cursor/RULES_INDEX.md) | Карта правил, MCP, синхронизация |
+| [.cursor/export/mcp/README.md](.cursor/export/mcp/README.md) | MCP-профили POWER/LITE (после export) |
 | [INSTALL_OTHER_DEVICE.md](.cursor/INSTALL_OTHER_DEVICE.md) | Установка ЭСТИ |
 | [INSTALL_ALL_PROJECTS.md](.cursor/INSTALL_ALL_PROJECTS.md) | Все проекты C:\Cursor, litecode, memory-bank |
 | [USER-RULES.md](USER-RULES.md) | Стиль caveman |

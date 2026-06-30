@@ -136,11 +136,24 @@ ESTI: `Test-ESTI-MCPStack.ps1`
 
 ## Основной ПК — обновление всех проектов
 
+| Компонент | Экспорт (`Export-CursorSettings.ps1`) | Установка (`Install-ESTI-OnNewDevice.ps1`) |
+|---|---|---|
+| Global rules | `.cursor/export/global-rules/` | `~/.cursor/rules/` |
+| 1С skills | `.cursor/export/global-skills/` | `~/.cursor/skills/` |
+| Caveman skills | `.cursor/export/agent-skills/` | `~/.agents/skills/` |
+| Cursor skills | `.cursor/export/global-skills-cursor/` | `~/.cursor/skills-cursor/` |
+| Subagents | `.cursor/export/global-agents/` | `~/.cursor/agents/` |
+| Commands | `.cursor/export/global-commands/` + `shared-bundle/commands/` | Spread → `.cursor/commands/` |
+| MCP profiles | `.cursor/export/mcp/` + `.cursor/mcp.profile.*.json` | `mcp.json` из профиля |
+| Scripts | `.cursor/export/global-scripts/` | `~/.cursor/scripts/` |
+| Supercode | `.cursor/export/supercode/` | workspace `.supercode/` |
+
 ```powershell
 cd C:\Cursor\ESTI
-powershell -File .cursor\scripts\Restore-DistributionBundleFromGit.ps1
 powershell -File .cursor\scripts\Export-CursorSettings.ps1
-powershell -File .cursor\scripts\Spread-CursorSettings-ToProjects.ps1
+git add .cursor/export .cursor/shared-bundle/commands
+git commit -m "chore: export global skills, agents, commands, mcp"
+git push
 powershell -File .cursor\scripts\Apply-SupercodeMemoryBankFixes.ps1
 powershell -File .cursor\scripts\Setup-MemoryBank-AllProjects.ps1 -ForceSupercode
 git add -A

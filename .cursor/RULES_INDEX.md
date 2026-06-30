@@ -12,7 +12,8 @@
 | [MCP_SETUP_ESTI.md](MCP_SETUP_ESTI.md) | Настройка MCP |
 | [MCP_LITE_DEVICE.md](MCP_LITE_DEVICE.md) | Профиль LITE (слабый ПК) |
 
-MCP-файлы: `mcp.profile.power.json`, `mcp.profile.lite.json` (активный `mcp.json` — локально). Шаблоны `export/`, `shared-bundle/`, `*.example` — только в [GitHub](https://github.com/ZiborovaDaria/CursorSettings); локально удаляются, restore через `Restore-DistributionBundleFromGit.ps1`.
+MCP-файлы: `mcp.profile.power.json`, `mcp.profile.lite.json` (активный `mcp.json` — локально).  
+**Distribution bundle** (в git после `Export-CursorSettings.ps1`): `.cursor/export/` — rules, skills, agent-skills, agents, commands, mcp, supercode; `.cursor/shared-bundle/` — spread по проектам.
 
 ## Always-on правила
 

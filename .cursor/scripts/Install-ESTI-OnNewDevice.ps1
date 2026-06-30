@@ -50,7 +50,7 @@ New-Item -ItemType Directory -Path $userRules -Force | Out-Null
 Copy-Item (Join-Path $rulesSrc '*.mdc') $userRules -Force
 Write-Host "rules: $((Get-ChildItem $rulesSrc -Filter *.mdc).Count) -> $userRules"
 
-# 2. Global skills (all) -> ~/.cursor/skills
+# 2. Global skills (~/.cursor/skills) + agent-skills (~/.agents/skills)
 $skillsSrc = Join-Path $exportRoot 'global-skills'
 $userSkills = Join-Path $userCursor 'skills'
 if (Test-Path $skillsSrc) {
@@ -63,6 +63,41 @@ if (Test-Path $skillsSrc) {
         $count++
     }
     Write-Host "skills: $count -> $userSkills"
+}
+
+$agentSkillsSrc = Join-Path $exportRoot 'agent-skills'
+$userAgentSkills = Join-Path $env:USERPROFILE '.agents\skills'
+if (Test-Path $agentSkillsSrc) {
+    New-Item -ItemType Directory -Path $userAgentSkills -Force | Out-Null
+    $ac = 0
+    Get-ChildItem $agentSkillsSrc -Directory | ForEach-Object {
+        $dst = Join-Path $userAgentSkills $_.Name
+        if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
+        Copy-Item $_.FullName $dst -Recurse -Force
+        $ac++
+    }
+    Write-Host "agent-skills: $ac -> $userAgentSkills"
+}
+
+$scCursorSrc = Join-Path $exportRoot 'global-skills-cursor'
+$userScCursor = Join-Path $userCursor 'skills-cursor'
+if (Test-Path $scCursorSrc) {
+    New-Item -ItemType Directory -Path $userScCursor -Force | Out-Null
+    Get-ChildItem $scCursorSrc -Directory | ForEach-Object {
+        $dst = Join-Path $userScCursor $_.Name
+        if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
+        Copy-Item $_.FullName $dst -Recurse -Force
+    }
+    Write-Host "skills-cursor -> $userScCursor"
+}
+
+# 2b. Global agents -> ~/.cursor/agents
+$agentsSrc = Join-Path $exportRoot 'global-agents'
+$userAgents = Join-Path $userCursor 'agents'
+if (Test-Path $agentsSrc) {
+    New-Item -ItemType Directory -Path $userAgents -Force | Out-Null
+    Copy-Item (Join-Path $agentsSrc '*.md') $userAgents -Force
+    Write-Host "agents: $((Get-ChildItem $agentsSrc -Filter *.md).Count) -> $userAgents"
 }
 
 # 3. Global scripts -> ~/.cursor/scripts
@@ -93,17 +128,22 @@ if (Test-Path $scSrc) {
     Write-Host "  Установите расширение: supercode.supercode-sh (см. .vscode/extensions.json)"
 }
 
-# 6. MCP profile
+# 6. MCP profile (из repo или export/mcp)
 if (-not $SkipMcp) {
-    $profileFile = if ($Profile -eq 'LITE') {
-        Join-Path $repoRoot '.cursor\mcp.profile.lite.json'
-    } else {
-        Join-Path $repoRoot '.cursor\mcp.profile.power.json'
+    $mcpExport = Join-Path $exportRoot 'mcp'
+    $profileName = if ($Profile -eq 'LITE') { 'mcp.profile.lite.json' } else { 'mcp.profile.power.json' }
+    $profileFile = Join-Path $repoRoot ".cursor\$profileName"
+    if (-not (Test-Path $profileFile) -and (Test-Path (Join-Path $mcpExport $profileName))) {
+        $profileFile = Join-Path $mcpExport $profileName
     }
     $mcpTarget = Join-Path $repoRoot '.cursor\mcp.json'
     if (Test-Path $profileFile) {
         Copy-Item $profileFile $mcpTarget -Force
         Write-Host "mcp.json <- $([IO.Path]::GetFileName($profileFile))"
+    }
+    $localExample = Join-Path $repoRoot '.cursor\mcp.local.json.example'
+    if (-not (Test-Path $localExample) -and (Test-Path (Join-Path $mcpExport 'mcp.local.json.example'))) {
+        Copy-Item (Join-Path $mcpExport 'mcp.local.json.example') $localExample -Force
     }
 }
 

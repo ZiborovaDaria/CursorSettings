@@ -1,0 +1,75 @@
+{
+  "mcpServers": {
+    "mcp-1c": {
+      "command": "C:\\CursorMCP\\mcp-1c\\mcp-1c.exe",
+      "args": [
+        "--base",
+        "http://localhost/ESTI/hs/mcp-1c",
+        "--user",
+        "Admin",
+        "--password",
+        "1"
+      ]
+    },
+    "1c-rest-mcp": {
+      "command": "npx",
+      "args": ["-y", "@theyahia/1c-rest-mcp"],
+      "env": {
+        "ONEC_BASE_URL": "http://localhost/ESTI",
+        "ONEC_NO_AUTH": "1"
+      }
+    },
+    "bsl-atlas-esti": {
+      "type": "http",
+      "url": "http://localhost:8008/mcp"
+    },
+    "litecode": {
+      "type": "sse",
+      "url": "http://localhost:6004/sse"
+    },
+    "1c-naparnik": {
+      "url": "http://localhost:8007/mcp"
+    },
+    "1c-syntax-helper": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "http://127.0.0.1:8000/mcp"]
+    },
+    "v8std": {
+      "url": "https://ai.v8std.ru/mcp"
+    },
+    "code-index": {
+      "command": "C:\\CursorMCP\\code-index-mcp\\target\\release\\bsl-indexer.exe",
+      "args": ["serve", "--path", "ESTI=${workspaceFolder}"],
+      "env": {
+        "CODE_INDEX_HOME": "C:\\CursorMCP\\code-index-mcp\\target\\release"
+      }
+    },
+    "serena": {
+      "type": "stdio",
+      "command": "C:\\Users\\Admin\\.local\\bin\\uv.exe",
+      "args": [
+        "run",
+        "--directory",
+        "C:\\CursorMCP\\serena-main",
+        "serena-mcp-server",
+        "--context",
+        "ide",
+        "--project",
+        "${workspaceFolder}"
+      ]
+    },
+    "puppeteer-real-browser": {
+      "command": "npx",
+      "args": ["puppeteer-real-browser-mcp-server@latest"],
+      "env": {
+        "CHROME_PATH": "C:/Program Files/Google/Chrome/Application/chrome.exe"
+      }
+    },
+    "screenshot": {
+      "type": "local",
+      "command": "node",
+      "args": ["C:\\CursorMCP\\screenshot-mcp\\dist\\index.js"],
+      "cwd": "C:\\CursorMCP\\screenshot-mcp"
+    }
+  }
+}

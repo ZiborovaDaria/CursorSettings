@@ -1,0 +1,23 @@
+---
+description: USE WHEN выбор глубины проверки (quick-fix vs full verify) перед сдачей 1С-изменения.
+globs:
+alwaysApply: false
+---
+
+# Agent: 1C Verification Policy (split)
+
+Companion к `1c-testing-release-agent.mdc` и команде `/deploy_and_test`.
+
+## Уровни
+
+| Level | Когда | Минимум |
+|---|---|---|
+| **gates** (quick) | L1–L2, локальный BSL, нет метаданных | `check_1c_code` или явная ручная проверка кода; не врать «проверено» |
+| **policy** (standard) | CFE/EPF/форма/запрос | gates + review/v8std по возможности; XML/form validate если трогали |
+| **delivery** (full) | сдача, runtime, проведение, обмен | policy + `/deploy_and_test` / YAxUnit / smoke ИБ |
+
+## Правила
+- Пользователь сказал «быстро» → gates, явно перечислить что **не** проверено.
+- Пользователь сказал «сдай/в базу» → delivery.
+- Не запускать destructive ИБ без OK.
+- Отчёт всегда: checked / not checked / risks.

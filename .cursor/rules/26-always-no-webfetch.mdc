@@ -1,0 +1,10 @@
+---
+description: Always apply. Stub — No WebFetch canon lives in 24-always-mcp-tool-router § No WebFetch.
+alwaysApply: true
+---
+
+# Always: No WebFetch (stub)
+
+**Canon:** `~/.cursor/rules/24-always-mcp-tool-router.mdc` → section **No WebFetch**.  
+**Command:** `/research-repo`. Prefer: uploads → clone `%TEMP%` / `gh api` → `ctx_url_read`.  
+Do **not** duplicate the tool table here — edit only the canon file.

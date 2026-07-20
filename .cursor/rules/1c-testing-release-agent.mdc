@@ -46,3 +46,8 @@ Use command `deploy_and_test` for:
 - user explicitly asks to test in 1C.
 
 Before doing so, load `project-esti-single-1c-launch-agent.mdc`.
+
+## Depth split
+
+Перед выбором глубины открой `1c-verification-policy-agent.mdc` (gates / policy / delivery).
+Коротко: L1 quick → gates; сдача в ИБ → delivery + `/deploy_and_test`.

@@ -77,6 +77,9 @@ Locate → Understand → Edit → Verify
 - устойчивые инварианты — `memory.md` / проектные memories;
 - правило `.mdc` создавать только при повторе ошибки или critical-риске.
 
+Самоулучшение проектных правил — только `/evolve` → `LLM-RULES.md` (поштучный approve).  
+Внешний GitHub / URL research — `/research-repo` или protocol в `/creative`; не серия `WebFetch`.
+
 ## 9. Ответ пользователю
 
 Отвечай на русском.

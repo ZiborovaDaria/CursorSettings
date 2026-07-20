@@ -38,5 +38,11 @@ Open only the one or two relevant `SKILL.md` files. Do not load the whole skills
 | Markdown → DOCX | `md-to-docx` | `docs-markdown-auto.mdc` |
 | Mermaid/ASCII diagrams | `mermaid-diagrams` | `docs-markdown-auto.mdc` |
 | Handoff | `handoff` | `memory-bank-workflow-agent.mdc` |
+| External GitHub / URL research | — | `/research-repo` + `26-always-no-webfetch` / `24-always` No WebFetch |
+| Logging / ЖР design | — | `1c-logging-strategy-agent.mdc` |
+| СКД / DCS design | `1c-metadata-manage` / skd skills | `1c-dcs-design-agent.mdc` |
+| Registers design | — | `1c-registers-design-agent.mdc` |
+| Verify depth (quick vs full) | `1c-testing-release` | `1c-verification-policy-agent.mdc` |
+| MCP playbooks | — | `.cursor/MCP_PLAYBOOKS.md` |
 
 Do not reference a skill as loaded unless its `SKILL.md` exists or was opened successfully.

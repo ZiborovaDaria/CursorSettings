@@ -64,6 +64,9 @@ notepad .dev.env
 │   │   ├── reflect.md
 │   │   ├── archive.md
 │   │   ├── doctor.md
+│   │   ├── checkmcp.md
+│   │   ├── evolve.md
+│   │   ├── research-repo.md
 │   │   ├── getconfigfiles.md
 │   │   ├── deploy_and_test.md
 │   │   ├── capture-error.md
@@ -117,3 +120,20 @@ Always-on правил мало и они короткие. Они не пыта
 ```
 
 Из старых правил v3 уже вобрал главное: ESTI core, MCP POWER/LITE, orchestrator JSON, single 1C launch, error-learning, tooling playbooks, YAxUnit/testing и эксплуатационные команды.
+
+## Changelog 2026-07-20 — No WebFetch + comol cherry-pick
+
+Источник опыта: проект BP ([архив в memory-bank](.)), идеи [comol/ai_rules_1c](https://github.com/comol/ai_rules_1c) — **cherry-pick**, не full install.
+
+| Добавлено | Назначение |
+|---|---|
+| `/research-repo`, `/checkmcp`, `/evolve` | дешёвый GitHub research; MCP smoke; LLM-RULES с approve |
+| `LLM-RULES.md` | эволюция правил |
+| `26-always-no-webfetch.mdc` (stub) | якорь; канон в `24-always-mcp-tool-router` § No WebFetch |
+| `24-always-mcp-tool-router.mdc` | MCP router + No WebFetch (Atlas/code-index/lean-ctx) |
+| `lean-ctx.mdc` | WebFetch → `ctx_url_read` |
+| `1c-logging/dcs/registers/verification-policy-agent.mdc` | on-demand |
+| `MCP_PLAYBOOKS.md` | цепочки BSL/форма/CFE/URL |
+| `scripts/mcp_usage_stats.py` | KPI + `webfetch_*` |
+
+После установки: **Reload Window**, `/doctor`, `/checkmcp`. Не копировать чужой `mcp-servers.json` поверх боевого `mcp.json`.

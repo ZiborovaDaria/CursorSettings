@@ -1,3 +1,5 @@
+﻿<!-- DO NOT EDIT in project — synced from C:\1c-shared-patterns\cursor-addons\project-root\ -->
+
 # AGENTS.md — 1C Cursor Rules final v3
 
 Ты работаешь как senior-разработчик 1С и технический архитектор для Cursor-проекта.
@@ -24,9 +26,10 @@
 3. Определи delivery type: CFE, EPF, ERF, metadata XML, script, docs, query, test.
 4. Подключи только нужное правило/skill.
 5. Найди типовой аналог до написания кода.
-6. Внеси минимальные изменения.
-7. Проверь доступными средствами.
-8. Обнови Memory Bank для значимых задач.
+6. **Hub Gate** (перед генерацией BSL/CFE/EPF/форм/Excel/query): `C:\1c-shared-patterns\playbooks\agent-lessons\index.md` → max 2 файла; при CFE/EPF — skill `reuse-1c-shared-patterns`. В ответе строка `KB: …` | `KB: none` | `KB: skip-cosmetic`.
+7. Внеси минимальные изменения.
+8. Проверь доступными средствами.
+9. Обнови Memory Bank для значимых задач. Переносимый урок ошибки → Hub `agent-lessons` (+ Sync), не только `memory-bank/reflection`.
 
 ## 4. Политика 1С
 
@@ -70,12 +73,18 @@ Locate → Understand → Edit → Verify
 
 ## 8. Память
 
-Используй `memory.md` и `memory-bank/`:
+Используй `memory.md`, `memory-bank/` и shared Hub:
 
 - задача и прогресс — `memory-bank/`;
-- ошибки и уроки — `memory-bank/reflection/`;
-- устойчивые инварианты — `memory.md` / проектные memories;
-- правило `.mdc` создавать только при повторе ошибки или critical-риске.
+- ошибки task/local — `memory-bank/reflection/`;
+- **переносимые** agent-gotcha — `C:\1c-shared-patterns\playbooks\agent-lessons\` + `index.md`, затем `Sync-1cAgentPack.ps1`;
+- эталоны HOW — `playbooks/content-patterns/` (skill `reuse-1c-shared-patterns`);
+- устойчивые инварианты — `memory.md` / Serena (`pitfalls/shared/*` = cache, SoT = Hub lessons);
+- shared `.mdc` (`hub-gate`, `global-04`) править только в Hub `cursor-addons/rules-shared/`, не в копии проекта;
+- правило alwaysApply создавать только при повторе ошибки или critical-риске.
+
+Самоулучшение проектных правил — только /evolve → LLM-RULES.md (поштучный approve).  
+Внешний GitHub / URL research — /research-repo или protocol в /creative; не серия WebFetch.
 
 Самоулучшение проектных правил — только `/evolve` → `LLM-RULES.md` (поштучный approve).  
 Внешний GitHub / URL research — `/research-repo` или protocol в `/creative`; не серия `WebFetch`.

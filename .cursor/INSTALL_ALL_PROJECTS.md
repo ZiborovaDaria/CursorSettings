@@ -10,18 +10,32 @@
 | BP | БП 3.0 | `C:\Cursor\BP` | `.cursor/INSTALL_OTHER_DEVICE.md` |
 | KA | КА 2.5 | `C:\Cursor\KA` | `.cursor/INSTALL_OTHER_DEVICE.md` |
 | Obshep | Общепит 3.0 | `C:\Cursor\Obshep` | `.cursor/INSTALL_OTHER_DEVICE.md` |
+| UNF | УНФ | `C:\Cursor\UNF` | `.cursor/INSTALL_OTHER_DEVICE.md` |
 | UNF12_261 | УНФ 3.0.12 | `C:\Cursor\UNF12_261` | `.cursor/INSTALL_OTHER_DEVICE.md` |
 | UPO | УПО 3.0.12 | `C:\Cursor\UPO` | `.cursor/INSTALL_OTHER_DEVICE.md` |
 | UT22_92 | УТ 11.5.22 | `C:\Cursor\UT22_92` | `.cursor/INSTALL_OTHER_DEVICE.md` |
-| UT25_85 | УТ 11.5.25 | `C:\Cursor\UT25_85` | `.cursor/INSTALL_OTHER_DEVICE.md` |
+| UT25_85 | УТ 11.5.25 | `C:\Cursor\UT25_85` | `.cursor/INSTALL_OTHER_DEVICE.md` (**Hub + Playwright**) |
+| RMK | РМК | `C:\Cursor\RMK` | `.cursor/INSTALL_OTHER_DEVICE.md` |
 
-Файлы `INSTALL_OTHER_DEVICE.md` и `USER-RULES.md` в BP/KA/UT генерируются `Spread-CursorSettings-ToProjects.ps1`.
+Общее для всех: [INSTALL_ALL_PROJECTS.md](INSTALL_ALL_PROJECTS.md) · Hub [docs/HUB_FPLUS_LITE.md](../docs/HUB_FPLUS_LITE.md) · Playwright [docs/PLAYWRIGHT_1C_WEB_TEST.md](../docs/PLAYWRIGHT_1C_WEB_TEST.md).
+
+Файлы `AGENTS.md` / `memory.md` / `LLM-RULES.md` / `USER-RULES.md` / `hub-gate.mdc` раскатываются из Hub (`Sync-1cAgentPack.ps1`), не из Spread.
 
 ---
 
 ## Новый ПК — порядок действий
 
-### Шаг 1. Глобально (один раз)
+```text
+1. CursorSettings (этот репо) → ~/.cursor
+2. Hub C:\1c-shared-patterns → Sync agent pack
+3. User Rules snippet (Hub Gate)
+4. Workspace проекта + Install-Project
+5. Litecode / Memory Bank (по необходимости)
+6. Playwright (1c-web-test) если нужны веб-тесты
+7. ИБ / MCP / Reload
+```
+
+### Шаг 1. Глобально CursorSettings (один раз)
 
 ```powershell
 git clone https://github.com/ZiborovaDaria/CursorSettings.git C:\Cursor\ESTI
@@ -31,9 +45,78 @@ powershell -File .cursor\scripts\Install-ESTI-OnNewDevice.ps1 -Profile POWER
 ```
 
 Ставит:
-- `~/.cursor/rules` (24), `~/.cursor/skills` (99)
+- `~/.cursor/rules`, `~/.cursor/skills` (в т.ч. база 1С-skills)
 - `sync-global-rules.ps1`, `sync-project-mcp.ps1`
 - supercode, templates, skill deps
+
+**Не опираться** на длинный `~\.cursor\rules\shared-1c-pattern-reuse.mdc` как SoT — протокол генерации кода = **Hub Gate** (§1b).
+
+### Шаг 1b. База знаний Hub (`1c-shared-patterns`) — обязательно для всех КФ
+
+Общий SoT паттернов CFE/EPF + agent-lessons + sync pack правил/AGENTS/Serena.
+
+1. Перенести каталог на ПК (см. `INSTALL-TRANSFER.md` внутри Hub), целевой путь:
+
+```text
+C:\1c-shared-patterns
+```
+
+Минимум: `catalog\`, `playbooks\`, `tools\`, `cursor-addons\`, `INSTALL-TRANSFER.md`.
+
+2. Junctions:
+
+```powershell
+cmd /c mklink /J "C:\Cursor\1c-shared-patterns" "C:\1c-shared-patterns"
+cmd /c mklink /J "%USERPROFILE%\1c-shared-patterns" "C:\1c-shared-patterns"
+```
+
+3. Раскатить agent pack во все проекты `C:\Cursor\*`:
+
+```powershell
+cd C:\1c-shared-patterns\cursor-addons\install
+.\Sync-1cAgentPack.ps1 -WhatIf
+.\Sync-1cAgentPack.ps1
+.\Check-1cAgentDrift.ps1
+```
+
+Sync кладёт:
+
+| Из Hub | Куда |
+|---|---|
+| `hub-gate.mdc`, `global-04-...` | `.cursor/rules/` каждого проекта |
+| `AGENTS.md`, `memory.md`, `LLM-RULES.md`, `USER-RULES.md`, `.cursorrules` | корень каждого проекта |
+| `serena-shared` | `.serena/memories/core_shared.md`, `pitfalls/shared/*` |
+| skills consult / reuse / error-learning | `%USERPROFILE%\.cursor\skills\` |
+
+4. **User Rules (Cursor Settings → Rules)** — вставить snippet:
+
+```text
+C:\1c-shared-patterns\cursor-addons\user-rules\hub-gate-snippet.md
+```
+
+Reload Window.
+
+**Runtime:** перед генерацией BSL/CFE/EPF/форм/Excel/query → `playbooks\agent-lessons\index.md` (max 2 файла) → proof `KB: …`.  
+Переносимые уроки → Hub `agent-lessons` + Sync, не только `memory-bank/reflection`.
+
+Подробнее: [docs/HUB_FPLUS_LITE.md](../docs/HUB_FPLUS_LITE.md) · пример УТ: `C:\Cursor\UT25_85\.cursor\INSTALL_OTHER_DEVICE.md`.
+
+### Шаг 1c. Playwright / веб-автотесты 1С
+
+Канон UI e2e: skill **`1c-web-test`** + Playwright (не MCP puppeteer/screenshot).
+
+```powershell
+node -v   # 18+
+cd "$env:USERPROFILE\.cursor\skills\1c-web-test\scripts"
+npm install
+# предпочтительно системный Chrome/Edge (bundled chromium часто зависает)
+Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe"
+```
+
+В каждом проекте: `tests/web/INSTALL.md`, `.v8-project.json` с `webUrl`, веб-публикация ИБ.
+
+Полный чеклист (пример УТ): `C:\Cursor\UT25_85\tests\web\INSTALL.md`  
+Общий шаблон в репо: [docs/PLAYWRIGHT_1C_WEB_TEST.md](../docs/PLAYWRIGHT_1C_WEB_TEST.md).
 
 ### Шаг 2. Каждый проект
 
@@ -49,9 +132,11 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 - `handoffs/`, `.supercode/`, `.vscode/extensions.json`
 - синхронизирует `global-*.mdc`
 
-3. `USER-RULES.md` → Cursor Settings → Rules
+3. Повторно `Sync-1cAgentPack.ps1` (§1b), если Hub ставили после клона проекта
 4. Extension: **supercode.supercode-sh**
-5. MCP Reload
+5. MCP Reload (`mcp.json` / `MCP_ROUTER_*` проекта)
+
+User Rules для Hub Gate — из §1b (не путать с project `USER-RULES.md` = стиль caveman).
 
 ### Шаг 3. Litecode + Memory Bank (все проекты)
 
@@ -130,7 +215,10 @@ foreach ($id in $ids) { & powershell -File C:\Cursor\ESTI\.cursor\scripts\Start-
 ### Шаг 5. Проверка
 
 `/doctor` в каждом workspace.  
-ESTI: `Test-ESTI-MCPStack.ps1`
+ESTI: `Test-ESTI-MCPStack.ps1`  
+Hub: `C:\1c-shared-patterns\cursor-addons\install\Check-1cAgentDrift.ps1` → PASS  
+Генерация CFE-логики → в ответе строка `KB:`  
+Playwright (если нужен): `tests/web` smoke / `node run.mjs start <webUrl>`
 
 ---
 
@@ -168,6 +256,11 @@ powershell -File .cursor\scripts\Remove-LocalDistributionBundle.ps1   # опци
 cd C:\Cursor\ESTI && git pull
 powershell -File .cursor\scripts\Install-ESTI-OnNewDevice.ps1 -Profile POWER
 
+# Hub (если каталог обновили отдельно — robocopy/git):
+cd C:\1c-shared-patterns\cursor-addons\install
+.\Sync-1cAgentPack.ps1
+.\Check-1cAgentDrift.ps1
+
 # Для каждого проекта:
 cd C:\Cursor\UT25_85
 powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
@@ -180,18 +273,21 @@ powershell -File .cursor\scripts\Install-Project-OnNewDevice.ps1
 | Компонент | Где | Как синхронизируется |
 |---|---|---|
 | Global rules/skills | `~/.cursor/` | CursorSettings export + Install-ESTI |
-| `global-*.mdc` | `.cursor/rules/` каждого проекта | `sync-global-rules.ps1` |
-| Rules 32–41, 00-core | `.cursor/rules/` | `Spread-CursorSettings-ToProjects.ps1` |
+| **Hub patterns + lessons** | `C:\1c-shared-patterns` | перенос каталога + `Sync-1cAgentPack.ps1` |
+| **hub-gate / AGENTS / LLM-RULES / shared Serena** | каждый проект | Sync из Hub (не Spread) |
+| `global-*.mdc` (часть) | `.cursor/rules/` | `sync-global-rules.ps1` + Hub Sync для `global-04` |
 | Commands | `.cursor/commands/` | Spread |
 | supercode | `.supercode/modes/memory-bank/` | `Setup-MemoryBank-AllProjects.ps1` |
 | isolation_rules | `.cursor/rules/isolation_rules/` | `Setup-MemoryBank-AllProjects.ps1` (шаблон ESTI) |
-| Memory Bank L0 | `memory-bank/`, `memory.md` | `Setup-MemoryBank-AllProjects.ps1` |
-| Serena L2 | `.serena/memories/` | локально per project |
-| Контекст КФ | `00-*-core.mdc` / skill проекта | в каждом проекте |
+| Memory Bank L0 | `memory-bank/` | per project; `memory.md` из Hub Sync |
+| Serena L2 shared | `.serena/memories/pitfalls/shared/` | Hub Sync |
+| Контекст КФ | `01-*-project-context.mdc` / skill проекта | только в проекте |
 | MCP | `mcp.json`, MCP_ROUTER_* | локально per project |
+| **Playwright / 1c-web-test** | `~\.cursor\skills\1c-web-test` + `tests/web/` | Install skill + npm; сценарии в проекте |
 | Litecode data | `C:\bsl-litecode-data\<ID>` | `Setup-AllProjects-LitecodeMemory.ps1` + отчёт КФ |
 | Atlas index | `C:\bsl-atlas-indexes\<ID>` | per project при POWER |
 
 Манифест проектов: `projects.manifest.json`.
 
-**Не для BSL:** `codegraph` — не подключать в 1С-проектах.
+**Не для BSL:** `codegraph` — не подключать в 1С-проектах.  
+**UI e2e:** Playwright / `1c-web-test`, не MCP screenshot/puppeteer.

@@ -2,16 +2,22 @@
 
 Полный чеклист: Cursor, MCP, память агента, litecode/Atlas. См. [RULES_INDEX.md](RULES_INDEX.md) · [INSTALL_ALL_PROJECTS.md](INSTALL_ALL_PROJECTS.md).
 
+**Сначала общие шаги для всех КФ** (Hub + Playwright + User Rules Gate):  
+[INSTALL_ALL_PROJECTS.md](INSTALL_ALL_PROJECTS.md) §1 → §1b → §1c · [docs/HUB_FPLUS_LITE.md](../docs/HUB_FPLUS_LITE.md).
+
 **Пути (одинаковые на всех ПК):**
 
 | Что | Путь |
 |---|---|
 | Workspace / выгрузка КФ | `C:\Cursor\ESTI` |
+| Hub знаний | `C:\1c-shared-patterns` |
 | Файловая ИБ | см. `infobasesettings.md` |
 | HTTP | `http://localhost/ESTI` |
 | MCP binaries | `C:\CursorMCP\` |
 | Atlas index | `C:\bsl-atlas-indexes\ESTI` |
 | Litecode data | `C:\bsl-litecode-data\ESTI` |
+| Playwright skill | `%USERPROFILE%\.cursor\skills\1c-web-test` |
+| Web scenarios | `tests/web/` (см. `tests/web/INSTALL.md`) |
 
 ---
 

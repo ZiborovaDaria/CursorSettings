@@ -1,12 +1,13 @@
 ---
-description: Always apply. Tiny trigger for error-learning; details are in project-esti-error-learning-agent.mdc.
-globs:
+description: Always apply. Tiny trigger for error-learning; details in skill error-learning-1c.
 alwaysApply: true
 ---
 
+<!-- DO NOT EDIT — synced from C:\1c-shared-patterns\cursor-addons\rules-shared\global-04-always-error-learning-trigger.mdc -->
+
 # Always: Error Learning Trigger
 
-If any of these happen, load `project-esti-error-learning-agent.mdc` or skill `error-learning-1c`:
+If any of these happen, load skill `error-learning-1c` (and project `project-*-error-learning-agent.mdc` if present):
 
 - `check_1c_code` / `review_1c_code` failed;
 - `v8std` diagnostic appears;
@@ -15,4 +16,6 @@ If any of these happen, load `project-esti-error-learning-agent.mdc` or skill `e
 - the same mistake appears again;
 - risky CFE/base-config change was attempted.
 
-Do not create a new `.mdc` rule for one-off issues. Store first in reflection/L1 memory; promote only if repeated or critical.
+Do not create a new `.mdc` for one-off issues.  
+Store: local reflection for task-only; **shared/portable lessons →** `C:\1c-shared-patterns\playbooks\agent-lessons\` + `index.md`.  
+Promote to alwaysApply rule only if repeated or critical.

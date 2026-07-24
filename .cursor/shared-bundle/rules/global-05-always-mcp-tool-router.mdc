@@ -1,0 +1,64 @@
+---
+description: Always apply. Compact MCP tool router — Locate/Understand/Consult/Edit/Verify. Project-agnostic for KB sync.
+alwaysApply: true
+---
+
+# Always: MCP tool router
+
+**Locate → Consult (docs/KB) → Understand → Edit → Verify.**  
+Детали: `.cursor/MCP_ROUTER.md`, каталог: `.cursor/MCP_SETUP.md`.  
+Алиасы/URL ИБ — из project overlay (`01-*-project-context.mdc`, `.dev.env`, `mcp.json`), не хардкодить чужой проект.
+
+| Task | MUST | Native only if |
+|---|---|---|
+| Locate BSL | **`bsl-atlas`**: `search_function` → `read_function`; `code_grep`; `codesearch` | Atlas down/empty → строка ниже |
+| Locate BSL (Atlas down) | **`code-index`** (`repo` = alias из mcp.json): `search_function` / `grep_code` / `grep_body` + **`litecode.search_metadata`** | MCP empty + one-line why |
+| Metadata / структура | Atlas `metadatasearch` / `get_object_details` **или** litecode ops **или** `mcp-1c` | — |
+| Форма / СКД | Atlas `get_form_info` / `get_skd_info` **или** `mcp-1c.get_form_structure` | — |
+| Callers / impact | Atlas `verify_call`; иначе code-index `get_callers`/`get_callees`; litecode `get_call_graph` | — |
+| Docs / справка / KB (до кода) | см. блок **Consult** ниже | WebFetch вместо MCP |
+| Indexed Hub docs | code-index `repo=docs` (`search_text` / `grep_text`) + Hub skills | — |
+| Edit BSL | Serena **после** locate + consult | — |
+| Verify BSL | naparnik `check_1c_code` (+ `review_1c_code`); Atlas `verify_field`/`verify_call`; v8std | — |
+| Runtime ИБ | `mcp-1c` | — |
+| OData / batch | `1c-rest-mcp` | only explicit OData task |
+| UI / web e2e | **Playwright** / skill `1c-web-test` (`tests/web/`) | не MCP screenshot/puppeteer |
+| URL / внешняя страница | см. **No WebFetch** | `WebFetch` только last resort |
+
+## Consult (обязательно перед новой 1С-логикой)
+
+LLM плохо знает «правильный» BSL/УТ — **не писать по памяти**. Перед генерацией:
+
+1. **Hub lessons** — skill `consult-1c-shared-lessons` → `C:\1c-shared-patterns\playbooks\agent-lessons\index.md` (max 2 файла). Ответ: `KB: …`.
+2. **Patterns** — при CFE/EPF/формах/Excel: skill `reuse-1c-shared-patterns`.
+2a. **БСП API** — перед своей утилитой: skill `1c-ssl-patterns` + `Search-BspApiDense.py` (lesson `bsl-prefer-bsp-api`).
+3. **Справка платформы** — `1c-syntax-helper` / naparnik `onec_help` / `explain_1c_syntax` / Atlas `help.search` / `mcp-1c.bsl_syntax_help`.
+4. **Документация КФ** — naparnik `config_help` (`config_name` из project ctx, напр. `УТ`).
+5. **ITS / методика** — `its_help` → `fetch_its`.
+6. **Стандарты** — v8std (`v8std_search` / `v8std_explain_snippet` / `v8std_explain_diagnostics`).
+7. **Indexed docs** — code-index `repo=docs` по Hub (`search_text`); lean-ctx `ctx_read` на найденный файл.
+
+## No WebFetch — default OFF
+
+| Нужно | MUST | Не делать |
+|---|---|---|
+| Уже в чате (`uploads/*`) | `ctx_read` | повторный fetch |
+| GitHub/GitLab tree | uploads → `%TEMP%` clone / `gh api` tree → `ctx_read` | серия WebFetch HTML |
+| Один URL | `ctx_url_read` | WebFetch |
+| Docs 1С / стандарты | naparnik / syntax-helper / v8std / Atlas `help.search` / `repo=docs` | WebFetch «вместо MCP» |
+| Веб-поиск фактов | `WebSearch` | page fetch «на всякий» |
+| Локальный код | atlas / code-index / litecode / lean-ctx | WebFetch |
+
+**Budget:** `WebFetch` = **0** по умолчанию; ≤1 за ход только если MUST упали — строка `WebFetch because: …`.
+
+## Hard rules
+
+- **Direct call:** известный server/tool → `CallMcpTool`; schema → `GetMcpTools(server, toolName)`. Запрещено: `mcp-on-demand` `search_tools`, полный каталог «на всякий».
+- **No dual-channel** после успешного MCP-поиска.
+- **No codegraph** — callers через code-index / litecode / Atlas `verify_call`.
+- **lean-ctx** не primary locate для `*.bsl`. Read/Shell/Grep → `ctx_*` (см. `lean-ctx.mdc`). Hit: без `fresh` по умолчанию; Fn-ref `F12`; `map`/`signatures` → `full` только перед edit; после edit — `diff`. `ctx_shell`: не уходить на native Shell из-за allowlist — упростить команду или `lean-ctx allow $var`.
+- Serena whole-CF search **до** locate = antipattern.
+- Имя MCP Atlas в правилах/sync: всегда **`bsl-atlas`** (URL в `mcp.json` указывает на индекс текущего проекта).
+- litecode = `search_metadata` + JSON `"op"` (нет `search_by_embedding`).
+- **UI:** не подключать/не звать `screenshot` / `puppeteer-real-browser` — канон `tests/web/INSTALL.md` + `1c-web-test`.
+- Grep/Glob OK сразу для md/rules/json/yaml/logs; иначе: `MCP tried: …; fallback because …`.

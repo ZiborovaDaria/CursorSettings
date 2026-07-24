@@ -128,6 +128,14 @@ Always-on правил мало и они короткие. Они не пыта
 
 Из старых правил v3 уже вобрал главное: ESTI core, MCP POWER/LITE, orchestrator JSON, single 1C launch, error-learning, tooling playbooks, YAxUnit/testing и эксплуатационные команды.
 
+## Changelog 2026-07-24 — MCP router depersonalize + BSP dense API
+
+- **`global-05-always-mcp-tool-router.mdc`**: project-agnostic Locate BSL → **`bsl-atlas`** (не `bsl-atlas-bp` / не `C:\Cursor\BP`).
+- Stub: `24-always-mcp-tool-router.mdc` / `26-always-no-webfetch.mdc` → указывают на global-05.
+- Hub Sync: `global-05`, `global-06`, `global-02`, `1c-code-writing-agent`, skill `1c-ssl-patterns`.
+- БСП: dense search `scripts/bsp-api/` (`qwen3-embedding:4b`); lesson `bsl-prefer-bsp-api`; «ищи ПИ БСП, не клонируй».
+- Каталог API + индекс: Hub `C:\1c-shared-patterns\playbooks\bsp-api\` (не в git из‑за размера vectors.npy).
+
 ## Changelog 2026-07-23 — Hub F+ Lite + Playwright
 
 Установка на новый ПК теперь включает **два** обязательных контура:

@@ -24,19 +24,30 @@ Open only the one or two relevant `SKILL.md` files. Do not load the whole skills
 | CFE full cycle | `1c-cfe-full-cycle` | `1c-cfe-extensions-agent.mdc` |
 | EPF | `1c-epf-full-cycle` | `1c-epf-erf-agent.mdc` |
 | ERF | `1c-erf-build` | `1c-epf-erf-agent.mdc` |
+| Fresh / 1cfresh / SaaS delivery | `1c-bsp-registration` (+ epf/cfe cycle) | `1c-fresh-delivery-agent.mdc` + Hub `fresh-delivery-gate` |
 | Metadata, roles, СКД, MXL | `1c-metadata-manage` | `1c-metadata-xml-auto.mdc` |
 | Managed forms | `1c-form-managed` | `1c-managed-forms-agent.mdc` |
 | Queries/performance | `1c-query-optimization` | `1c-queries-performance-agent.mdc` |
-| MCP/code search (ESTI) | `mcp-1c-tools` (project) | `project-esti-mcp-router-agent.mdc` |
-| MCP/code search (generic) | `1c-mcp-toolkit` (global) | `1c-mcp-first-search-agent.mdc` |
-| Project context (ESTI) | `esti-project` | `project-esti-context-agent.mdc` |
+| MCP/code search | `1c-mcp-toolkit` / router | `1c-mcp-first-search-agent.mdc` + `MCP_ROUTER.md` |
+| Hub lessons (до кода) | `consult-1c-shared-lessons` | `hub-gate.mdc` |
+| БСП / SSL API (вместо своей утилиты) | `1c-ssl-patterns` | Hub `bsp-api` + `Search-BspApiDense.py`; lesson `bsl-prefer-bsp-api` |
+| Hub patterns CFE/EPF/forms | `reuse-1c-shared-patterns` | `hub-gate.mdc` |
+| Platform API docs | `1c-platform-docs` / `1c-syntax-helper` MCP | `global-05-always-mcp-tool-router` Consult |
+| Project context | `*-project` (напр. `ut-project`) | `01-*-project-context.mdc` |
 | Debug/verification | `1c-testing-release` | `1c-testing-release-agent.mdc` |
 | YAxUnit | `1c-yaxunit` | `1c-yaxunit-agent.mdc` |
-| Error learning | `error-learning-1c` | `project-esti-error-learning-agent.mdc` |
-| Orchestrator JSON | `orchestrator-bridge` | `project-esti-orchestrator-bridge-agent.mdc` |
+| Web UI e2e | `1c-web-test` | `tests/web/INSTALL.md` (не screenshot/puppeteer MCP) |
+| Error learning | `error-learning-1c` | `global-04-always-error-learning-trigger.mdc` |
 | Windows shell | `powershell-windows` | `windows-powershell-auto.mdc` |
 | Markdown → DOCX | `md-to-docx` | `docs-markdown-auto.mdc` |
 | Mermaid/ASCII diagrams | `mermaid-diagrams` | `docs-markdown-auto.mdc` |
 | Handoff | `handoff` | `memory-bank-workflow-agent.mdc` |
+
+| External GitHub / URL research | — | `/research-repo` + `global-06-always-no-webfetch` / `global-05-always` No WebFetch |
+| Logging / ЖР design | — | `1c-logging-strategy-agent.mdc` |
+| СКД / DCS design | `1c-metadata-manage` / skd skills | `1c-dcs-design-agent.mdc` |
+| Registers design | — | `1c-registers-design-agent.mdc` |
+| Verify depth (quick vs full) | `1c-testing-release` | `1c-verification-policy-agent.mdc` |
+| Indexed Hub docs | code-index `repo=docs` | `MCP_SETUP.md` |
 
 Do not reference a skill as loaded unless its `SKILL.md` exists or was opened successfully.

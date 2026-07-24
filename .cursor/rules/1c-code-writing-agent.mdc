@@ -8,37 +8,46 @@ alwaysApply: false
 
 Use for any request to create/modify/review BSL, CFE, EPF, ERF, metadata XML, PowerShell automation for 1C or query text.
 
-## Before writing code
+## Before writing code (anti-hallucination)
 
-1. Identify delivery type: CFE, EPF, ERF, metadata XML, script, common module, form module, object/manager module.
-2. Load matching detailed rule/skill.
-3. Find existing project analogue before inventing names/signatures/APIs.
-4. Confirm exact object/module/form/event if tied to metadata.
-5. If critical details are missing, output `CONFUSION`; otherwise make safe assumptions and continue.
+LLM плохо обучена на «правильном» 1С — **сначала locate + KB + справка**, потом код.
+
+1. Identify delivery type: CFE, EPF, ERF, metadata XML, script, common/form/object/manager module.
+2. Load matching detailed rule/skill (+ Hub gate: `consult-1c-shared-lessons`; CFE/EPF/формы → `reuse-1c-shared-patterns`). If Fresh/облако/веб-сервис — also `1c-fresh-delivery-agent.mdc` / lesson `fresh-delivery-gate`.
+3. Find existing project analogue via `bsl-atlas` / litecode / code-index — не выдумывать имена/сигнатуры.
+3a. **БСП прежде своей утилиты:** если нужна общая операция (реквизит, строка, массив, фон, файлы, печать, сообщение…) — skill `1c-ssl-patterns` + dense:
+   `python C:\1c-shared-patterns\scripts\Search-BspApiDense.py "<задача>" --top 5 --category interface`
+   → hit: locate `Модуль.Имя` в текущей КФ и вызвать; не писать клон. Lesson: `bsl-prefer-bsp-api`.
+4. Confirm object/module/form/event structure (`get_object_details` / litecode / `mcp-1c`).
+5. Callers/impact for public/exported methods.
+6. Platform/config docs: syntax-helper, Atlas `help.search`, naparnik `onec_help`/`config_help`, v8std, code-index `repo=docs`.
+7. If critical details missing → `CONFUSION`; else safe assumptions + continue.
+8. Reply line: `KB: <ids>|none|skip-cosmetic`.
 
 ## Code generation policy
 
 - Write real code when user asked for implementation.
-- Do not stop at analysis if enough context exists.
+- Do not stop at analysis if enough context exists **after** steps above.
 - Do not produce pseudo-code when real BSL can be written.
-- Use placeholders only for truly unknown metadata and mark them clearly.
+- Use placeholders only for truly unknown metadata and mark them.
 - Keep changes minimal and copy-paste ready.
 - Do not modify base configuration without approval.
+- CFE default: `&Перед` / `&После` / `&ИзменениеИКонтроль`; `&Вместо` only with explicit OK.
 
 ## BSL quality
 
-- Parameterized queries only.
-- No concatenation of user input into query text.
-- Client code: UI and server calls only.
-- DB/heavy logic: server/common module.
+- Parameterized queries only; no user-input concatenation into query text.
+- Client: UI + server calls only; DB/heavy logic on server. Explicit compile directives; for Fresh/web assume safe mode and no COM/local files without permissions.
+- Write handlers: guard `ОбменДанными.Загрузка` in object/register modules.
 - Avoid server calls in client loops.
-- Avoid `Выполнить()` / `Вычислить()` unless explicitly justified.
-- Return structured results for complex operations: `Успех`, `ТекстОшибки`, `Данные`.
-- Comments only for non-obvious business logic/integration assumptions.
+- Avoid `Выполнить()` / `Вычислить()` unless justified.
+- Structured results for complex ops: `Успех`, `ТекстОшибки`, `Данные`.
+- Comments only for non-obvious business/integration assumptions.
 
 ## After writing code
 
-1. Run available validation or state why not run.
-2. For failures, use error-learning pipeline.
-3. Report changed files/objects, verification and risks.
+1. naparnik `check_1c_code` (+ `review_1c_code` for non-trivial); Atlas `verify_field`/`verify_call` if Up; v8std on standards disputes.
+2. Failures → error-learning + re-consult Hub.
+3. Report changed files/objects, verification, risks.
 4. Update `memory-bank/progress.md` for non-trivial tasks.
+5. UI check if needed: Playwright / `tests/web/` — not MCP browser tools.

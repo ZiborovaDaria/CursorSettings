@@ -1,0 +1,111 @@
+{
+  "hubRoot": "C:\\1c-shared-patterns",
+  "projectsRoot": "C:\\Cursor",
+  "projects": [
+    "UT25_85",
+    "ESTI",
+    "BP",
+    "KA",
+    "UNF",
+    "UNF12_261",
+    "UT22_92",
+    "RMK",
+    "UPO",
+    "Obshep"
+  ],
+  "rules": [
+    {
+      "src": "cursor-addons/rules-shared/hub-gate.mdc",
+      "dest": ".cursor/rules/hub-gate.mdc"
+    },
+    {
+      "src": "cursor-addons/rules-shared/global-04-always-error-learning-trigger.mdc",
+      "dest": ".cursor/rules/global-04-always-error-learning-trigger.mdc"
+    },
+    {
+      "src": "cursor-addons/rules-shared/global-05-always-mcp-tool-router.mdc",
+      "dest": ".cursor/rules/global-05-always-mcp-tool-router.mdc"
+    },
+    {
+      "src": "cursor-addons/rules-shared/global-06-always-no-webfetch.mdc",
+      "dest": ".cursor/rules/global-06-always-no-webfetch.mdc"
+    },
+    {
+      "src": "cursor-addons/rules-shared/global-02-always-skill-router.mdc",
+      "dest": ".cursor/rules/global-02-always-skill-router.mdc"
+    },
+    {
+      "src": "cursor-addons/rules-shared/1c-code-writing-agent.mdc",
+      "dest": ".cursor/rules/1c-code-writing-agent.mdc"
+    }
+  ],
+  "projectRoot": [
+    {
+      "src": "cursor-addons/project-root/AGENTS.md",
+      "dest": "AGENTS.md"
+    },
+    {
+      "src": "cursor-addons/project-root/memory.md",
+      "dest": "memory.md"
+    },
+    {
+      "src": "cursor-addons/project-root/LLM-RULES.md",
+      "dest": "LLM-RULES.md"
+    },
+    {
+      "src": "cursor-addons/project-root/USER-RULES.md",
+      "dest": "USER-RULES.md"
+    },
+    {
+      "src": "cursor-addons/project-root/.cursorrules",
+      "dest": ".cursorrules"
+    }
+  ],
+  "skills": [
+    {
+      "src": "cursor-addons/skills/consult-1c-shared-lessons/SKILL.md",
+      "destName": "consult-1c-shared-lessons"
+    },
+    {
+      "src": "cursor-addons/skills/reuse-1c-shared-patterns/SKILL.md",
+      "destName": "reuse-1c-shared-patterns"
+    },
+    {
+      "src": "cursor-addons/skills/error-learning-1c/SKILL.md",
+      "destName": "error-learning-1c"
+    },
+    {
+      "src": "cursor-addons/skills/1c-ssl-patterns/SKILL.md",
+      "destName": "1c-ssl-patterns"
+    }
+  ],
+  "serena": [
+    {
+      "src": "cursor-addons/serena-shared/core_shared.md",
+      "dest": ".serena/memories/core_shared.md"
+    },
+    {
+      "src": "cursor-addons/serena-shared/pitfalls/cfe_bsl.md",
+      "dest": ".serena/memories/pitfalls/shared/cfe_bsl.md"
+    },
+    {
+      "src": "cursor-addons/serena-shared/pitfalls/excel_read.md",
+      "dest": ".serena/memories/pitfalls/shared/excel_read.md"
+    },
+    {
+      "src": "cursor-addons/serena-shared/pitfalls/query_and_dates.md",
+      "dest": ".serena/memories/pitfalls/shared/query_and_dates.md"
+    }
+  ],
+  "excludeFromOverwrite": [
+    "01-*-project-context.mdc",
+    "project-*"
+  ],
+  "notes": [
+    "A2: synced copies are committed in each project repo",
+    "project-root AGENTS/memory/LLM-RULES/USER-RULES/.cursorrules are shared SoT",
+    "LLM-RULES Active evolves only via /evolve in Hub then Sync",
+    "global-05 Locate BSL: always bsl-atlas (project-agnostic), never bsl-atlas-bp / C:\\Cursor\\BP",
+    "BSP API: skill 1c-ssl-patterns + Hub playbooks/bsp-api + Search-BspApiDense.py"
+  ]
+}

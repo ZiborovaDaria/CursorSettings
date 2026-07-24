@@ -1,0 +1,10 @@
+---
+description: "Always: No WebFetch (stub). Canon in global-05."
+alwaysApply: true
+---
+
+# Always: No WebFetch (stub)
+
+**Canon:** `.cursor/rules/global-05-always-mcp-tool-router.mdc` → section **No WebFetch** (sync-safe; тот же текст в `~/.cursor/rules/` если установлен user-pack).  
+**Command:** `/research-repo`. Prefer: uploads → clone `%TEMP%` / `gh api` → `ctx_url_read`; docs 1С → naparnik / v8std / Atlas `help.search` / code-index `repo=docs`.  
+Do **not** duplicate the tool table here — edit only the canon file.

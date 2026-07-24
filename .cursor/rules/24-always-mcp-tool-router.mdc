@@ -1,45 +1,11 @@
 ---
-description: Always apply. Compact MCP tool router — Locate/Understand/Edit/Verify. No dual-channel Grep after successful MCP.
-alwaysApply: true
+description: Always apply. Stub — канон MCP router в global-05-always-mcp-tool-router.mdc (project-agnostic).
+alwaysApply: false
 ---
 
-# Always: MCP tool router
+# Deprecated filename: 24-always-mcp-tool-router
 
-**Locate → Understand → Edit → Verify.** Details: project `MCP_ROUTER_*.md`.
+**Канон:** `.cursor/rules/global-05-always-mcp-tool-router.mdc`
 
-| Task | MUST | Native only if |
-|---|---|---|
-| Locate BSL (`C:\Cursor\BP`) | `bsl-atlas-bp` (`search_function` / `code_grep` / `codesearch`) | MCP empty + one-line why |
-| Locate BSL (other WS) | `code-index` (`grep_code` / `grep_body` / `search_function`) | same |
-| XML / docs / config / diff | `lean-ctx` `ctx_read` / `ctx_search` / `ctx_tree` | jail / MCP down |
-| Callers / impact | `code-index` `get_callers` / `get_callees` | — |
-| Edit BSL | Serena **after** locate | — |
-| Verify BSL | naparnik `check_1c_code` | — |
-| Runtime ИБ | `mcp-1c` | — |
-| OData / batch write | `1c-rest-mcp` | only explicit OData task |
-| UI / web client | screenshot / puppeteer | only explicit UI/web task |
-| URL / внешняя страница | см. **No WebFetch** ниже | `WebFetch` только last resort |
-
-## No WebFetch (Fetching page) — default OFF
-
-`WebFetch` / UI «Fetching page» = дорого (шумный HTML). **Не вызывать по умолчанию** ни в CREATIVE, ни в обычном Agent.
-
-| Нужно | MUST (по порядку) | Не делать |
-|---|---|---|
-| Страница уже в чате (`uploads/*`) | `ctx_read` / Read на upload | повторный fetch того же URL |
-| GitHub/GitLab репо (tree, много файлов) | (1) uploads (2) `git clone --depth 1` в `%TEMP%\<repo>` (3) `gh api …/git/trees/…?recursive=1` → потом `ctx_read`/`ctx_tree` | серия `WebFetch` HTML `…/tree/…` или `contents/` |
-| Один публичный URL (статья, raw-файл) | `lean-ctx` `ctx_url_read` (`mode=facts`/`markdown`, низкий `max_tokens`) | `WebFetch` |
-| Документация 1С / стандарты | naparnik / `1c-platform-docs` / v8std | GitHub/WebFetch «вместо MCP» |
-| Поиск в вебе (ссылки, факты) | `WebSearch` (сниппеты) | полный page fetch «на всякий» |
-| Локальный файл / код | atlas / code-index / lean-ctx `ctx_read` | WebFetch |
-
-**Budget:** `WebFetch` = **0** по умолчанию. Допустим **≤1** за ход и только если все MUST выше недоступны/упали — одна строка `WebFetch because: …`. Серия WebFetch = antipattern (`rule-friction`).
-
-## Hard rules
-- **No dual-channel:** after successful MCP search, do **not** also Grep “just in case”.
-- **No codegraph** — out of router; use code-index callers.
-- **lean-ctx is not** primary locate for `*.bsl`.
-- **Serena** `find_symbol` / `search_for_pattern` across whole CF **before** locate = antipattern.
-- Atlas tools `metadatasearch` / `codesearch` are **valid** on `bsl-atlas-*`. Legacy global MCP with those names outside Atlas = do not use.
-- Grep/Glob OK immediately for md/rules/json/yaml/logs; else one line: `MCP tried: …; fallback because …`.
-- **No WebFetch spam** — см. таблицу выше; clone только в `%TEMP%`, не в корень проекта.
+Не использовать `bsl-atlas-bp` / `C:\Cursor\BP` в shared-правилах.  
+Имя MCP Atlas всегда **`bsl-atlas`**; URL/порт — в project `mcp.json`.

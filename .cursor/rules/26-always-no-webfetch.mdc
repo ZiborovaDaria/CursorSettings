@@ -1,10 +1,9 @@
 ---
-description: Always apply. Stub — No WebFetch canon lives in 24-always-mcp-tool-router § No WebFetch.
-alwaysApply: true
+description: Always apply. Stub — канон No WebFetch в global-05-always-mcp-tool-router.mdc § No WebFetch.
+alwaysApply: false
 ---
 
-# Always: No WebFetch (stub)
+# Deprecated filename: 26-always-no-webfetch
 
-**Canon:** `~/.cursor/rules/24-always-mcp-tool-router.mdc` → section **No WebFetch**.  
-**Command:** `/research-repo`. Prefer: uploads → clone `%TEMP%` / `gh api` → `ctx_url_read`.  
-Do **not** duplicate the tool table here — edit only the canon file.
+**Канон:** `global-05-always-mcp-tool-router.mdc` → section **No WebFetch**.  
+Также: `global-06-always-no-webfetch.mdc` (stub в проектах после Sync).

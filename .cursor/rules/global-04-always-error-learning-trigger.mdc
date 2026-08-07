@@ -3,8 +3,6 @@ description: Always apply. Tiny trigger for error-learning; details in skill err
 alwaysApply: true
 ---
 
-<!-- DO NOT EDIT — synced from C:\1c-shared-patterns\cursor-addons\rules-shared\global-04-always-error-learning-trigger.mdc -->
-
 # Always: Error Learning Trigger
 
 If any of these happen, load skill `error-learning-1c` (and project `project-*-error-learning-agent.mdc` if present):
@@ -16,6 +14,14 @@ If any of these happen, load skill `error-learning-1c` (and project `project-*-e
 - the same mistake appears again;
 - risky CFE/base-config change was attempted.
 
-Do not create a new `.mdc` for one-off issues.  
-Store: local reflection for task-only; **shared/portable lessons →** `C:\1c-shared-patterns\playbooks\agent-lessons\` + `index.md`.  
-Promote to alwaysApply rule only if repeated or critical.
+**Before claiming the fix is done:** finish skill pipeline at least through **Store**.
+
+| Scope | Store (same session) |
+|---|---|
+| Portable (другая КФ повторит) | Hub `agent-lessons/` + `index.md` + `catalog.jsonl` — **обязательно**, не «предложи потом» |
+| Task / one config only | `memory-bank/reflection/reflection-YYYY-MM-DD-*.md` |
+
+Do not create a new alwaysApply `.mdc` for one-off issues.  
+Promote to alwaysApply rule only if repeated or critical (edit Hub `rules-shared`, then Sync).
+
+Defer Hub promote only with explicit line: `PROMOTE_DEFER: <why>` (user said skip / not portable / needs repro).

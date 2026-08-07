@@ -1,22 +1,22 @@
----
-description: Mandatory compact Hub consult before generating 1C code. Gate → Lookup ≤2 → Proof KB.
+﻿---
+description: Mandatory Hub consult before any development. Lessons (anti) + patterns (how). Proof KB/REUSE.
 alwaysApply: true
 ---
 
-<!-- DO NOT EDIT — synced from C:\1c-shared-patterns\cursor-addons\rules-shared\hub-gate.mdc -->
+# Hub Gate v2 (mandatory, compact)
 
-# Hub Gate (mandatory, compact)
+**Когда:** любая **разработка** — код, metadata, CFE/EPF/ERF, forms, rules, scripts, deploy, tests.
 
-Перед генерацией или существенной правкой BSL, CFE/EPF/ERF, управляемых форм, Excel, query:
+**Не consult Hub:** чистый вопрос «как работает X в 1С/платформе» **без правок** → syntax-helper / naparnik / v8std. Косметика без новой логики → `KB: skip-cosmetic`.
 
-1. Прочитай `C:\1c-shared-patterns\playbooks\agent-lessons\index.md`.
-2. При CFE/EPF/ERF/формах/печати/Excel — skill `reuse-1c-shared-patterns` (content-patterns index).
-3. Открой **максимум 2** совпавших lesson/pattern файла.
-4. Пиши код только после шагов 1–3.
-5. В ответе одна строка: `KB: <id1>, <id2>` | `KB: none` | `KB: skip-cosmetic`.
+1. **Lessons** (anti-gotcha): `playbooks/agent-lessons/index.md`; при неясном match → `Search-HubLessonsDense.py "<задача>"` (fallback: `Build-AgentLessonsCatalog.py --search`).
+2. **Patterns** (how, при implement): `Search-ContentPatternsDense.py "<задача>"` или skill `reuse-1c-shared-patterns`.
+3. Открой **max 2** файла (lessons + patterns суммарно).
+4. Proof: `KB: <id>` | `KB: none` | `KB: skip-cosmetic` **и** `REUSE: <id>` | `REUSE: none (искал: …)`.
 
 Не читай весь Hub.  
-Исключение: чисто косметический rename/комментарий без новой логики → `KB: skip-cosmetic`.  
-После check/runtime fail — снова consult lessons + skill `error-learning-1c` (promote в Hub, не только local reflection).
+После fail → `error-learning-1c` → Store в Hub (`STORED: hub:<id>`).
 
-Skills: `consult-1c-shared-lessons`, `reuse-1c-shared-patterns`.
+Skills: `consult-1c-shared-lessons`, `reuse-1c-shared-patterns`.  
+How-to: `playbooks/agent-lessons/HOW-SEARCH.md`.  
+Rebuild dense: `Index-HubDenseAll.py`.

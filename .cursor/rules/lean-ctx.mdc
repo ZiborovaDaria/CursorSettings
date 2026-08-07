@@ -32,11 +32,11 @@ alwaysApply: false
 3. **Read:** `ctx_read(path, mode)` — pick mode from table above
 4. **Edit:** `ctx_edit(path, old, new)` or native Edit
 5. **Verify:** `ctx_read(path, "diff")` + `ctx_shell("test command")`
-6. **Record:** `ctx_knowledge(action="remember", content="...")`
+6. **Lessons:** переносимый урок → Hub `agent-lessons` + `Build-AgentLessonsCatalog.py` (не `ctx_knowledge remember`).
 
 ## Session
-- **Start:** `ctx_session(action="status")` + `ctx_knowledge(action="wakeup")`
-- **End:** `ctx_session(action="decision", content="what was done + next steps")`
+- **Start:** `ctx_session(action="status")` при необходимости
+- **End:** `ctx_session(action="decision", content="what was done + next steps")` при длинной задаче
 
 NEVER use native Read/Grep/Shell when ctx_* equivalents are available.
 <!-- /lean-ctx -->

@@ -116,7 +116,7 @@ Always-on правил мало и они короткие. Они не пыта
 3. `capture-error` — должен включить error-learning pipeline.
 4. `deploy_and_test` — должен проверить single-1C-launch правило и `.dev.env`.
 
-Дополнительно после Hub Sync: генерация CFE → строка `KB:` в ответе; `Check-1cAgentDrift.ps1` → PASS.
+Дополнительно после Hub Sync: разработка → `KB:` + `REUSE:`; dense smoke: `Search-HubLessonsDense.py "запрос в цикле"`; `Check-1cAgentDrift.ps1` → PASS.
 
 ## Что делать со старыми правилами
 
@@ -127,6 +127,15 @@ Always-on правил мало и они короткие. Они не пыта
 ```
 
 Из старых правил v3 уже вобрал главное: ESTI core, MCP POWER/LITE, orchestrator JSON, single 1C launch, error-learning, tooling playbooks, YAxUnit/testing и эксплуатационные команды.
+
+## Changelog 2026-08-07 — Hub Gate v2 + dense KB search
+
+- **`hub-gate.mdc` v2**: любая разработка → Hub; consult-only без правок → platform MCP; proof `KB:` + `REUSE:`.
+- **Dense search**: `Search-HubLessonsDense.py`, `Search-ContentPatternsDense.py`, `Index-HubDenseAll.py` (Hub `scripts/`).
+- **How-to**: [docs/HUB_KB_SEARCH.md](docs/HUB_KB_SEARCH.md) (алгоритм, пороги score, команды).
+- **Skills** в `.cursor/export/global-skills/`: `consult-1c-shared-lessons`, `reuse-1c-shared-patterns`, `error-learning-1c` (обновлены).
+- **Убрано**: Serena memories sync, `ctx_knowledge remember` как слой памяти 1С.
+- **memory.md v4**, **AGENTS.md**, **global-04/05/02**, **1c-code-writing-agent**, **lean-ctx** — синхрон с Hub.
 
 ## Changelog 2026-07-24 — MCP router depersonalize + BSP dense API
 
@@ -141,12 +150,13 @@ Always-on правил мало и они короткие. Они не пыта
 Установка на новый ПК теперь включает **два** обязательных контура:
 
 1. **CursorSettings** (этот репо) → `~/.cursor`  
-2. **Hub** `C:\1c-shared-patterns` → `Sync-1cAgentPack.ps1` (gate, lessons, AGENTS/memory/LLM-RULES, Serena shared)
+2. **Hub** `C:\1c-shared-patterns` → `Sync-1cAgentPack.ps1` (gate, lessons, AGENTS/memory/LLM-RULES, dense scripts)
 
 | Документ | Назначение |
 |---|---|
 | [.cursor/INSTALL_ALL_PROJECTS.md](.cursor/INSTALL_ALL_PROJECTS.md) | §1b Hub, §1c Playwright — главный чеклист всех проектов |
-| [docs/HUB_FPLUS_LITE.md](docs/HUB_FPLUS_LITE.md) | SoT Hub, Gate → `KB:`, Sync |
+| [docs/HUB_FPLUS_LITE.md](docs/HUB_FPLUS_LITE.md) | SoT Hub, Gate v2, Sync, dense |
+| [docs/HUB_KB_SEARCH.md](docs/HUB_KB_SEARCH.md) | How-to: lessons + patterns search |
 | [docs/PLAYWRIGHT_1C_WEB_TEST.md](docs/PLAYWRIGHT_1C_WEB_TEST.md) | skill `1c-web-test` + npm playwright |
 
 UI e2e: **Playwright / 1c-web-test**, не MCP screenshot/puppeteer.  

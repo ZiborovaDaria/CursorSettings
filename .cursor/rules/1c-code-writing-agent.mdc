@@ -13,16 +13,19 @@ Use for any request to create/modify/review BSL, CFE, EPF, ERF, metadata XML, Po
 LLM плохо обучена на «правильном» 1С — **сначала locate + KB + справка**, потом код.
 
 1. Identify delivery type: CFE, EPF, ERF, metadata XML, script, common/form/object/manager module.
-2. Load matching detailed rule/skill (+ Hub gate: `consult-1c-shared-lessons`; CFE/EPF/формы → `reuse-1c-shared-patterns`). If Fresh/облако/веб-сервис — also `1c-fresh-delivery-agent.mdc` / lesson `fresh-delivery-gate`.
-3. Find existing project analogue via `bsl-atlas` / litecode / code-index — не выдумывать имена/сигнатуры.
+2. Load matching detailed rule/skill (+ Hub: `HOW-SEARCH.md`, `consult-1c-shared-lessons`, `reuse-1c-shared-patterns`). If Fresh/облако/веб-сервис — also `1c-fresh-delivery-agent.mdc` / lesson `fresh-delivery-gate`.
+2a. **Hub lessons:** `index.md` → если нет hit: `Search-HubLessonsDense.py "<задача>" --top 3`.
+2b. **Hub patterns (implement):** `Search-ContentPatternsDense.py "<задача>" --top 3` → открыть эталон, не изобретать.
+3. Find existing project analogue via `bsl-atlas` / litecode — не выдумывать имена/сигнатуры. `code-index` только если Atlas down (`mcp.optional.json`).
 3a. **БСП прежде своей утилиты:** если нужна общая операция (реквизит, строка, массив, фон, файлы, печать, сообщение…) — skill `1c-ssl-patterns` + dense:
    `python C:\1c-shared-patterns\scripts\Search-BspApiDense.py "<задача>" --top 5 --category interface`
    → hit: locate `Модуль.Имя` в текущей КФ и вызвать; не писать клон. Lesson: `bsl-prefer-bsp-api`.
-4. Confirm object/module/form/event structure (`get_object_details` / litecode / `mcp-1c`).
-5. Callers/impact for public/exported methods.
-6. Platform/config docs: syntax-helper, Atlas `help.search`, naparnik `onec_help`/`config_help`, v8std, code-index `repo=docs`.
+4. Confirm object/module/form/event structure (litecode ops / Atlas `get_object_details` / `mcp-1c` — один канал).
+5. Callers/impact: Atlas `read_function` / `verify_call`; litecode `get_references` для метаданных.
+6. Platform/config docs: syntax-helper, Atlas `help.search`, naparnik, v8std; Hub docs — code-index `repo=docs` если в optional, иначе lean-ctx.
+6a. **Platform API Gate:** перед нетривиальным `Объект.Метод(` — `1c-syntax-helper` `list_object_members` / `get_syntax_info` с **реальным** типом. Не вызывать `Свойство`/`Свойства` вне Структуры (lesson `bsl-structure-property-only`). Конфиг-методы — Atlas `verify_call`, не «по памяти».
 7. If critical details missing → `CONFUSION`; else safe assumptions + continue.
-8. Reply line: `KB: <ids>|none|skip-cosmetic`.
+8. Reply: `KB: <ids>|none|skip-cosmetic` **и** `REUSE: <id>|none (искал: …)`.
 
 ## Code generation policy
 
@@ -47,6 +50,8 @@ LLM плохо обучена на «правильном» 1С — **снача
 ## After writing code
 
 1. naparnik `check_1c_code` (+ `review_1c_code` for non-trivial); Atlas `verify_field`/`verify_call` if Up; v8std on standards disputes.
+1a. **Method spot-check** (lesson `process-platform-method-verify`): из диффа — сомнительные `Объект.Метод(` (красные флаги: `Свойство`/`Свойства`, нестандартная арность, «как в другом языке») → повторно syntax-helper. `check_1c_code` **не** заменяет проверку применимости API.
+1b. В отчёте: `API-check: syntax-helper|skip-trivial|failed`.
 2. Failures → error-learning + re-consult Hub.
 3. Report changed files/objects, verification, risks.
 4. Update `memory-bank/progress.md` for non-trivial tasks.

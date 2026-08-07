@@ -26,7 +26,7 @@
 3. Определи delivery type: CFE, EPF, ERF, metadata XML, script, docs, query, test.
 4. Подключи только нужное правило/skill.
 5. Найди типовой аналог до написания кода.
-6. **Hub Gate** (перед генерацией BSL/CFE/EPF/форм/Excel/query): `C:\1c-shared-patterns\playbooks\agent-lessons\index.md` → max 2 файла; при CFE/EPF — skill `reuse-1c-shared-patterns`. В ответе строка `KB: …` | `KB: none` | `KB: skip-cosmetic`.
+6. **Hub Gate v2** (перед любой разработкой): `HOW-SEARCH.md` → lessons (`index` → `Search-HubLessonsDense.py`) → `KB:`; implement → `Search-ContentPatternsDense.py` → `REUSE:`. Consult-only без правок — syntax-helper/naparnik, не Hub.
 7. Внеси минимальные изменения.
 8. Проверь доступными средствами.
 9. Обнови Memory Bank для значимых задач. Переносимый урок ошибки → Hub `agent-lessons` (+ Sync), не только `memory-bank/reflection`.
@@ -78,9 +78,9 @@ Locate → Understand → Edit → Verify
 
 - задача и прогресс — `memory-bank/`;
 - ошибки task/local — `memory-bank/reflection/`;
-- **переносимые** agent-gotcha — `C:\1c-shared-patterns\playbooks\agent-lessons\` + `index.md`, затем `Sync-1cAgentPack.ps1`;
+- **переносимые** agent-gotcha — `playbooks/agent-lessons/` + `index.md` + `catalog.jsonl` (Build-AgentLessonsCatalog.py), затем Sync;
 - эталоны HOW — `playbooks/content-patterns/` (skill `reuse-1c-shared-patterns`);
-- устойчивые инварианты — `memory.md` / Serena (`pitfalls/shared/*` = cache, SoT = Hub lessons);
+- устойчивые инварианты — `memory.md` (SoT lessons = Hub);
 - shared `.mdc` (`hub-gate`, `global-04`) править только в Hub `cursor-addons/rules-shared/`, не в копии проекта;
 - правило alwaysApply создавать только при повторе ошибки или critical-риске.
 

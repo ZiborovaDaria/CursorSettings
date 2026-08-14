@@ -1,13 +1,12 @@
 ---
-description: 
+description: PowerShell on Windows + lean-ctx ctx_shell allowlist-safe patterns
 globs: **/*.ps1,**/*.psm1,**/*.psd1
 alwaysApply: false
 ---
 
-
 # Auto: Windows PowerShell
 
-Apply when writing or running PowerShell.
+Apply when writing or running PowerShell (scripts or `ctx_shell`).
 
 ## Rules
 
@@ -16,9 +15,41 @@ Apply when writing or running PowerShell.
 - Prefer `Join-Path` for paths.
 - Do not use `&&` unless PowerShell version supports it and project permits it.
 - Use `Invoke-WebRequest` / `Invoke-RestMethod` carefully; avoid alias confusion with `curl`.
-- Check `$LASTEXITCODE` after external executables.
+- Check `$LASTEXITCODE` after external executables (allowed in lean-ctx allowlist).
 - Use `-ErrorAction Stop` for commands that must fail loudly.
 - Do not print secrets.
+
+## lean-ctx `ctx_shell` (allowlist)
+
+lean-ctx blocks unknown `$var` tokens. Prefer patterns below; if blocked → rewrite or `lean-ctx allow $var` (never empty the whole allowlist).
+
+### Prefer (low friction)
+
+```powershell
+# Sizes of rules (no script vars)
+Get-Item C:\Cursor\UT25_85\.cursor\rules\*.mdc | Format-Table Name, Length -AutoSize
+
+# Filter by name
+Get-ChildItem C:\Cursor\UT25_85\.cursor\rules\*.mdc | Where-Object Name -like 'global-*' | Format-Table Name, Length
+
+# Pipeline $_ is allowed
+Get-ChildItem C:\Cursor\UT25_85\.cursor\rules\*.mdc | ForEach-Object { $_.Name + "`t" + $_.Length }
+
+# External tool exit code
+git status; if ($LASTEXITCODE -ne 0) { Write-Output "git failed" }
+```
+
+### Avoid in one-liners (unless var already allowed)
+
+```powershell
+# Bad: invents $bytes → BLOCKED until lean-ctx allow $bytes
+Get-ChildItem *.mdc | ForEach-Object { $bytes = $_.Length; ... }
+```
+
+### If you need a named var
+
+1. Use an already-allowed name (`$path`, `$name`, `$file`, `$lines`, `$json`, `$res`, …) — see `lean-ctx allow --list`.
+2. Or run once: `lean-ctx allow $myVar`.
 
 ## 1C Designer commands
 
@@ -26,4 +57,3 @@ Apply when writing or running PowerShell.
 - Write log to configured `LOG_PATH` or a temp path.
 - Use file infobase `/F` or server infobase `/S` based on `INFOBASE_KIND`.
 - Omit `/N` and `/P` when credentials are empty.
-

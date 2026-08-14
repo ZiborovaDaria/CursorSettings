@@ -1,34 +1,39 @@
 ---
-description: Use before any 1C project-source search: code, metadata, usages, call chains, forms, layouts, queries, object structure.
-globs: 
+description: MCP-first locate для BSL, CFE, Form.xml — native Grep/Read запрещены (все КФ).
+globs:
+  - "**/*.bsl"
+  - "**/Extent/**"
+  - "**/Form.xml"
+  - "**/Configuration.xml"
 alwaysApply: false
 ---
 
-
 # Agent: MCP-first Search
 
-## Rule
+При работе с этими файлами **MUST** MCP/index **до** любого native Grep/Read/Glob.
 
-For 1C project-source search, use project index/MCP tools before Grep/Glob when available.
+Always-on: `global-05`, `global-07-always-mcp-enforcement`. Details: `MCP_ROUTER.md`.
 
-## Priority
+## Первый вызов по типу файла
 
-1. Metadata graph / code metadata / business search / object dossier.
-2. Code index / search function / module structure / call hierarchy.
-3. Retry with broader/narrower query or grep-like mode inside the index if tool supports it.
-4. Only then native Grep/Glob, with a note why MCP/index did not return enough.
+| Файл | MCP (обязательно) |
+|---|---|
+| `*.bsl` | `bsl-atlas` `search_function` / `code_grep` → `read_function` |
+| `Form.xml` | litecode `get_form` `detail=summary` |
+| `Configuration.xml` | litecode `object_structure` / `browse` |
+| `Extent/**` (дерево CFE) | litecode `browse` или `ctx_tree` |
+| UUID / ссылка | litecode `get_references` |
 
-## Native Grep/Glob allowed immediately for
+## Перед edit
 
-- Markdown/rules/docs.
-- JSON/YAML/config files.
-- logs/build artifacts.
-- file already read in this session.
-- non-1C source not indexed by MCP.
+`ctx_read` `lines:N-M` или `map` — **не** native Read для номеров строк.
 
-## Response note
+## Запрещено
 
-If Grep/Glob was used on 1C project source, include one short line:
+- Цепочки Grep → Read → Grep на 1С-дереве
+- Dual-channel после успешного MCP-hit
+- `Glob **/CommonModules/**` и аналоги — только MCP
 
-`MCP/index tried: <...>; fallback to Grep because <...>.`
+## Fallback
 
+Строка **до** native: `MCP tried: <...>; fallback because: <...>.`

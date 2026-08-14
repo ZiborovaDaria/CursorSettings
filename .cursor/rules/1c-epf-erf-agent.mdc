@@ -21,6 +21,12 @@ alwaysApply: false
 - For data changes, include dry-run/preview mode when practical.
 - For mass changes, produce protocol: row, object, action, result, error text.
 - Do not run destructive data changes without explicit user confirmation.
+- Always include BSP `СведенияОВнешнейОбработке` (skill `1c-bsp-registration`) unless user explicitly asks for a non-BSP tool.
+- Object/register write handlers: `Если ОбменДанными.Загрузка Тогда Возврат; КонецЕсли;` at start of `ПередЗаписью` / `ПриЗаписи` / `ПослеЗаписи`.
+
+## Fresh / cloud / web
+
+If target is **1С:Фреш**, SaaS, web-client, or «публикация в сервис» — load `1c-fresh-delivery-agent.mdc` + Hub lesson `fresh-delivery-gate` **before** coding. Thin-client OK is not enough.
 
 ## Verification
 
@@ -28,4 +34,5 @@ alwaysApply: false
 - Check server calls.
 - Check rights and transaction behavior.
 - Check on test infobase before production.
+- Fresh delivery: `check_1c_code` + `review_1c_code` + Fresh checklist (web / safe mode / registration / exchange-load).
 

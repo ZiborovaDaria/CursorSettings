@@ -28,7 +28,7 @@ Open only the one or two relevant `SKILL.md` files. Do not load the whole skills
 | Metadata, roles, СКД, MXL | `1c-metadata-manage` | `1c-metadata-xml-auto.mdc` |
 | Managed forms | `1c-form-managed` | `1c-managed-forms-agent.mdc` |
 | Queries/performance | `1c-query-optimization` | `1c-queries-performance-agent.mdc` |
-| MCP/code search | `1c-mcp-toolkit` / router | `1c-mcp-first-search-agent.mdc` + `MCP_ROUTER.md` |
+| MCP/code search | `1c-mcp-toolkit` / router | `1c-mcp-first-search-agent.mdc` + `global-07-always-mcp-enforcement.mdc` + `MCP_ROUTER.md` |
 | Hub lessons (до кода) | `consult-1c-shared-lessons` | `hub-gate.mdc` + `HOW-SEARCH.md` |
 | БСП / SSL API (вместо своей утилиты) | `1c-ssl-patterns` | Hub `bsp-api` + `Search-BspApiDense.py`; lesson `bsl-prefer-bsp-api` |
 | Hub patterns (implement) | `reuse-1c-shared-patterns` | `hub-gate.mdc` + `HOW-SEARCH.md` |

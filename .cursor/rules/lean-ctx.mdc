@@ -4,11 +4,10 @@ alwaysApply: false
 ---
 
 # lean-ctx — Context Engineering Layer
-<!-- lean-ctx-rules-v11 -->
+<!-- lean-ctx-rules-v12 -->
 
 ## Tool Mapping (MANDATORY — use instead of native equivalents)
 | Instead of | Use | Example |
-|------------|-----|---------|
 | Read/cat/head/tail | `ctx_read(path, mode)` | `ctx_read("src/main.rs", "full")` |
 | Grep/rg/find | `ctx_search(pattern, path)` | `ctx_search("fn handle", "src/")` |
 | Shell/bash | `ctx_shell(command)` | `ctx_shell("cargo test")` |
@@ -16,6 +15,16 @@ alwaysApply: false
 | Edit (when Read unavailable) | `ctx_edit(path, old, new)` | `ctx_edit("f.rs", "old", "new")` |
 | WebFetch / Fetching page (URL) | `ctx_url_read(url, mode, max_tokens)` | `ctx_url_read(url, mode="facts", max_tokens=1500)` |
 | GitHub tree HTML fetch | clone/`gh api` + `ctx_read`/`ctx_tree` | см. always router No WebFetch |
+
+## Hit / Fn-ref / modes (token discipline)
+
+Goal: maximize lean-ctx **cache hits** (~13 tok stub) and avoid bloating **input**.
+
+1. **No `fresh=true` by default.** Only for subagent without parent ctx, or file changed outside lean-ctx and hit looks stale.
+2. **Fn-ref first.** After a read returns `F12=…`, reuse **F12** in reasoning; do not re-`ctx_read` the same unchanged file.
+3. **Mode ladder:** `map` / `signatures` / `lines:N-M` / `task` for explore → **`full` only before edit** (or when map is insufficient).
+4. **Re-read after edit:** prefer `mode=diff`, not another blind `full`.
+5. If hit returns `[unchanged …]`, trust it — do not `fresh` «just in case».
 
 ## ctx_read Mode Selection
 | Goal | Mode | When |
@@ -26,18 +35,30 @@ alwaysApply: false
 | Large file overview | `map` | >500 lines, won't edit |
 | Specific region | `lines:N-M` | Know exact location |
 
+## ctx_shell + PowerShell allowlist
+
+- Prefer **cmdlets already on allowlist**; avoid inventing `$weirdVar` names.
+- Safe: pipeline `$_` / `$PSItem`, `$LASTEXITCODE`, `$PWD`, `$null`, `$true`, `$false`, and common `$path`/`$name`/`$file`/… (see `lean-ctx allow --list`).
+- **Complex loops / many `$vars`:** write `script.ps1` → `powershell -NoProfile -File script.ps1` via `ctx_shell` (preferred over expanding allowlist mid-task).
+- If `BLOCKED … $foo is not in the shell allowlist`:
+  1. Rewrite without that `$foo` **or** use `-File` script (preferred), **or**
+  2. `lean-ctx allow $foo` (additive; do **not** empty `shell_allowlist`).
+- Do **not** fall back to native Shell only because of allowlist — rewrite / `-File` first.
+- Canonical no-friction patterns: see `windows-powershell-auto.mdc`.
+
 ## Workflow
 1. **Orient:** `ctx_overview(task)` or `ctx_compose(task, path)`
 2. **Locate:** `ctx_search(pattern, path)` or `ctx_semantic_search(query)`
 3. **Read:** `ctx_read(path, mode)` — pick mode from table above
 4. **Edit:** `ctx_edit(path, old, new)` or native Edit
 5. **Verify:** `ctx_read(path, "diff")` + `ctx_shell("test command")`
-6. **Lessons:** переносимый урок → Hub `agent-lessons` + `Build-AgentLessonsCatalog.py` (не `ctx_knowledge remember`).
+6. **Record:** `ctx_knowledge(action="remember", content="...")`
 
 ## Session
-- **Start:** `ctx_session(action="status")` при необходимости
-- **End:** `ctx_session(action="decision", content="what was done + next steps")` при длинной задаче
+- **Start:** `ctx_session(action="status")` + `ctx_knowledge(action="wakeup")`
+- **End:** `ctx_session(action="decision", content="what was done + next steps")`
 
 NEVER use native Read/Grep/Shell when ctx_* equivalents are available.
-<!-- /lean-ctx -->
 
+**1С-проект:** на `*.bsl`, `Extent/**`, `Form.xml` — locate через atlas/litecode (см. `global-05` BLOCKER), чтение через `ctx_read`, не native Read.
+<!-- /lean-ctx -->

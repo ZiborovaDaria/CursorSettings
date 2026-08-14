@@ -17,7 +17,9 @@ alwaysApply: true
 | Metadata: ссылки / влияние | litecode `get_references` | — |
 | Metadata: права / роли | litecode `get_access` | — |
 | Metadata: подписки | litecode `get_subscriptions` | — |
-| Форма / СКД | litecode `get_form` detail=`all` **или** Atlas `get_form_info` / `get_skd_info` / `mcp-1c.get_form_structure` | — |
+| Форма / СКД | litecode `get_form` `detail=summary` → при необходимости `all`; Atlas `get_form_info` / `get_skd_info` | native Read `Form.xml` |
+| UUID / ссылки в CFE/XML | litecode `get_references` | native Grep по uuid |
+| Каркас формы / метаданные | skill `1c-form-add` / `1c-form-edit` / `1c-meta-edit` | ручной XML + Grep |
 | Callers / impact BSL | Atlas `read_function` / `verify_call` | code-index `get_callers`/`get_callees` или litecode `get_call_graph` только если Atlas down |
 | Docs / справка / KB (до кода) | см. блок **Consult** ниже | WebFetch вместо MCP |
 | Indexed Hub docs | code-index `repo=docs` (если сервер в optional) + Hub skills; иначе lean-ctx `ctx_read` | — |
@@ -56,15 +58,37 @@ LLM плохо знает «правильный» BSL/УТ — **не писа�
 
 **Budget:** `WebFetch` = **0** по умолчанию; ≤1 за ход только если MUST упали — строка `WebFetch because: …`.
 
+## Native tools — BLOCKER (1С-исходники)
+
+**Запрещено** native `Read` / `Grep` / `Glob` / `Shell` для **locate и разведки** по:
+`*.bsl`, `Extent/**`, `Catalogs/**`, `Documents/**`, `CommonModules/**`, `**/Form.xml`, `Configuration.xml` (КФ и CFE).
+
+| Сценарий | Первый вызов (обязателен) |
+|---|---|
+| Процедура/функция BSL | `bsl-atlas` `search_function` → `read_function` |
+| Текст/regex в BSL | `bsl-atlas` `code_grep` |
+| Объект метаданных | litecode `object_structure` или Atlas `get_object_details` |
+| Форма, команды, элементы | litecode `get_form` `detail=summary` |
+| UUID / где используется | litecode `get_references` |
+| Дерево расширения | litecode `browse` или `ctx_tree` на `Extent/` |
+| Создать/каркас формы | skill `1c-form-add` / `1c-form-edit` |
+| Срез перед edit | `ctx_read` `lines:N-M` / `map` / `diff` (не native Read) |
+
+**Anti-loop:** >1 native Grep/Read/Glob **подряд** на 1С-дереве без строки  
+`MCP tried: <tools>; fallback because: <why>` = **стоп**, вызвать MCP из таблицы.
+
+**Glob без MCP** — только `memory-bank/**`, `.cursor/**`, `scripts/**`, `*.md`, `*.json`, `*.yaml`, логи.
+
 ## Hard rules
 
+- **MCP before native:** на 1С-задаче **первый** locate-вызов — `CallMcpTool` (atlas/litecode/ctx_*), не Grep/Read/Glob.
 - **Direct call:** известный server/tool → `CallMcpTool`; schema → `GetMcpTools(server, toolName)` **один раз на tool/сессию**, далее reuse. **Не** вызывать полный каталог `GetMcpTools()` «на всякий».
 - **Optional MCP:** `code-index`, UI-browser MCP — в `mcp.optional.json`; не держать в активном `mcp.json` без причины.
 - **No mcp-on-demand:** proxy снят; user `~/.cursor/mcp.json` = `lean-ctx` only. HTTP/SSE project-серверы on-demand не проксирует.
 - **No dual-channel (index):** после успешного Atlas hit — **не** `code-index`/`grep_code`, **не** native Grep по тому же query в том же turn. **Один index-сервер на query.**
 - **No dual-channel (metadata):** после litecode `browse`/`get_children` — не `metadatasearch`/`get_object_details` по тому же объекту.
 - **No codegraph** — callers через Atlas `read_function`/`verify_call`, litecode `get_references`, code-index только fallback.
-- **Native Grep/Read BAN** на `*.bsl`, `Extent/**`, объекты CF/CFE **без** явной строки `MCP tried: <tools>; fallback because: <why>`. Grep/Glob OK сразу только для md/rules/json/yaml/logs/toml (не BSL-дерево).
+- **Native locate BAN** (см. BLOCKER выше): fallback только с `MCP tried: <tools>; fallback because: <why>` **в том же ответе до** native-вызова.
 - **Hot-debug:** stack trace → atlas `search_function`/`code_grep` → `read_function` → `ctx_read` `lines:N-M` → `StrReplace` → `check_1c_code`. Lesson: `process-mcp-io-discipline`.
 - **lean-ctx** не primary *locate* для `*.bsl` (locate = atlas), но **обязателен** для non-BSL file IO, diff, shell. После edit — `ctx_read(diff)`.
 - Имя MCP Atlas в правилах/sync: всегда **`bsl-atlas`** (URL в `mcp.json` указывает на индекс текущего проекта).

@@ -1,0 +1,36 @@
+---
+description: Always apply. MCP-first enforcement для всех 1С-проектов — блок native Grep/Read разведки.
+alwaysApply: true
+---
+
+# Always: MCP-first enforcement
+
+Дополняет `global-05-always-mcp-tool-router.mdc`. Для **любой** конфигурации (УТ, БП, ЗУП, ERP, УНФ, …) на разведку 1С-исходников **native Read/Grep/Glob запрещены**.
+
+Пути КФ/CFE/расширений — из `01-*-project-context.mdc` / `.dev.env` (типично `Extent/`, выгрузка в корне workspace).
+
+## Первый ход задачи (locate)
+
+1. BSL → `bsl-atlas` (`search_function` / `code_grep`).
+2. Метаданные / форма / UUID → `litecode` (`object_structure`, `get_form`, `get_references`).
+3. Файл перед правкой → `ctx_read` `map` / `lines:N-M` (не native Read).
+4. Создание формы → skill `1c-form-add` / `1c-form-edit`, не охота по `Form.xml`.
+
+## Запрещённые паттерны
+
+- Цикл `Grep(uuid)` → `Read(20 строк)` → `Grep` → …
+- `Glob` по дереву КФ/CFE/расширения вместо `litecode browse` / `ctx_tree`
+- `Read Form.xml` вместо `get_form detail=summary`
+- Atlas/litecode hit + параллельный native Grep (dual-channel)
+
+## Fallback
+
+Только если MCP недоступен или пустой ответ. **До** native-вызова в ответе:
+
+```text
+MCP tried: <server.tool>; fallback because: <ошибка или пусто>
+```
+
+## KPI
+
+После крупной CFE/доработки — `/mcp-audit`. Цель: mcpShare≥40%, nativeGrep≤250.

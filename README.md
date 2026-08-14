@@ -178,3 +178,13 @@ Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, 
 | `scripts/mcp_usage_stats.py` | KPI + `webfetch_*` |
 
 После установки: **Reload Window**, `/doctor`, `/checkmcp`. Не копировать чужой `mcp-servers.json` поверх боевого `mcp.json`.
+
+## Changelog 2026-08-14 — global-07 + MCP audit + Hub sync
+
+- **`global-07-always-mcp-enforcement.mdc`**: блок native Read/Grep/Glob на разведке 1С-исходников (дополняет global-05).
+- **`1c-fresh-delivery-agent.mdc`**: доставка CFE/EPF в 1C:Fresh / SaaS.
+- **`/mcp-audit`**: KPI MCP vs native (`Invoke-McpUsageAudit.ps1`).
+- **MCP docs**: `.cursor/MCP_ROUTER.md`, `MCP_SETUP.md`, `README.md`.
+- **Устаревшие stub-правила** `24-*` / `26-*` перенесены в `.cursor/rules/_legacy/*.off` (канон: `global-05` / `global-06`).
+- **Export**: `C:\1c-shared-patterns\cursor-addons\install\Export-HubToCursorSettings.ps1` — полный push Hub + UT-шаблон.
+- **Drift**: `Check-1cAgentDrift.ps1` — PASS для всех 10 проектов `C:\Cursor\*`.

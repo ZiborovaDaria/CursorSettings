@@ -1,75 +1,44 @@
-﻿# RULES_INDEX — final v3
+# RULES_INDEX — UT25_85
 
-Карта правил, команд, навыков и MCP для 1С/ESTI workspace.
+v3 Memory Bank + Agent Mode.
 
-## Always-on
+## Naming canon (все проекты `C:\Cursor`)
 
-| Rule | Purpose |
-|---|---|
-| `global-00-always-1c-memory-bank-router.mdc` | главный роутер 1С + Memory Bank + обычный Agent Mode |
-| `global-01-always-safe-scope.mdc` | безопасность, base config, secrets, ambiguity, CFE blocker |
-| `global-02-always-skill-router.mdc` | маршрутизация к существующим skills/rules |
-| `global-03-always-memory-bank-paths.mdc` | канонические пути Memory Bank |
-| `global-04-always-error-learning-trigger.mdc` | короткий trigger error-learning |
-
-## General 1C rules
-
-| Scenario | Rule |
-|---|---|
-| Write/edit BSL | `1c-code-writing-agent.mdc` |
-| BSL standards | `1c-bsl-standards-auto.mdc` |
-| CFE | `1c-cfe-extensions-agent.mdc` |
-| EPF/ERF | `1c-epf-erf-agent.mdc` |
-| Managed forms | `1c-managed-forms-agent.mdc` |
-| Metadata XML | `1c-metadata-xml-auto.mdc` |
-| Module structure | `1c-module-structure-agent.mdc` |
-| Queries | `1c-queries-performance-agent.mdc` |
-| Locks/transactions | `1c-locks-transactions-agent.mdc` |
-| Debug/verification | `1c-debug-verification-agent.mdc` |
-| Testing/release | `1c-testing-release-agent.mdc` |
-| YAxUnit | `1c-yaxunit-agent.mdc` |
-| Windows PowerShell | `windows-powershell-auto.mdc` |
-
-## ESTI project-specific
-
-| Scenario | Rule |
-|---|---|
-| Project context | `project-esti-context-agent.mdc` |
-| MCP POWER/LITE routing | `project-esti-mcp-router-agent.mdc` |
-| Tooling playbooks | `project-esti-tooling-playbooks-agent.mdc` |
-| Single 1C launch | `project-esti-single-1c-launch-agent.mdc` |
-| Orchestrator JSON | `project-esti-orchestrator-bridge-agent.mdc` |
-| Error learning | `project-esti-error-learning-agent.mdc` |
-
-## Commands
-
-| Command | Purpose |
-|---|---|
-| `/van` | task entry and level classification |
-| `/plan` | plan |
-| `/creative` | architecture/decision phase |
-| `/implement` | implementation, compatible with Supercode IMPLEMENT |
-| `/build` | alias for `/implement` |
-| `/reflect` | task reflection |
-| `/archive` | close/archive task |
-| `/doctor` | self-check rules/memory/env |
-| `getconfigfiles` | export/update config files |
-| `deploy_and_test` | load/check/test in 1C |
-| `capture-error` | error recall/fix pipeline |
-| `reflect-lesson` | store reusable lesson |
-| `handoff` | session/PC/agent transfer |
-| `check-uuid` | metadata UUID/reference check |
-| `caveman` | short engineering answer mode |
-
-## Skills
-
-| Scope | Path | Examples |
+| Префикс | Пример | Роль |
 |---|---|---|
-| **Project** (конфиг) | `.cursor/skills/<name>/SKILL.md` | `esti-project`, `mcp-1c-tools`, `orchestrator-bridge` |
-| **Global** (общие 1С) | `~/.cursor/skills/<name>/SKILL.md` | `1c-cfe-full-cycle`, `1c-project`, `memory-bank-1c`, `handoff` |
+| `global-NN-always-*` | `global-00` … `global-06` | Shared alwaysApply, одинаковые во всех КФ |
+| `01-<code>-project-context` | `01-ut-project-context.mdc` | Overlay проекта (always) |
+| `1c-*-agent` | `1c-code-writing-agent.mdc` | On-demand доменные агенты |
+| `*-auto` | `windows-powershell-auto.mdc` | Glob / auto-attach |
+| `memory-bank-*-agent` | `memory-bank-workflow-agent.mdc` | Memory Bank режимы |
+| `project-<code>-*` | `project-esti-*.mdc` | Только конкретный проект |
+| `hub-gate.mdc` | — | Hub SoT (`rules-shared/`), без `global-NN` |
+| `lean-ctx.mdc` | — | Инструмент lean-ctx |
 
-Router: project first, then global (`global-02-always-skill-router.mdc`).
+### Always shared (`global-NN`)
 
-## Legacy policy
+| NN | Файл |
+|---|---|
+| 00 | `global-00-always-1c-memory-bank-router.mdc` |
+| 01 | `global-01-always-safe-scope.mdc` |
+| 02 | `global-02-always-skill-router.mdc` |
+| 03 | `global-03-always-memory-bank-paths.mdc` |
+| 04 | `global-04-always-error-learning-trigger.mdc` (Hub) |
+| 05 | `global-05-always-mcp-tool-router.mdc` |
+| 06 | `global-06-always-no-webfetch.mdc` (stub → § No WebFetch в 05) |
 
-Old duplicate rules may be kept only as `.mdc.off`. Active `.mdc` duplicates can conflict with v3.
+Не использовать «голые» числа вроде `24-always` / `26-always` — только непрерывный ряд `global-00…NN`.
+
+### Sync
+
+- Hub F+ Lite: `C:\1c-shared-patterns\cursor-addons\install\Sync-1cAgentPack.ps1` → `hub-gate`, `global-04`.
+- User-pack: `~/.cursor/rules/05-always-mcp-tool-router.mdc` ↔ project `global-05-…` (скрипт `sync-global-rules.ps1` добавляет префикс `global-`).
+- **Не** гонять старый full-sync `~/.cursor/rules/*` поверх пакета `global-00…04` без ревизии SoT (legacy 00–40 там ещё лежит).
+
+## Project map
+
+| Контекст | `01-ut-project-context.mdc` |
+| Навык | `ut-project` + `~/.cursor/skills` |
+| MCP | `MCP_ROUTER.md`, `MCP_SETUP.md`, `global-05-always-mcp-tool-router.mdc` |
+| Atlas | `bsl-atlas` |
+| UI e2e | `tests/web/INSTALL.md` + `1c-web-test` |

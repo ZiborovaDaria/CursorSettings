@@ -12,9 +12,16 @@ Companion к `1c-testing-release-agent.mdc` и команде `/deploy_and_test`
 
 | Level | Когда | Минимум |
 |---|---|---|
-| **gates** (quick) | L1–L2, локальный BSL, нет метаданных | `check_1c_code` или явная ручная проверка кода; не врать «проверено» |
-| **policy** (standard) | CFE/EPF/форма/запрос | gates + review/v8std по возможности; XML/form validate если трогали |
+| **gates** (quick) | L1–L2, локальный BSL, нет метаданных | `check_1c_code` **или** явная ручная проверка; при объектных методах — syntax-helper spot-check (`API-check: …`); не врать «проверено» |
+| **policy** (standard) | CFE/EPF/форма/запрос | gates + `review_1c_code`/v8std по возможности; method spot-check сомнительных API; XML/form validate если трогали |
 | **delivery** (full) | сдача, runtime, проведение, обмен | policy + `/deploy_and_test` / YAxUnit / smoke ИБ |
+
+## Platform API (обязательно в gates+)
+`check_1c_code` слабо ловит «метод чужого типа». Перед/после генерации с `Объект.Метод(`:
+- `1c-syntax-helper` `list_object_members` / `get_syntax_info`;
+- красные флаги: `Свойство`/`Свойства` вне Структуры — lesson `bsl-structure-property-only`;
+- процесс: `process-platform-method-verify`.
+В отчёте: `API-check: syntax-helper|skip-trivial|failed`.
 
 ## Правила
 - Пользователь сказал «быстро» → gates, явно перечислить что **не** проверено.

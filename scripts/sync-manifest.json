@@ -68,6 +68,10 @@
     {
       "src": "cursor-addons/rules-shared/1c-delivery-version-info.mdc",
       "dest": ".cursor/rules/1c-delivery-version-info.mdc"
+    },
+    {
+      "src": "cursor-addons/rules-shared/1c-delivery-desktop-extensions.mdc",
+      "dest": ".cursor/rules/1c-delivery-desktop-extensions.mdc"
     }
   ],
   "projectRoot": [

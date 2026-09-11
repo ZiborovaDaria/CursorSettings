@@ -33,6 +33,7 @@ alwaysApply: false
 2. `BriefInformation` заполнен осмысленным текстом.
 3. `DetailedInformation` заполнен; при bump — есть блок «Версия X.Y.Z: …».
 4. Для EPF/ERF: версия в `СведенияОВнешнейОбработке` согласована с метаданными (если оба места используются).
+5. **Бинарник** собран и лежит в `Desktop\расширения\<Контрагент>\<Имя>_<версия>.cfe|.epf|.erf` — правило `1c-delivery-desktop-extensions.mdc` (always).
 
 ## Anti-patterns
 

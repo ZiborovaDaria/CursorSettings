@@ -1,0 +1,41 @@
+---
+description: Always apply. Сборка CFE/EPF/ERF и сохранение бинарника в Desktop\расширения\<Контрагент>\ — обязательный шаг сдачи.
+alwaysApply: true
+---
+
+# Always: сдача CFE/EPF/ERF в папку «расширения»
+
+## BLOCKER перед «готово» / «сдано» / закрытием задачи
+
+Если менялись исходники **CFE / EPF / ERF** (или пользователь просил собрать/сдать):
+
+1. **Контрагент известен** (спроси, если нет) — канон имён: `Desktop\расширения\<Контрагент>\`.
+2. **Version + Brief/Detailed** — по `1c-delivery-version-info.mdc` (bump версии).
+3. **Собрать бинарник** из XML (`v8-runner` / `1c-cfe-full-cycle` / `1c-epf-build` / `1c-erf-build`).
+4. **Сохранить файл** строго сюда:
+
+```text
+C:\Users\Admin\Desktop\расширения\<Контрагент>\<Имя>_<версия>.cfe|.epf|.erf
+```
+
+Примеры: `ПрефиксыСкладов_1.0.10.cfe`, `ДанныеОбъекта_1.1.epf`.
+
+5. В ответе пользователю указать **полный путь** к сохранённому файлу.
+6. Исходники держать в `Extent/<Контрагент>/<Имя>/` (см. `docs/EXTENT_CONTRACTORS.md` / `Extent/README.md`).
+
+## Нельзя считать сдачу завершённой, если
+
+- бинарник только во временной папке / `%TEMP%` / корне проекта;
+- файл без суффикса `_версия`;
+- контрагент не уточнён → спроси или положи в `_неразнесено` **и** скажи об этом явно;
+- Version не поднят при доработке.
+
+## Связка
+
+| Что | Где |
+|---|---|
+| Version / Brief / Detailed | `1c-delivery-version-info.mdc` |
+| CFE hooks | `1c-cfe-extensions-agent.mdc` |
+| EPF/ERF | `1c-epf-erf-agent.mdc` |
+| Контрагент в MB | `memory-bank/contractors/README.md` |
+| Сборка | skills `v8-runner`, `1c-cfe-full-cycle`, `1c-epf-build`, `1c-erf-build` |

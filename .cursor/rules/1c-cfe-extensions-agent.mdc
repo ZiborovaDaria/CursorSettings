@@ -66,4 +66,5 @@ After change:
 - CFE validation if tool exists;
 - metadata XML validation if XML touched;
 - Version + Brief/Detailed заполнены;
+- **бинарник** в `Desktop\расширения\<Контрагент>\<Имя>_<версия>.cfe` (`1c-delivery-desktop-extensions.mdc`);
 - deploy_and_test if runtime behavior changed.

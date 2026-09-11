@@ -25,6 +25,7 @@ Open only the one or two relevant `SKILL.md` files. Do not load the whole skills
 | EPF | `1c-epf-full-cycle` | `1c-epf-erf-agent.mdc` + `1c-delivery-version-info.mdc` |
 | ERF | `1c-erf-build` | `1c-epf-erf-agent.mdc` + `1c-delivery-version-info.mdc` |
 | CFE/EPF Version + Brief/Detailed | — | `1c-delivery-version-info.mdc` + lesson `cfe-epf-version-and-info` |
+| Сборка + сдача в Desktop\расширения | `v8-runner` / `1c-cfe-full-cycle` / `1c-epf-build` | `1c-delivery-desktop-extensions.mdc` (always) + contractors |
 | Fresh / 1cfresh / SaaS delivery | `1c-bsp-registration` (+ epf/cfe cycle) | `1c-fresh-delivery-agent.mdc` + Hub `fresh-delivery-gate` |
 | Metadata, roles, СКД, MXL | `1c-metadata-manage` | `1c-metadata-xml-auto.mdc` |
 | Managed forms | `1c-form-managed` | `1c-managed-forms-agent.mdc` |

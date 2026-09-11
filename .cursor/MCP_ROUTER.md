@@ -38,6 +38,15 @@ UI e2e        = Playwright / 1c-web-test (не MCP browser)
 | UI / web регресс | Playwright + `tests/web/` + skill `1c-web-test` | см. `tests/web/AGENT-PROMPT.md` |
 | UI / web разведка | `getFormState` / optional `playwright-cli --headed` | не MCP screenshot/puppeteer; `@playwright/mcp` только approve |
 
+## Пользовательские MCP (runtime-зависимые)
+
+Активируются вручную в `.cursor/mcp.optional.json`. Требуют предварительной сборки/запуска бинарников.
+
+| Сервер | Когда использовать | Ключевые tools |
+|---|---|---|
+| `v8-runner` | build, syntax, tests, dump, launch 1C | `build_project`, `run_all_tests`, `run_module_tests`, `check_syntax_designer_config`, `check_syntax_designer_modules`, `launch_app`, `dump_config` |
+| `1c-debug` | интерактивная отладка BSL через `dbgs.exe` | `attach`, `detach`, `set_breakpoints`, `clear_breakpoints`, `pause`, `continue`, `step_in`, `step_out`, `wait_for_stop`, `get_call_stack`, `get_variables`, `evaluate`, `reload_metadata` |
+
 ## Конвейер «правильный код» (anti-hallucination)
 
 ```text

@@ -1,0 +1,24 @@
+---
+description: Use v8-runner for build, syntax checks, YAxUnit/Vanessa tests, dump, and launch of 1C. Apply when the user asks to build CFE, run tests, check syntax, dump config, or launch 1C client.
+globs:
+alwaysApply: false
+---
+
+# Agent: v8-runner
+
+Load skill `v8-runner` before using this tool.
+
+## When to use
+
+- Build or load CFE / main config into the infobase.
+- Run `syntax designer-modules` / `syntax designer-config` / `syntax edt`.
+- Run YAxUnit (`test yaxunit`) or Vanessa Automation (`test va`).
+- Dump config or make `.cf`/`.cfe`/`.epf`/`.erf` artifacts.
+- Launch 1C client, including MCP-enabled thin client.
+
+## When not to use
+
+- Locate BSL code — use `bsl-atlas` / `litecode` / `code-index` instead.
+- Edit BSL/XML — use native edit after locate+consult.
+- OData queries — use `1c-rest-mcp`.
+- UI web e2e — use Playwright / `tests/web/`.

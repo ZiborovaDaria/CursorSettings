@@ -1,0 +1,26 @@
+---
+description: Use 1c-debug-mcp for interactive debugging of BSL code via dbgs.exe. Apply when the user asks to debug, set breakpoints, inspect variables, or investigate a runtime error.
+globs:
+alwaysApply: false
+---
+
+# Agent: 1c-debug-mcp
+
+Load skill `1c-debug-mcp` before using this tool.
+
+## When to use
+
+- Runtime error in a BSL module.
+- Need to inspect variable values at a specific line.
+- Need to evaluate a BSL expression in a running context.
+- Need step-by-step execution of a server or client module.
+
+## Prerequisites
+
+- `dbgs.exe` must be running on the configured port (default `http://localhost:1550`).
+- The `1c-debug` MCP server must be enabled in `.cursor/mcp.optional.json`.
+
+## Limitations
+
+- EPF breakpoints are not supported by the 1C debug protocol; use `pause` instead.
+- For CFE modules, always pass `extensionName` to breakpoint tools.

@@ -12,15 +12,16 @@ alwaysApply: true
 ## Первый ход задачи (locate)
 
 1. BSL → `bsl-atlas` (`search_function` / `code_grep`).
-2. Метаданные / форма / UUID → `litecode` (`object_structure`, `get_form`, `get_references`).
-3. Файл перед правкой → `ctx_read` `map` / `lines:N-M` (не native Read).
-4. Создание формы → skill `1c-form-add` / `1c-form-edit`, не охота по `Form.xml`.
+2. Форма → **Atlas** `get_form_info` (`form_path`) — **не** litecode `get_form`.
+3. Метаданные / UUID → `litecode` (`object_structure`, `get_references`, `browse`) или Atlas metadata.
+4. Файл перед правкой → `ctx_read` `lines:N-M` / `diff` (не native Read; `map` на Form.xml часто режет).
+5. Создание формы → skill `1c-form-add` / `1c-form-edit`, не охота по `Form.xml`.
 
 ## Запрещённые паттерны
 
 - Цикл `Grep(uuid)` → `Read(20 строк)` → `Grep` → …
 - `Glob` по дереву КФ/CFE/расширения вместо `litecode browse` / `ctx_tree`
-- `Read Form.xml` вместо `get_form detail=summary`
+- litecode `get_form` как первый locate формы (пустой hit на CFE) или `Read Form.xml` вместо Atlas `get_form_info`
 - Atlas/litecode hit + параллельный native Grep (dual-channel)
 
 ## Fallback

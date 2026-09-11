@@ -17,7 +17,8 @@ alwaysApply: true
 | Metadata: ссылки / влияние | litecode `get_references` | — |
 | Metadata: права / роли | litecode `get_access` | — |
 | Metadata: подписки | litecode `get_subscriptions` | — |
-| Форма / СКД | litecode `get_form` `detail=summary` → при необходимости `all`; Atlas `get_form_info` / `get_skd_info` | native Read `Form.xml` |
+| Форма (`Form.xml`) | **Atlas** `get_form_info` (`form_path`) — **без** litecode `get_form` (часто пустой hit на CFE) | `ctx_search`+`lines:N-M`; native Read только с `MCP tried` |
+| СКД | Atlas `get_skd_info` | native Read макета СКД |
 | UUID / ссылки в CFE/XML | litecode `get_references` | native Grep по uuid |
 | Каркас формы / метаданные | skill `1c-form-add` / `1c-form-edit` / `1c-meta-edit` | ручной XML + Grep |
 | Callers / impact BSL | Atlas `read_function` / `verify_call` | code-index `get_callers`/`get_callees` или litecode `get_call_graph` только если Atlas down |
@@ -68,7 +69,7 @@ LLM плохо знает «правильный» BSL/УТ — **не писа�
 | Процедура/функция BSL | `bsl-atlas` `search_function` → `read_function` |
 | Текст/regex в BSL | `bsl-atlas` `code_grep` |
 | Объект метаданных | litecode `object_structure` или Atlas `get_object_details` |
-| Форма, команды, элементы | litecode `get_form` `detail=summary` |
+| Форма, команды, элементы | **Atlas** `get_form_info` (`form_path`) — не litecode `get_form` |
 | UUID / где используется | litecode `get_references` |
 | Дерево расширения | litecode `browse` или `ctx_tree` на `Extent/` |
 | Создать/каркас формы | skill `1c-form-add` / `1c-form-edit` |

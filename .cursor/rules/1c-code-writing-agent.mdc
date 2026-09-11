@@ -49,10 +49,11 @@ LLM плохо обучена на «правильном» 1С — **снача
 
 ## After writing code
 
-1. naparnik `check_1c_code` (+ `review_1c_code` for non-trivial); Atlas `verify_field`/`verify_call` if Up; v8std on standards disputes.
-1a. **Method spot-check** (lesson `process-platform-method-verify`): из диффа — сомнительные `Объект.Метод(` (красные флаги: `Свойство`/`Свойства`, нестандартная арность, «как в другом языке») → повторно syntax-helper. `check_1c_code` **не** заменяет проверку применимости API.
-1b. В отчёте: `API-check: syntax-helper|skip-trivial|failed`.
-2. Failures → error-learning + re-consult Hub.
+1. **Per-module:** naparnik `check_1c_code` после каждого изменённого `.bsl`. Блок ≥2 модулей → + `review_1c_code`. Atlas `verify_field`/`verify_call` if Up.
+1a. **Method spot-check** (lesson `process-platform-method-verify`): из диффа — сомнительные `Объект.Метод(` → syntax-helper. `check_1c_code` **не** заменяет проверку применимости API.
+1b. **v8std on fail:** если check/review вернули diagnostic — `v8std_explain_diagnostics` или `v8std_search` до повторного check.
+1c. В отчёте: `Verify: check=N review=Y|N v8std=Y|N|skip` и `API-check: syntax-helper|skip-trivial|failed`.
+2. Failures → error-learning + re-consult Hub + Store.
 3. Report changed files/objects, verification, risks.
 4. Update `memory-bank/progress.md` for non-trivial tasks.
 5. UI check if needed: Playwright / `tests/web/` — not MCP browser tools.

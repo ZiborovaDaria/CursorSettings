@@ -23,6 +23,7 @@ alwaysApply: false
 - Do not run destructive data changes without explicit user confirmation.
 - Always include BSP `СведенияОВнешнейОбработке` (skill `1c-bsp-registration`) unless user explicitly asks for a non-BSP tool.
 - Object/register write handlers: `Если ОбменДанными.Загрузка Тогда Возврат; КонецЕсли;` at start of `ПередЗаписью` / `ПриЗаписи` / `ПослеЗаписи`.
+- **Version + описание:** при создании и сдаче заполнять версию и краткую/подробную информацию (метаданные объекта и/или сведения БСП). Правило `1c-delivery-version-info.mdc`, lesson `cfe-epf-version-and-info`. После доработки — bump версии и changelog в подробной информации.
 
 ## Fresh / cloud / web
 

@@ -1,0 +1,41 @@
+---
+description: MCP KPI — dual-channel, verify per module, hot-debug, Hub proof, v8std-on-fail (audit 2026-08).
+alwaysApply: true
+---
+
+# MCP KPI enforcement (all 1C projects)
+
+Цели (7d): mcpShare≥40%, readMcp≥30%, grepMcp≥40%, shellMcp≥15%, nativeGrep≤250.
+
+Atlas = ключ `bsl-atlas*` из project `mcp.json` (напр. `bsl-atlas-unf`, `bsl-atlas-bp`, `bsl-atlas`).
+
+## P0 — code-index / dual-channel
+
+- **code-index не в `mcp.json`** — пока Atlas `stats`/`search_function` OK.
+- После hit Atlas — **запрет** native `Grep`/`Glob` по тому же query в том же turn.
+- `code-index` только из `mcp.optional.json` + строка `Atlas unavailable: …`.
+
+## P0 — native Grep на BSL
+
+- `*.bsl`, `Extent/**`, `Form.xml`, `Configuration.xml` — **BLOCKER** native `Grep`/`Read`/`Glob` без:
+  `MCP tried: bsl-atlas|litecode|lean-ctx; fallback because: …`
+- **Hot-debug:** `search_function` → `read_function` → `ctx_read` `lines:N-M` → правка → `check_1c_code`.
+
+## P0 — verify
+
+- После **каждого** изменённого `.bsl` — `check_1c_code`. Блок ≥2 модулей → `review_1c_code`.
+- Отчёт: `Verify: check=<n> review=<y|n> v8std=<y|n|skip>`.
+
+## P1 — Hub Gate proof
+
+- Implement: ≥1 lesson/pattern файл **до** кода. Proof: `KB:` + `REUSE:` + **`KB-open: <path>`**.
+
+## P1 — audit
+
+- Еженедельно / после CFE: `/mcp-audit` или `scripts/Invoke-McpUsageAudit-Project.ps1`.
+
+## P2 — v8std / shell
+
+- check/review fail → `v8std_explain_diagnostics` / `v8std_search`.
+- 1c-rest-mcp / serena — только по явной задаче.
+- Аудит через `ctx_shell`, не native `Shell`.

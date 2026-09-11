@@ -46,9 +46,17 @@ To use `&Вместо`, agent must show:
 - Do not add roles/subsystems silently.
 - Do not rely on hidden standard forms without locating them.
 
-## Fresh / cloud / web
+## Delivery metadata (обязательно)
 
-If extension is for **1С:Фреш** / SaaS / web — load `1c-fresh-delivery-agent.mdc` + Hub `fresh-delivery-gate` before coding (safe mode, web forms, no obfuscation, ITS 52.4).
+См. правило `1c-delivery-version-info.mdc` + lesson `cfe-epf-version-and-info`.
+
+В `Configuration.xml` при создании и при каждой сдаче:
+
+- `Version` — поднять после осмысленной доработки;
+- `BriefInformation` — 1–2 предложения о назначении;
+- `DetailedInformation` — назначение + changelog текущей версии.
+
+Пустые Brief/Detailed = недосдача.
 
 ## Validation
 
@@ -57,5 +65,5 @@ After change:
 - syntax/check_1c_code;
 - CFE validation if tool exists;
 - metadata XML validation if XML touched;
-- deploy_and_test if runtime behavior changed;
-- Fresh: also `review_1c_code` + Fresh checklist (not thin-client-only).
+- Version + Brief/Detailed заполнены;
+- deploy_and_test if runtime behavior changed.

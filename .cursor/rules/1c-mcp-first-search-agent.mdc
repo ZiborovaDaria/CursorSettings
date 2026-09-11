@@ -19,7 +19,7 @@ Always-on: `global-05`, `global-07-always-mcp-enforcement`. Details: `MCP_ROUTER
 | Файл | MCP (обязательно) |
 |---|---|
 | `*.bsl` | `bsl-atlas` `search_function` / `code_grep` → `read_function` |
-| `Form.xml` | litecode `get_form` `detail=summary` |
+| `Form.xml` | **Atlas** `get_form_info` (`form_path`) — не litecode `get_form` |
 | `Configuration.xml` | litecode `object_structure` / `browse` |
 | `Extent/**` (дерево CFE) | litecode `browse` или `ctx_tree` |
 | UUID / ссылка | litecode `get_references` |
@@ -33,6 +33,15 @@ Always-on: `global-05`, `global-07-always-mcp-enforcement`. Details: `MCP_ROUTER
 - Цепочки Grep → Read → Grep на 1С-дереве
 - Dual-channel после успешного MCP-hit
 - `Glob **/CommonModules/**` и аналоги — только MCP
+
+## Hot-debug (runtime / trace / syntax in ИБ)
+
+```text
+search_function / code_grep → read_function → ctx_read lines:N-M → StrReplace → check_1c_code
+```
+
+- Запрещён цикл `Grep → Read → Grep` на BSL/CFE без `MCP tried`.
+- Checklist: `memory-bank/checklists/hot-debug-bsl.md`.
 
 ## Fallback
 

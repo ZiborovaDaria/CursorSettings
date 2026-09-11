@@ -1,19 +1,35 @@
-# /mcp-audit — KPI MCP vs native
+# /mcp-audit — KPI MCP vs native (ESTI)
 
-Сравнить использование MCP и native tools по agent-transcripts (окно N дней vs предыдущие N).
+Еженедельный или on-demand аудит по agent-transcripts. Пороги: mcpShare≥40%, nativeGrep≤250/7d.
 
-1. Запусти:
-   ```text
-   powershell -NoProfile -ExecutionPolicy Bypass -File "C:\1c-shared-patterns\cursor-addons\install\Invoke-McpUsageAudit.ps1" -FailOnAlert
-   ```
-   Для другого проекта: `-TranscriptsRoot` + `-OutDir`.
-2. Прочитай `_ai_agent/mcp-usage-audit-latest.txt` (или OutDir).
-3. Если status=ALERT:
-   - открой lesson `process-mcp-io-discipline`;
-   - перечисли top нарушений (native Grep/Read на BSL, dual-channel, ctx_shell=0);
-   - предложи точечный fix правил/поведения на следующую неделю.
-4. Если WARN по `write_memory=0` — напомни Store после error-learning.
-5. Короткий отчёт пользователю: baseline vs recent + alerts + 1–3 действия.
+## Быстрый запуск
 
-Порог по умолчанию: mcpShare≥40%, readMcp≥30%, grepMcp≥40%, shellMcp≥15%, nativeGrep≤250.
-Рекомендуемая частота: раз в неделю или после крупного CFE-спринта.
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File C:\Cursor\ESTI\scripts\Invoke-McpUsageAudit-Project.ps1
+
+powershell -NoProfile -ExecutionPolicy Bypass -File C:\Cursor\ESTI\scripts\Invoke-McpUsageAudit-Project.ps1 -Monthly
+
+powershell -NoProfile -ExecutionPolicy Bypass -File C:\Cursor\ESTI\scripts\Invoke-McpUsageAudit-Project.ps1 -FailOnAlert
+```
+
+Общий движок: `C:\1c-shared-patterns\cursor-addons\install\Invoke-McpUsageAudit-Project.ps1`
+
+## Артефакты
+
+| Файл | Содержимое |
+|------|------------|
+| `_ai_agent/mcp-usage-audit-latest.json` | JSON baseline vs recent |
+| `_ai_agent/mcp-usage-audit-latest.txt` | Краткий текст + ALERT |
+
+## При ALERT
+
+1. Lesson `process-mcp-io-discipline` (Hub).
+2. Правило `global-08-always-mcp-kpi-enforcement.mdc`.
+3. `memory-bank/checklists/hot-debug-bsl.md`.
+4. Не включать code-index при живом bsl-atlas*.
+
+## Cadence
+
+- Еженедельно: `-Days 7`
+- После CFE: `-Days 7 -FailOnAlert`
+- Месяц: `-Monthly`

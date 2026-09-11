@@ -32,3 +32,8 @@
    Смотреть также `webfetch_calls` / `ctx_url_read_calls`.
 
 5. Отчёт: таблица + next actions. Не чинить MCP через `WebFetch`.
+4. Metrics (/mcp-audit):
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File C:\Cursor\ESTI\scripts\Invoke-McpUsageAudit-Project.ps1 -Days 7
+```
+See `_ai_agent/mcp-usage-audit-latest.txt`. code-index must not be in mcp.json when bsl-atlas* is up.

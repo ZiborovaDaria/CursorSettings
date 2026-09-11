@@ -11,8 +11,9 @@ alwaysApply: true
 
 1. **Lessons** (anti-gotcha): `playbooks/agent-lessons/index.md`; при неясном match → `Search-HubLessonsDense.py "<задача>"` (fallback: `Build-AgentLessonsCatalog.py --search`).
 2. **Patterns** (how, при implement): `Search-ContentPatternsDense.py "<задача>"` или skill `reuse-1c-shared-patterns`.
-3. Открой **max 2** файла (lessons + patterns суммарно).
-4. Proof: `KB: <id>` | `KB: none` | `KB: skip-cosmetic` **и** `REUSE: <id>` | `REUSE: none (искал: …)`.
+3. Открой **max 2** файла (lessons + patterns суммарно) **до** первой правки кода/metadata.
+4. Proof (все три для implement): `KB: <id>` | `KB: none` | `KB: skip-cosmetic`; `REUSE: <id>` | `REUSE: none (искал: …)`; **`KB-open: <relative-path>`** — файл lesson/pattern реально открыт.
+5. `KB: none` без dense-search / catalog query — **BLOCKER** для L2+ implement.
 
 Не читай весь Hub.  
 После fail → `error-learning-1c` → Store в Hub (`STORED: hub:<id>`).

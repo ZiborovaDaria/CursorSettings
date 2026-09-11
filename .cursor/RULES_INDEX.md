@@ -6,7 +6,7 @@ v3 Memory Bank + Agent Mode.
 
 | Префикс | Пример | Роль |
 |---|---|---|
-| `global-NN-always-*` | `global-00` … `global-06` | Shared alwaysApply, одинаковые во всех КФ |
+| `global-NN-always-*` | `global-00` … `global-09` | Shared alwaysApply, одинаковые во всех КФ |
 | `01-<code>-project-context` | `01-ut-project-context.mdc` | Overlay проекта (always) |
 | `1c-*-agent` | `1c-code-writing-agent.mdc` | On-demand доменные агенты |
 | `*-auto` | `windows-powershell-auto.mdc` | Glob / auto-attach |
@@ -26,12 +26,15 @@ v3 Memory Bank + Agent Mode.
 | 04 | `global-04-always-error-learning-trigger.mdc` (Hub) |
 | 05 | `global-05-always-mcp-tool-router.mdc` |
 | 06 | `global-06-always-no-webfetch.mdc` (stub → § No WebFetch в 05) |
+| 07 | `global-07-always-mcp-enforcement.mdc` (Hub) |
+| 08 | `global-08-always-mcp-kpi-enforcement.mdc` (Hub) |
+| 09 | `global-09-always-token-budget.mdc` (Hub; из UNF) |
 
 Не использовать «голые» числа вроде `24-always` / `26-always` — только непрерывный ряд `global-00…NN`.
 
 ### Sync
 
-- Hub F+ Lite: `C:\1c-shared-patterns\cursor-addons\install\Sync-1cAgentPack.ps1` → `hub-gate`, `global-04`.
+- Hub F+ Lite: `C:\1c-shared-patterns\cursor-addons\install\Sync-1cAgentPack.ps1` → `hub-gate`, `global-02`…`09`, delivery/verify agents.
 - User-pack: `~/.cursor/rules/05-always-mcp-tool-router.mdc` ↔ project `global-05-…` (скрипт `sync-global-rules.ps1` добавляет префикс `global-`).
 - **Не** гонять старый full-sync `~/.cursor/rules/*` поверх пакета `global-00…04` без ревизии SoT (legacy 00–40 там ещё лежит).
 

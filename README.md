@@ -1,4 +1,4 @@
-# Cursor Memory Bank 1C Rules — final v3
+﻿# Cursor Memory Bank 1C Rules — final v3
 
 Финальный overlay-набор правил для 1С-проектов в Cursor: **Memory Bank + обычный Agent Mode + боевые ESTI workflow**.
 
@@ -128,6 +128,23 @@ Always-on правил мало и они короткие. Они не пыта
 
 Из старых правил v3 уже вобрал главное: ESTI core, MCP POWER/LITE, orchestrator JSON, single 1C launch, error-learning, tooling playbooks, YAxUnit/testing и эксплуатационные команды.
 
+## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
+
+Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
+
+| Добавлено / обновлено | Источник |
+|---|---|
+| `global-08-always-mcp-kpi-enforcement.mdc` | Hub |
+| `global-09-always-token-budget.mdc` | UNF → Hub → все КФ |
+| `1c-delivery-version-info.mdc` | Hub |
+| `1c-debug-mcp` / `v8-runner` skills + agent rules | UT25_85 |
+| `scripts/Sync-1cAgentPack.ps1`, `Export-HubToCursorSettings.ps1`, `Check-1cAgentDrift.ps1`, MCP audit | Hub install |
+| `sync-manifest.json` | + ZUP36_75, UT11_6_1_53, global-09 |
+| Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
+
+Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
 ## Changelog 2026-08-07 — Hub Gate v2 + dense KB search
 
 - **`hub-gate.mdc` v2**: любая разработка → Hub; consult-only без правок → platform MCP; proof `KB:` + `REUSE:`.
@@ -137,6 +154,23 @@ Always-on правил мало и они короткие. Они не пыта
 - **Убрано**: Serena memories sync, `ctx_knowledge remember` как слой памяти 1С.
 - **memory.md v4**, **AGENTS.md**, **global-04/05/02**, **1c-code-writing-agent**, **lean-ctx** — синхрон с Hub.
 
+## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
+
+Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
+
+| Добавлено / обновлено | Источник |
+|---|---|
+| `global-08-always-mcp-kpi-enforcement.mdc` | Hub |
+| `global-09-always-token-budget.mdc` | UNF → Hub → все КФ |
+| `1c-delivery-version-info.mdc` | Hub |
+| `1c-debug-mcp` / `v8-runner` skills + agent rules | UT25_85 |
+| `scripts/Sync-1cAgentPack.ps1`, `Export-HubToCursorSettings.ps1`, `Check-1cAgentDrift.ps1`, MCP audit | Hub install |
+| `sync-manifest.json` | + ZUP36_75, UT11_6_1_53, global-09 |
+| Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
+
+Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
 ## Changelog 2026-07-24 — MCP router depersonalize + BSP dense API
 
 - **`global-05-always-mcp-tool-router.mdc`**: project-agnostic Locate BSL → **`bsl-atlas`** (не `bsl-atlas-bp` / не `C:\Cursor\BP`).
@@ -144,6 +178,23 @@ Always-on правил мало и они короткие. Они не пыта
 - Hub Sync: `global-05`, `global-06`, `global-02`, `1c-code-writing-agent`, skill `1c-ssl-patterns`.
 - БСП: dense search `scripts/bsp-api/` (`qwen3-embedding:4b`); lesson `bsl-prefer-bsp-api`; «ищи ПИ БСП, не клонируй».
 - Каталог API + индекс: Hub `C:\1c-shared-patterns\playbooks\bsp-api\` (не в git из‑за размера vectors.npy).
+
+## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
+
+Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
+
+| Добавлено / обновлено | Источник |
+|---|---|
+| `global-08-always-mcp-kpi-enforcement.mdc` | Hub |
+| `global-09-always-token-budget.mdc` | UNF → Hub → все КФ |
+| `1c-delivery-version-info.mdc` | Hub |
+| `1c-debug-mcp` / `v8-runner` skills + agent rules | UT25_85 |
+| `scripts/Sync-1cAgentPack.ps1`, `Export-HubToCursorSettings.ps1`, `Check-1cAgentDrift.ps1`, MCP audit | Hub install |
+| `sync-manifest.json` | + ZUP36_75, UT11_6_1_53, global-09 |
+| Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
+
+Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
 
 ## Changelog 2026-07-23 — Hub F+ Lite + Playwright
 
@@ -162,6 +213,23 @@ Always-on правил мало и они короткие. Они не пыта
 UI e2e: **Playwright / 1c-web-test**, не MCP screenshot/puppeteer.  
 Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, раскатываются Hub Sync во все КФ.
 
+## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
+
+Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
+
+| Добавлено / обновлено | Источник |
+|---|---|
+| `global-08-always-mcp-kpi-enforcement.mdc` | Hub |
+| `global-09-always-token-budget.mdc` | UNF → Hub → все КФ |
+| `1c-delivery-version-info.mdc` | Hub |
+| `1c-debug-mcp` / `v8-runner` skills + agent rules | UT25_85 |
+| `scripts/Sync-1cAgentPack.ps1`, `Export-HubToCursorSettings.ps1`, `Check-1cAgentDrift.ps1`, MCP audit | Hub install |
+| `sync-manifest.json` | + ZUP36_75, UT11_6_1_53, global-09 |
+| Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
+
+Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
 ## Changelog 2026-07-20 — No WebFetch + comol cherry-pick
 
 Источник опыта: проект BP ([архив в memory-bank](.)), идеи [comol/ai_rules_1c](https://github.com/comol/ai_rules_1c) — **cherry-pick**, не full install.
@@ -178,6 +246,23 @@ Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, 
 | `scripts/mcp_usage_stats.py` | KPI + `webfetch_*` |
 
 После установки: **Reload Window**, `/doctor`, `/checkmcp`. Не копировать чужой `mcp-servers.json` поверх боевого `mcp.json`.
+
+## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
+
+Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
+
+| Добавлено / обновлено | Источник |
+|---|---|
+| `global-08-always-mcp-kpi-enforcement.mdc` | Hub |
+| `global-09-always-token-budget.mdc` | UNF → Hub → все КФ |
+| `1c-delivery-version-info.mdc` | Hub |
+| `1c-debug-mcp` / `v8-runner` skills + agent rules | UT25_85 |
+| `scripts/Sync-1cAgentPack.ps1`, `Export-HubToCursorSettings.ps1`, `Check-1cAgentDrift.ps1`, MCP audit | Hub install |
+| `sync-manifest.json` | + ZUP36_75, UT11_6_1_53, global-09 |
+| Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
+
+Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
 
 ## Changelog 2026-08-14 — global-07 + MCP audit + Hub sync
 

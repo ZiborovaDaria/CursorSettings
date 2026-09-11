@@ -11,9 +11,9 @@ alwaysApply: false
 Use the strongest available verification without inventing tools:
 
 1. Static syntax/BSL check.
-2. `check_1c_code`.
-3. `review_1c_code`.
-4. `v8std` for standard violations.
+2. `check_1c_code` — **каждый** изменённый модуль перед отчётом «готово».
+3. `review_1c_code` — блок ≥2 модулей или публичный API.
+4. **`v8std_explain_diagnostics` / `v8std_search`** — если шаг 2–3 вернули diagnostic (не skip).
 5. Metadata/XML validation.
 6. YAxUnit if tests exist or task touched tested extension.
 7. Designer load/update syntax check.
@@ -44,8 +44,6 @@ Use command `deploy_and_test` for:
 - changed metadata XML;
 - runtime behavior fix;
 - user explicitly asks to test in 1C.
-
-Before doing so, load `project-esti-single-1c-launch-agent.mdc`.
 
 ## Depth split
 

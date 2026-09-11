@@ -1,0 +1,78 @@
+---
+description: Always apply. Token budget enforcement — prevent runaway costs from large reads, long chats, subagent spam.
+alwaysApply: true
+---
+
+# Always: Token Budget Enforcement
+
+## BLOCKER: Large File Reads
+
+**ЗАПРЕЩЕНО** читать файлы >100KB целиком через native `Read`:
+
+| Размер файла | Действие |
+|---|---|
+| <100KB | Read OK |
+| 100KB-500KB | **BLOCKER** — use `ctx_read(lines="N-M")` or MCP `read_function` |
+| >500KB | **HARD BLOCK** — only MCP `read_function` / `search_function` |
+
+Перед Read проверь размер через `ctx_tree` или Shell `(Get-Item).Length`.
+
+### BSL файлы — только через MCP
+
+```text
+НЕ ДЕЛАТЬ:                          ДЕЛАТЬ:
+Read("ObjectModule.bsl")            atlas search_function("ПриЗаписи")
+  → 2M токенов                      atlas read_function(...)
+                                      → 2-5k токенов
+```
+
+## BLOCKER: Long Chats
+
+| Сообщений | Рекомендация |
+|---|---|
+| <20 | OK |
+| 20-40 | Предложи `/new` после завершения текущей задачи |
+| >40 | **BLOCKER** — заверши задачу и начни новый чат |
+
+**1094 сообщения = ~400k токенов только на контекст. Каждое новое сообщение перечитывает ВСЁ.**
+
+## BLOCKER: Subagent Spam
+
+- Subagent = новый system prompt (~17k) + task context
+- **Не запускай subagent для простого поиска** — используй MCP/Grep напрямую
+- **Не запускай >3 subagents параллельно** без явной необходимости
+- `run_in_background: true` — только для действительно долгих задач
+
+## Warning Signs (алерты)
+
+Если видишь эти паттерны — **СТОП**:
+
+1. `Read` файла >100KB без `lines` / `limit`
+2. Grep/code_grep возвращает >1000 matches — **добавь фильтры**
+3. MCP response >50KB — **сузь запрос**
+4. Чат >30 сообщений — **предложи /new**
+5. >2 subagents запущены — **дождись завершения**
+
+## Quick Reference: Token-Efficient Patterns
+
+```text
+# Чтение функции
+atlas search_function("ИмяФункции") → read_function(...)   # 2-5k
+
+# Чтение участка файла
+ctx_read(path, lines="100-200")                            # 400 tok
+
+# Структура файла
+ctx_read(path, mode="map")                                 # 500 tok
+ctx_read(path, mode="signatures")                          # 300 tok
+
+# Поиск с фильтром
+atlas search_function("...", module="КонкретныйМодуль")    # 5k vs 500k
+```
+
+## Audit
+
+После сессии проверь:
+- Были ли Read >100KB? → добавь в lessons
+- Чат >30 сообщений? → раньше делать /new
+- Subagent использовался для тривиальной задачи? → в следующий раз напрямую

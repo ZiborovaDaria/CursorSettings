@@ -32,6 +32,8 @@
 |---|---|
 | `user-lean-ctx` | XML/docs/diff/shell: `ctx_read`, `ctx_search`, `ctx_tree`, `ctx_shell`, `ctx_url_read` |
 | `user-mcp-on-demand` | не для обычного locate/verify |
+| `v8-runner` | CLI + MCP build/test/launch: `build_project`, `run_all_tests`, `run_module_tests`, `check_syntax_designer_config`, `check_syntax_designer_modules`, `launch_app`, `dump_config` |
+| `1c-debug` | Интерактивная отладка BSL через `dbgs.exe`: `attach`, `set_breakpoints`, `pause`, `wait_for_stop`, `get_variables`, `evaluate`, `get_call_stack`, `reload_metadata` |
 
 **Не в роутере:** `user-codegraph`.
 

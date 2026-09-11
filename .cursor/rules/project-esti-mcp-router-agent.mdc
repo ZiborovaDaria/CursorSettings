@@ -14,6 +14,8 @@ Locate → Understand → Edit → Verify → Store lesson if needed
 
 Do not start with global Grep/Glob if MCP/index tools are available.
 
+Also follow user always-on `global-05-always-mcp-tool-router.mdc` (no dual-channel; no codegraph).
+
 ## Device profile
 
 Read `DEVICE_PROFILE` / `MCP_PROFILE` from `.dev.env`.

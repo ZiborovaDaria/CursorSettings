@@ -1,0 +1,55 @@
+---
+description: USE WHEN создание ЛУРВ (эсЛистУчетаРабочегоВремени) в ESTI из чата — resolve → draft → OK → create_lurv + файл delivery.
+globs:
+alwaysApply: false
+---
+
+# Project ESTI: создание ЛУРВ из чата
+
+Канон API: `docs/ESTI_POST_lurv.md` (RootURL `mcp-lurv`).  
+Полный рабочий контур с учётными данными — **только локально** в ESTI: `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-создание-ЛУРВ-из-чата.md` (не коммитить пароли в CursorSettings / git).
+
+## Жёсткие правила
+
+1. **Не создавать** ЛУРВ без явного OK пользователя (`ок`, `создавай`, `создай`).
+2. Черновик/таблица/resolve — можно; `create_lurv` / `POST /lurv` — только после OK.
+3. **Не пересоздавать** пакет ради правки часов/контрагента без явной просьбы (update в API нет).
+4. **Прикреплять** итоговый `.cfe`/`.epf`/`.erf` из `Desktop\расширения\<Контрагент>\` через `files[]`, если файл есть (кроме «без файлов»).
+5. При `ambiguous` resolve — **спросить**, не угадывать.
+6. `comment` **не передавать**. Описание работ — одно короткое предложение.
+7. Документ **не проводить** (API пишет без проведения).
+8. Пароль/Basic Auth — из локального `.dev.env` / локальной инструкции ESTI; **не** писать в Memory Bank, progress, git.
+
+## Оркестрация (MCP `mcp-1c` или HTTP)
+
+```text
+resolve_lurv_contractor → resolve_lurv_work_type → resolve_lurv_employee?
+→ черновик таблицы на утверждение
+→ ЖДАТЬ OK
+→ create_lurv (+ files[] base64)
+→ номер/ref в tasks.md / progress.md (без пароля)
+```
+
+| MCP | HTTP |
+|---|---|
+| `resolve_lurv_contractor` | `POST …/lurv/resolve/contractor` |
+| `resolve_lurv_work_type` | `POST …/lurv/resolve/work-type` |
+| `resolve_lurv_employee` | `POST …/lurv/resolve/employee` |
+| `get_lurv_by_number` | `GET …/lurv/{num}` |
+| `create_lurv` | `POST …/lurv` (timeout **120 с**) |
+
+## Дефолты working (если пользователь не сказал иное)
+
+| Поле | Правило |
+|---|---|
+| Контрагент | СОПРОВОЖДЕНИЕ ООО (не служебные «_ ИНН …») |
+| Организация | Сопровождение (`organization_ref` из локальной инструкции / `.dev.env`) |
+| Сотрудник | Зиборова (если не сказано иное) |
+| Вид работ | «Разработка внешних отчетов и обработок» (если не сказано иное) |
+| URL | `{ESTI_HTTP_PUBLISH}/hs/mcp-lurv` из `.dev.env` |
+
+## Карточка в Memory Bank
+
+Перед create — карточка с контрагентом и ≥1 работой; статус `draft → resolving → ready → created`.
+
+Связано: `project-esti-cfe-delivery-agent.mdc` (CFE/NamePrefix для `ЛУРВ_HTTP`), `docs/EXTENT_CONTRACTORS.md`.

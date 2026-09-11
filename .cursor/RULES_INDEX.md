@@ -1,4 +1,4 @@
-# RULES_INDEX — UT25_85
+﻿# RULES_INDEX — UT25_85
 
 v3 Memory Bank + Agent Mode.
 
@@ -45,3 +45,10 @@ v3 Memory Bank + Agent Mode.
 | MCP | `MCP_ROUTER.md`, `MCP_SETUP.md`, `global-05-always-mcp-tool-router.mdc` |
 | Atlas | `bsl-atlas` |
 | UI e2e | `tests/web/INSTALL.md` + `1c-web-test` |
+### ESTI overlays (в пакете)
+
+| Файл | Когда |
+|---|---|
+| project-esti-cfe-delivery-agent.mdc | CFE в ESTI (NamePrefix, configurator-first) |
+| project-esti-lurv-agent.mdc | Создание ЛУРВ из чата |
+| docs/EXTENT_CONTRACTORS.md | Extent/MB по контрагентам (все КФ) |

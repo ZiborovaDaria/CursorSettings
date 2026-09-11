@@ -128,6 +128,21 @@ Always-on правил мало и они короткие. Они не пыта
 
 Из старых правил v3 уже вобрал главное: ESTI core, MCP POWER/LITE, orchestrator JSON, single 1C launch, error-learning, tooling playbooks, YAxUnit/testing и эксплуатационные команды.
 
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
+
+
 ## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
 
 Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
@@ -143,6 +158,21 @@ Always-on правил мало и они короткие. Они не пыта
 | Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
 
 Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
 
 
 ## Changelog 2026-08-07 — Hub Gate v2 + dense KB search
@@ -154,6 +184,21 @@ Always-on правил мало и они короткие. Они не пыта
 - **Убрано**: Serena memories sync, `ctx_knowledge remember` как слой памяти 1С.
 - **memory.md v4**, **AGENTS.md**, **global-04/05/02**, **1c-code-writing-agent**, **lean-ctx** — синхрон с Hub.
 
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
+
+
 ## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
 
 Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
@@ -169,6 +214,21 @@ Always-on правил мало и они короткие. Они не пыта
 | Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
 
 Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
 
 
 ## Changelog 2026-07-24 — MCP router depersonalize + BSP dense API
@@ -179,6 +239,21 @@ Always-on правил мало и они короткие. Они не пыта
 - БСП: dense search `scripts/bsp-api/` (`qwen3-embedding:4b`); lesson `bsl-prefer-bsp-api`; «ищи ПИ БСП, не клонируй».
 - Каталог API + индекс: Hub `C:\1c-shared-patterns\playbooks\bsp-api\` (не в git из‑за размера vectors.npy).
 
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
+
+
 ## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
 
 Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
@@ -194,6 +269,21 @@ Always-on правил мало и они короткие. Они не пыта
 | Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
 
 Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
 
 
 ## Changelog 2026-07-23 — Hub F+ Lite + Playwright
@@ -213,6 +303,21 @@ Always-on правил мало и они короткие. Они не пыта
 UI e2e: **Playwright / 1c-web-test**, не MCP screenshot/puppeteer.  
 Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, раскатываются Hub Sync во все КФ.
 
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
+
+
 ## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
 
 Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
@@ -228,6 +333,21 @@ Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, 
 | Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
 
 Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
 
 
 ## Changelog 2026-07-20 — No WebFetch + comol cherry-pick
@@ -247,6 +367,21 @@ Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, 
 
 После установки: **Reload Window**, `/doctor`, `/checkmcp`. Не копировать чужой `mcp-servers.json` поверх боевого `mcp.json`.
 
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
+
+
 ## Changelog 2026-09-11 — global-08/09 + debug/v8-runner + Hub scripts
 
 Собрано из Hub `1c-shared-patterns` + всех проектов `C:\Cursor\*` (Sync + Export).
@@ -262,6 +397,21 @@ Shared `LLM-RULES.md` / `AGENTS.md` / `memory.md` — обезличенные, 
 | Hub refresh | `hub-gate`, `global-05/07`, verify/testing/code-writing |
 
 Экспорт: `Export-HubToCursorSettings.ps1` теперь копирует **весь** `rules-shared/`, не фиксированный список.
+
+
+## Changelog 2026-09-11b — ESTI ЛУРВ + Extent/contractors
+
+| Добавлено | Назначение |
+|---|---|
+| `project-esti-cfe-delivery-agent.mdc` | CFE ЭСТИ: Vendor, NamePrefix, configurator-first |
+| `project-esti-lurv-agent.mdc` | Создание ЛУРВ из чата (без секретов) |
+| `docs/ESTI_LURV_FROM_CHAT.md` | Обезличенная инструкция |
+| `docs/ESTI_POST_lurv.md` | API POST /lurv |
+| `docs/EXTENT_CONTRACTORS.md` | Канон разнесения Extent/MB по контрагентам |
+| `memory-bank/contractors/` | Шаблон MB + `_неразнесено` |
+| `templates/extent-contractors/` | Шаблон `Extent/README.md` |
+
+Секреты working ESTI **не** включены — только локально в `Extent/ЛУРВ_HTTP/ИНСТРУКЦИЯ-…`.
 
 
 ## Changelog 2026-08-14 — global-07 + MCP audit + Hub sync
